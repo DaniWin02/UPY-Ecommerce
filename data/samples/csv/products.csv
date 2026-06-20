@@ -1,0 +1,38 @@
+id,vendor_id,nombre,tipo,estado,precio_base,created_at
+prd_001,ven_01,Kit Arduino · Club,preventa,publicado,143,2026-04-12 00:00:00
+prd_002,ven_01,Tote bag · Club,fisico,publicado,618,2026-03-09 00:00:00
+prd_003,ven_01,Libreta de notas · Club,fisico,publicado,182,2026-03-28 00:00:00
+prd_004,ven_01,Sticker pack · Club,fisico,publicado,247,2026-04-09 00:00:00
+prd_005,ven_01,Hoodie UPY · Club,preventa,publicado,432,2026-04-08 00:00:00
+prd_006,ven_02,Gorra bordada · Sociedad,fisico,publicado,405,2026-04-11 00:00:00
+prd_007,ven_02,Mousepad XL · Sociedad,preventa,publicado,159,2026-03-03 00:00:00
+prd_008,ven_02,Entrada Hackathon · Sociedad,preventa,publicado,541,2026-03-12 00:00:00
+prd_009,ven_02,Mousepad XL · Sociedad,fisico,publicado,275,2026-03-19 00:00:00
+prd_010,ven_03,Termo 600ml · Facultad,fisico,borrador,595,2026-03-01 00:00:00
+prd_011,ven_03,Entrada Hackathon · Facultad,fisico,borrador,138,2026-03-25 00:00:00
+prd_012,ven_03,Gorra bordada · Facultad,fisico,publicado,446,2026-04-19 00:00:00
+prd_013,ven_03,Sudadera con cierre · Facultad,fisico,publicado,274,2026-03-07 00:00:00
+prd_014,ven_03,Taza termica · Facultad,preventa,publicado,649,2026-04-02 00:00:00
+prd_015,ven_03,Gorra bordada · Facultad,fisico,borrador,333,2026-04-15 00:00:00
+prd_016,ven_04,Termo 600ml · Café,drop,publicado,89,2026-03-10 00:00:00
+prd_017,ven_04,Kit Arduino · Café,fisico,publicado,61,2026-03-19 00:00:00
+prd_018,ven_04,Tote bag · Café,fisico,publicado,265,2026-04-15 00:00:00
+prd_019,ven_04,Gorra bordada · Café,fisico,publicado,649,2026-03-13 00:00:00
+prd_020,ven_05,Sudadera con cierre · Club,drop,publicado,362,2026-04-04 00:00:00
+prd_021,ven_05,Playera UPY · Club,fisico,borrador,632,2026-04-09 00:00:00
+prd_022,ven_05,Playera UPY · Club,drop,publicado,317,2026-03-24 00:00:00
+prd_023,ven_06,Sudadera con cierre · Mecatrónica,fisico,publicado,109,2026-03-14 00:00:00
+prd_024,ven_06,Pin metalico · Mecatrónica,drop,borrador,566,2026-04-19 00:00:00
+prd_025,ven_06,Hoodie UPY · Mecatrónica,fisico,borrador,631,2026-04-05 00:00:00
+prd_026,ven_06,Pin metalico · Mecatrónica,drop,publicado,283,2026-03-08 00:00:00
+prd_027,ven_07,Pin metalico · Grupo,fisico,borrador,493,2026-04-15 00:00:00
+prd_028,ven_07,Termo 600ml · Grupo,fisico,publicado,274,2026-03-20 00:00:00
+prd_029,ven_07,Libreta de notas · Grupo,fisico,borrador,471,2026-04-07 00:00:00
+prd_030,ven_07,Sudadera con cierre · Grupo,fisico,publicado,437,2026-03-05 00:00:00
+prd_031,ven_07,Entrada Hackathon · Grupo,preventa,publicado,288,2026-04-14 00:00:00
+prd_032,ven_08,Mousepad XL · Club,fisico,publicado,400,2026-04-01 00:00:00
+prd_033,ven_08,Tote bag · Club,drop,publicado,277,2026-04-09 00:00:00
+prd_034,ven_08,Pin metalico · Club,fisico,publicado,121,2026-04-16 00:00:00
+prd_035,ven_08,Sudadera con cierre · Club,preventa,borrador,483,2026-04-15 00:00:00
+prd_036,ven_08,Taza termica · Club,preventa,publicado,253,2026-03-14 00:00:00
+prd_037,ven_08,Hoodie UPY · Club,fisico,borrador,414,2026-03-11 00:00:00

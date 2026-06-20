@@ -1,0 +1,3383 @@
+{
+  "institutions": [
+    {
+      "id": "inst_01",
+      "nombre": "Universidad Politécnica de Yucatán",
+      "siglas": "UPY",
+      "dominios": "alumno.upy.edu.mx;upy.edu.mx",
+      "ciudad": "Mérida, Yucatán, México"
+    }
+  ],
+  "users": [
+    {
+      "id": "usr_001",
+      "nombre": "Camila Pat Cetina",
+      "email": "camila.pat25@alumno.upy.edu.mx",
+      "rol_global": "superadmin",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-25 00:00:00"
+    },
+    {
+      "id": "usr_002",
+      "nombre": "Luis Ek Chan",
+      "email": "luis.ek77@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-05 00:00:00"
+    },
+    {
+      "id": "usr_003",
+      "nombre": "Iker Uc Noh",
+      "email": "iker.uc59@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-04-02 00:00:00"
+    },
+    {
+      "id": "usr_004",
+      "nombre": "Mateo Pool Cocom",
+      "email": "mateo.pool35@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-01 00:00:00"
+    },
+    {
+      "id": "usr_005",
+      "nombre": "Carlos May Mena",
+      "email": "carlos.may94@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-04-07 00:00:00"
+    },
+    {
+      "id": "usr_006",
+      "nombre": "Iker Chan Caamal",
+      "email": "iker.chan82@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "false",
+      "created_at": "2026-03-22 00:00:00"
+    },
+    {
+      "id": "usr_007",
+      "nombre": "Regina Pat May",
+      "email": "regina.pat20@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-04-04 00:00:00"
+    },
+    {
+      "id": "usr_008",
+      "nombre": "Raúl Kuyoc Couoh",
+      "email": "raul.kuyoc93@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "false",
+      "created_at": "2026-03-29 00:00:00"
+    },
+    {
+      "id": "usr_009",
+      "nombre": "Mariana Ucán Cocom",
+      "email": "mariana.ucan15@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "false",
+      "created_at": "2026-04-03 00:00:00"
+    },
+    {
+      "id": "usr_010",
+      "nombre": "Sofía Uc Kuyoc",
+      "email": "sofia.uc49@alumno.upy.edu.mx",
+      "rol_global": "vendor",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-04-02 00:00:00"
+    },
+    {
+      "id": "usr_011",
+      "nombre": "Gael Poot Mena",
+      "email": "gael.poot16@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-08 00:00:00"
+    },
+    {
+      "id": "usr_012",
+      "nombre": "Gael Chan Poot",
+      "email": "gael.chan33@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-31 00:00:00"
+    },
+    {
+      "id": "usr_013",
+      "nombre": "Valeria Uc Caamal",
+      "email": "valeria.uc50@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "false",
+      "created_at": "2026-03-29 00:00:00"
+    },
+    {
+      "id": "usr_014",
+      "nombre": "Leonardo Kuyoc Balam",
+      "email": "leonardo.kuyoc84@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-31 00:00:00"
+    },
+    {
+      "id": "usr_015",
+      "nombre": "Emiliano Kuyoc Couoh",
+      "email": "emiliano.kuyoc13@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-17 00:00:00"
+    },
+    {
+      "id": "usr_016",
+      "nombre": "Renata Cocom Noh",
+      "email": "renata.cocom33@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "false",
+      "created_at": "2026-03-26 00:00:00"
+    },
+    {
+      "id": "usr_017",
+      "nombre": "Leonardo Mena Uc",
+      "email": "leonardo.mena49@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-04 00:00:00"
+    },
+    {
+      "id": "usr_018",
+      "nombre": "Valeria Ucán Chan",
+      "email": "valeria.ucan91@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "false",
+      "created_at": "2026-03-28 00:00:00"
+    },
+    {
+      "id": "usr_019",
+      "nombre": "Mariana Noh Dzul",
+      "email": "mariana.noh52@alumno.upy.edu.mx",
+      "rol_global": "vendor",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-31 00:00:00"
+    },
+    {
+      "id": "usr_020",
+      "nombre": "Diego Dzul Pool",
+      "email": "diego.dzul98@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-26 00:00:00"
+    },
+    {
+      "id": "usr_021",
+      "nombre": "Regina Kuyoc Caamal",
+      "email": "regina.kuyoc59@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "false",
+      "created_at": "2026-03-10 00:00:00"
+    },
+    {
+      "id": "usr_022",
+      "nombre": "Gael Noh Cetina",
+      "email": "gael.noh75@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "false",
+      "created_at": "2026-03-16 00:00:00"
+    },
+    {
+      "id": "usr_023",
+      "nombre": "Renata Caamal Cetina",
+      "email": "renata.caamal23@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "false",
+      "created_at": "2026-03-31 00:00:00"
+    },
+    {
+      "id": "usr_024",
+      "nombre": "Ximena Tuz Chan",
+      "email": "ximena.tuz59@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-25 00:00:00"
+    },
+    {
+      "id": "usr_025",
+      "nombre": "Ximena Tuz Pat",
+      "email": "ximena.tuz24@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "false",
+      "created_at": "2026-03-05 00:00:00"
+    },
+    {
+      "id": "usr_026",
+      "nombre": "Carlos Mena Canul",
+      "email": "carlos.mena88@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-27 00:00:00"
+    },
+    {
+      "id": "usr_027",
+      "nombre": "Daniel Noh Canul",
+      "email": "daniel.noh32@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-30 00:00:00"
+    },
+    {
+      "id": "usr_028",
+      "nombre": "Raúl May Dzul",
+      "email": "raul.may74@alumno.upy.edu.mx",
+      "rol_global": "vendor",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-04-08 00:00:00"
+    },
+    {
+      "id": "usr_029",
+      "nombre": "Frida Cetina Tuz",
+      "email": "frida.cetina36@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-04-04 00:00:00"
+    },
+    {
+      "id": "usr_030",
+      "nombre": "Mariana Uc Canul",
+      "email": "mariana.uc65@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-04-07 00:00:00"
+    },
+    {
+      "id": "usr_031",
+      "nombre": "Gael Canul Mena",
+      "email": "gael.canul81@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "false",
+      "created_at": "2026-03-11 00:00:00"
+    },
+    {
+      "id": "usr_032",
+      "nombre": "Raúl Kuyoc Ek",
+      "email": "raul.kuyoc87@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-29 00:00:00"
+    },
+    {
+      "id": "usr_033",
+      "nombre": "Frida May Noh",
+      "email": "frida.may67@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-20 00:00:00"
+    },
+    {
+      "id": "usr_034",
+      "nombre": "Andrés Chan Dzul",
+      "email": "andres.chan35@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "false",
+      "created_at": "2026-03-05 00:00:00"
+    },
+    {
+      "id": "usr_035",
+      "nombre": "Iker Cetina Dzul",
+      "email": "iker.cetina60@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "false",
+      "created_at": "2026-03-11 00:00:00"
+    },
+    {
+      "id": "usr_036",
+      "nombre": "Raúl May Cocom",
+      "email": "raul.may40@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "false",
+      "created_at": "2026-03-10 00:00:00"
+    },
+    {
+      "id": "usr_037",
+      "nombre": "Santiago Mena Kuyoc",
+      "email": "santiago.mena64@alumno.upy.edu.mx",
+      "rol_global": "vendor",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-07 00:00:00"
+    },
+    {
+      "id": "usr_038",
+      "nombre": "Leonardo Cetina Pool",
+      "email": "leonardo.cetina85@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "false",
+      "created_at": "2026-03-26 00:00:00"
+    },
+    {
+      "id": "usr_039",
+      "nombre": "Ximena Pat Uc",
+      "email": "ximena.pat63@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-24 00:00:00"
+    },
+    {
+      "id": "usr_040",
+      "nombre": "Daniela Ek Cetina",
+      "email": "daniela.ek66@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "false",
+      "created_at": "2026-03-21 00:00:00"
+    },
+    {
+      "id": "usr_041",
+      "nombre": "Santiago Balam Noh",
+      "email": "santiago.balam10@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-04-04 00:00:00"
+    },
+    {
+      "id": "usr_042",
+      "nombre": "Frida Ek Cetina",
+      "email": "frida.ek71@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-21 00:00:00"
+    },
+    {
+      "id": "usr_043",
+      "nombre": "Valeria Uc Chan",
+      "email": "valeria.uc17@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-30 00:00:00"
+    },
+    {
+      "id": "usr_044",
+      "nombre": "Diego Tuz May",
+      "email": "diego.tuz89@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-14 00:00:00"
+    },
+    {
+      "id": "usr_045",
+      "nombre": "Valentina Ek Cocom",
+      "email": "valentina.ek82@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-05 00:00:00"
+    },
+    {
+      "id": "usr_046",
+      "nombre": "Luis Mena Pool",
+      "email": "luis.mena39@alumno.upy.edu.mx",
+      "rol_global": "vendor",
+      "institution_id": "inst_01",
+      "verificado": "false",
+      "created_at": "2026-03-09 00:00:00"
+    },
+    {
+      "id": "usr_047",
+      "nombre": "Valentina Mena Kuyoc",
+      "email": "valentina.mena15@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-04-10 00:00:00"
+    },
+    {
+      "id": "usr_048",
+      "nombre": "Regina Chan Pat",
+      "email": "regina.chan95@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-30 00:00:00"
+    },
+    {
+      "id": "usr_049",
+      "nombre": "Andrés Tuz Chan",
+      "email": "andres.tuz94@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-05 00:00:00"
+    },
+    {
+      "id": "usr_050",
+      "nombre": "Fernanda Cetina Cocom",
+      "email": "fernanda.cetina35@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-11 00:00:00"
+    },
+    {
+      "id": "usr_051",
+      "nombre": "Valeria Balam Couoh",
+      "email": "valeria.balam15@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-27 00:00:00"
+    },
+    {
+      "id": "usr_052",
+      "nombre": "Sofía Euán Noh",
+      "email": "sofia.euan19@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-30 00:00:00"
+    },
+    {
+      "id": "usr_053",
+      "nombre": "Diego Cocom Mena",
+      "email": "diego.cocom64@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-31 00:00:00"
+    },
+    {
+      "id": "usr_054",
+      "nombre": "Valeria Poot Chan",
+      "email": "valeria.poot15@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-17 00:00:00"
+    },
+    {
+      "id": "usr_055",
+      "nombre": "Diego Tuz Dzul",
+      "email": "diego.tuz89@alumno.upy.edu.mx",
+      "rol_global": "vendor",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-17 00:00:00"
+    },
+    {
+      "id": "usr_056",
+      "nombre": "Valentina Mena Kuyoc",
+      "email": "valentina.mena48@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "false",
+      "created_at": "2026-03-04 00:00:00"
+    },
+    {
+      "id": "usr_057",
+      "nombre": "Camila Dzul May",
+      "email": "camila.dzul18@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "false",
+      "created_at": "2026-03-29 00:00:00"
+    },
+    {
+      "id": "usr_058",
+      "nombre": "Gael Poot Chan",
+      "email": "gael.poot94@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-04-04 00:00:00"
+    },
+    {
+      "id": "usr_059",
+      "nombre": "Leonardo Ek Pool",
+      "email": "leonardo.ek42@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-23 00:00:00"
+    },
+    {
+      "id": "usr_060",
+      "nombre": "Emiliano Uc May",
+      "email": "emiliano.uc84@alumno.upy.edu.mx",
+      "rol_global": "comprador",
+      "institution_id": "inst_01",
+      "verificado": "true",
+      "created_at": "2026-03-09 00:00:00"
+    }
+  ],
+  "vendors": [
+    {
+      "id": "ven_01",
+      "slug": "club-de-robotica-upy",
+      "nombre": "Club de Robótica UPY",
+      "tipo": "club",
+      "clabe": "021810189411629029",
+      "estado": "pendiente",
+      "aula_default": "Aula Magna"
+    },
+    {
+      "id": "ven_02",
+      "slug": "sociedad-de-alumnos-de-datos",
+      "nombre": "Sociedad de Alumnos de Datos",
+      "tipo": "club",
+      "clabe": "021871409719184319",
+      "estado": "activo",
+      "aula_default": "B-110"
+    },
+    {
+      "id": "ven_03",
+      "slug": "facultad-de-ingenieria-en-datos",
+      "nombre": "Facultad de Ingeniería en Datos",
+      "tipo": "facultad",
+      "clabe": "021880347630320095",
+      "estado": "activo",
+      "aula_default": "Lab-Mecatronica"
+    },
+    {
+      "id": "ven_04",
+      "slug": "cafe-upy",
+      "nombre": "Café UPY",
+      "tipo": "emprendimiento",
+      "clabe": "021887658022558649",
+      "estado": "activo",
+      "aula_default": "Lab-Mecatronica"
+    },
+    {
+      "id": "ven_05",
+      "slug": "club-de-videojuegos",
+      "nombre": "Club de Videojuegos",
+      "tipo": "club",
+      "clabe": "021845296156705710",
+      "estado": "activo",
+      "aula_default": "C-201"
+    },
+    {
+      "id": "ven_06",
+      "slug": "mecatronica-store",
+      "nombre": "Mecatrónica Store",
+      "tipo": "emprendimiento",
+      "clabe": "021870647014053053",
+      "estado": "pendiente",
+      "aula_default": "Lab-IDAT"
+    },
+    {
+      "id": "ven_07",
+      "slug": "grupo-cultural-upy",
+      "nombre": "Grupo Cultural UPY",
+      "tipo": "club",
+      "clabe": "021855845424651099",
+      "estado": "activo",
+      "aula_default": "Lab-Mecatronica"
+    },
+    {
+      "id": "ven_08",
+      "slug": "club-deportivo-jaguares",
+      "nombre": "Club Deportivo Jaguares",
+      "tipo": "club",
+      "clabe": "021866006059070543",
+      "estado": "activo",
+      "aula_default": "A-203"
+    }
+  ],
+  "products": [
+    {
+      "id": "prd_001",
+      "vendor_id": "ven_01",
+      "nombre": "Kit Arduino · Club",
+      "tipo": "preventa",
+      "estado": "publicado",
+      "precio_base": 143,
+      "created_at": "2026-04-12 00:00:00"
+    },
+    {
+      "id": "prd_002",
+      "vendor_id": "ven_01",
+      "nombre": "Tote bag · Club",
+      "tipo": "fisico",
+      "estado": "publicado",
+      "precio_base": 618,
+      "created_at": "2026-03-09 00:00:00"
+    },
+    {
+      "id": "prd_003",
+      "vendor_id": "ven_01",
+      "nombre": "Libreta de notas · Club",
+      "tipo": "fisico",
+      "estado": "publicado",
+      "precio_base": 182,
+      "created_at": "2026-03-28 00:00:00"
+    },
+    {
+      "id": "prd_004",
+      "vendor_id": "ven_01",
+      "nombre": "Sticker pack · Club",
+      "tipo": "fisico",
+      "estado": "publicado",
+      "precio_base": 247,
+      "created_at": "2026-04-09 00:00:00"
+    },
+    {
+      "id": "prd_005",
+      "vendor_id": "ven_01",
+      "nombre": "Hoodie UPY · Club",
+      "tipo": "preventa",
+      "estado": "publicado",
+      "precio_base": 432,
+      "created_at": "2026-04-08 00:00:00"
+    },
+    {
+      "id": "prd_006",
+      "vendor_id": "ven_02",
+      "nombre": "Gorra bordada · Sociedad",
+      "tipo": "fisico",
+      "estado": "publicado",
+      "precio_base": 405,
+      "created_at": "2026-04-11 00:00:00"
+    },
+    {
+      "id": "prd_007",
+      "vendor_id": "ven_02",
+      "nombre": "Mousepad XL · Sociedad",
+      "tipo": "preventa",
+      "estado": "publicado",
+      "precio_base": 159,
+      "created_at": "2026-03-03 00:00:00"
+    },
+    {
+      "id": "prd_008",
+      "vendor_id": "ven_02",
+      "nombre": "Entrada Hackathon · Sociedad",
+      "tipo": "preventa",
+      "estado": "publicado",
+      "precio_base": 541,
+      "created_at": "2026-03-12 00:00:00"
+    },
+    {
+      "id": "prd_009",
+      "vendor_id": "ven_02",
+      "nombre": "Mousepad XL · Sociedad",
+      "tipo": "fisico",
+      "estado": "publicado",
+      "precio_base": 275,
+      "created_at": "2026-03-19 00:00:00"
+    },
+    {
+      "id": "prd_010",
+      "vendor_id": "ven_03",
+      "nombre": "Termo 600ml · Facultad",
+      "tipo": "fisico",
+      "estado": "borrador",
+      "precio_base": 595,
+      "created_at": "2026-03-01 00:00:00"
+    },
+    {
+      "id": "prd_011",
+      "vendor_id": "ven_03",
+      "nombre": "Entrada Hackathon · Facultad",
+      "tipo": "fisico",
+      "estado": "borrador",
+      "precio_base": 138,
+      "created_at": "2026-03-25 00:00:00"
+    },
+    {
+      "id": "prd_012",
+      "vendor_id": "ven_03",
+      "nombre": "Gorra bordada · Facultad",
+      "tipo": "fisico",
+      "estado": "publicado",
+      "precio_base": 446,
+      "created_at": "2026-04-19 00:00:00"
+    },
+    {
+      "id": "prd_013",
+      "vendor_id": "ven_03",
+      "nombre": "Sudadera con cierre · Facultad",
+      "tipo": "fisico",
+      "estado": "publicado",
+      "precio_base": 274,
+      "created_at": "2026-03-07 00:00:00"
+    },
+    {
+      "id": "prd_014",
+      "vendor_id": "ven_03",
+      "nombre": "Taza termica · Facultad",
+      "tipo": "preventa",
+      "estado": "publicado",
+      "precio_base": 649,
+      "created_at": "2026-04-02 00:00:00"
+    },
+    {
+      "id": "prd_015",
+      "vendor_id": "ven_03",
+      "nombre": "Gorra bordada · Facultad",
+      "tipo": "fisico",
+      "estado": "borrador",
+      "precio_base": 333,
+      "created_at": "2026-04-15 00:00:00"
+    },
+    {
+      "id": "prd_016",
+      "vendor_id": "ven_04",
+      "nombre": "Termo 600ml · Café",
+      "tipo": "drop",
+      "estado": "publicado",
+      "precio_base": 89,
+      "created_at": "2026-03-10 00:00:00"
+    },
+    {
+      "id": "prd_017",
+      "vendor_id": "ven_04",
+      "nombre": "Kit Arduino · Café",
+      "tipo": "fisico",
+      "estado": "publicado",
+      "precio_base": 61,
+      "created_at": "2026-03-19 00:00:00"
+    },
+    {
+      "id": "prd_018",
+      "vendor_id": "ven_04",
+      "nombre": "Tote bag · Café",
+      "tipo": "fisico",
+      "estado": "publicado",
+      "precio_base": 265,
+      "created_at": "2026-04-15 00:00:00"
+    },
+    {
+      "id": "prd_019",
+      "vendor_id": "ven_04",
+      "nombre": "Gorra bordada · Café",
+      "tipo": "fisico",
+      "estado": "publicado",
+      "precio_base": 649,
+      "created_at": "2026-03-13 00:00:00"
+    },
+    {
+      "id": "prd_020",
+      "vendor_id": "ven_05",
+      "nombre": "Sudadera con cierre · Club",
+      "tipo": "drop",
+      "estado": "publicado",
+      "precio_base": 362,
+      "created_at": "2026-04-04 00:00:00"
+    },
+    {
+      "id": "prd_021",
+      "vendor_id": "ven_05",
+      "nombre": "Playera UPY · Club",
+      "tipo": "fisico",
+      "estado": "borrador",
+      "precio_base": 632,
+      "created_at": "2026-04-09 00:00:00"
+    },
+    {
+      "id": "prd_022",
+      "vendor_id": "ven_05",
+      "nombre": "Playera UPY · Club",
+      "tipo": "drop",
+      "estado": "publicado",
+      "precio_base": 317,
+      "created_at": "2026-03-24 00:00:00"
+    },
+    {
+      "id": "prd_023",
+      "vendor_id": "ven_06",
+      "nombre": "Sudadera con cierre · Mecatrónica",
+      "tipo": "fisico",
+      "estado": "publicado",
+      "precio_base": 109,
+      "created_at": "2026-03-14 00:00:00"
+    },
+    {
+      "id": "prd_024",
+      "vendor_id": "ven_06",
+      "nombre": "Pin metalico · Mecatrónica",
+      "tipo": "drop",
+      "estado": "borrador",
+      "precio_base": 566,
+      "created_at": "2026-04-19 00:00:00"
+    },
+    {
+      "id": "prd_025",
+      "vendor_id": "ven_06",
+      "nombre": "Hoodie UPY · Mecatrónica",
+      "tipo": "fisico",
+      "estado": "borrador",
+      "precio_base": 631,
+      "created_at": "2026-04-05 00:00:00"
+    },
+    {
+      "id": "prd_026",
+      "vendor_id": "ven_06",
+      "nombre": "Pin metalico · Mecatrónica",
+      "tipo": "drop",
+      "estado": "publicado",
+      "precio_base": 283,
+      "created_at": "2026-03-08 00:00:00"
+    },
+    {
+      "id": "prd_027",
+      "vendor_id": "ven_07",
+      "nombre": "Pin metalico · Grupo",
+      "tipo": "fisico",
+      "estado": "borrador",
+      "precio_base": 493,
+      "created_at": "2026-04-15 00:00:00"
+    },
+    {
+      "id": "prd_028",
+      "vendor_id": "ven_07",
+      "nombre": "Termo 600ml · Grupo",
+      "tipo": "fisico",
+      "estado": "publicado",
+      "precio_base": 274,
+      "created_at": "2026-03-20 00:00:00"
+    },
+    {
+      "id": "prd_029",
+      "vendor_id": "ven_07",
+      "nombre": "Libreta de notas · Grupo",
+      "tipo": "fisico",
+      "estado": "borrador",
+      "precio_base": 471,
+      "created_at": "2026-04-07 00:00:00"
+    },
+    {
+      "id": "prd_030",
+      "vendor_id": "ven_07",
+      "nombre": "Sudadera con cierre · Grupo",
+      "tipo": "fisico",
+      "estado": "publicado",
+      "precio_base": 437,
+      "created_at": "2026-03-05 00:00:00"
+    },
+    {
+      "id": "prd_031",
+      "vendor_id": "ven_07",
+      "nombre": "Entrada Hackathon · Grupo",
+      "tipo": "preventa",
+      "estado": "publicado",
+      "precio_base": 288,
+      "created_at": "2026-04-14 00:00:00"
+    },
+    {
+      "id": "prd_032",
+      "vendor_id": "ven_08",
+      "nombre": "Mousepad XL · Club",
+      "tipo": "fisico",
+      "estado": "publicado",
+      "precio_base": 400,
+      "created_at": "2026-04-01 00:00:00"
+    },
+    {
+      "id": "prd_033",
+      "vendor_id": "ven_08",
+      "nombre": "Tote bag · Club",
+      "tipo": "drop",
+      "estado": "publicado",
+      "precio_base": 277,
+      "created_at": "2026-04-09 00:00:00"
+    },
+    {
+      "id": "prd_034",
+      "vendor_id": "ven_08",
+      "nombre": "Pin metalico · Club",
+      "tipo": "fisico",
+      "estado": "publicado",
+      "precio_base": 121,
+      "created_at": "2026-04-16 00:00:00"
+    },
+    {
+      "id": "prd_035",
+      "vendor_id": "ven_08",
+      "nombre": "Sudadera con cierre · Club",
+      "tipo": "preventa",
+      "estado": "borrador",
+      "precio_base": 483,
+      "created_at": "2026-04-15 00:00:00"
+    },
+    {
+      "id": "prd_036",
+      "vendor_id": "ven_08",
+      "nombre": "Taza termica · Club",
+      "tipo": "preventa",
+      "estado": "publicado",
+      "precio_base": 253,
+      "created_at": "2026-03-14 00:00:00"
+    },
+    {
+      "id": "prd_037",
+      "vendor_id": "ven_08",
+      "nombre": "Hoodie UPY · Club",
+      "tipo": "fisico",
+      "estado": "borrador",
+      "precio_base": 414,
+      "created_at": "2026-03-11 00:00:00"
+    }
+  ],
+  "product_variants": [
+    {
+      "id": "var_001",
+      "product_id": "prd_001",
+      "sku": "PRD_001-01",
+      "talla": "G",
+      "color": "Verde",
+      "precio": 143,
+      "precio_comunidad": 122,
+      "stock": 98
+    },
+    {
+      "id": "var_002",
+      "product_id": "prd_002",
+      "sku": "PRD_002-01",
+      "talla": "Unica",
+      "color": "Gris",
+      "precio": 657,
+      "precio_comunidad": 558,
+      "stock": 63
+    },
+    {
+      "id": "var_003",
+      "product_id": "prd_003",
+      "sku": "PRD_003-01",
+      "talla": "XG",
+      "color": "Gris",
+      "precio": 171,
+      "precio_comunidad": 145,
+      "stock": 36
+    },
+    {
+      "id": "var_004",
+      "product_id": "prd_004",
+      "sku": "PRD_004-01",
+      "talla": "XG",
+      "color": "Guinda",
+      "precio": 295,
+      "precio_comunidad": 251,
+      "stock": 44
+    },
+    {
+      "id": "var_005",
+      "product_id": "prd_005",
+      "sku": "PRD_005-01",
+      "talla": "CH",
+      "color": "Verde",
+      "precio": 487,
+      "precio_comunidad": 414,
+      "stock": 2
+    },
+    {
+      "id": "var_006",
+      "product_id": "prd_006",
+      "sku": "PRD_006-01",
+      "talla": "CH",
+      "color": "Negro",
+      "precio": 440,
+      "precio_comunidad": 374,
+      "stock": 60
+    },
+    {
+      "id": "var_007",
+      "product_id": "prd_006",
+      "sku": "PRD_006-02",
+      "talla": "G",
+      "color": "Verde",
+      "precio": 401,
+      "precio_comunidad": 341,
+      "stock": 10
+    },
+    {
+      "id": "var_008",
+      "product_id": "prd_007",
+      "sku": "PRD_007-01",
+      "talla": "G",
+      "color": "Verde",
+      "precio": 174,
+      "precio_comunidad": 148,
+      "stock": 64
+    },
+    {
+      "id": "var_009",
+      "product_id": "prd_008",
+      "sku": "PRD_008-01",
+      "talla": "G",
+      "color": "Guinda",
+      "precio": 552,
+      "precio_comunidad": 469,
+      "stock": 115
+    },
+    {
+      "id": "var_010",
+      "product_id": "prd_008",
+      "sku": "PRD_008-02",
+      "talla": "Unica",
+      "color": "Azul marino",
+      "precio": 599,
+      "precio_comunidad": 509,
+      "stock": 104
+    },
+    {
+      "id": "var_011",
+      "product_id": "prd_009",
+      "sku": "PRD_009-01",
+      "talla": "G",
+      "color": "Gris",
+      "precio": 352,
+      "precio_comunidad": 299,
+      "stock": 112
+    },
+    {
+      "id": "var_012",
+      "product_id": "prd_009",
+      "sku": "PRD_009-02",
+      "talla": "M",
+      "color": "Gris",
+      "precio": 321,
+      "precio_comunidad": 273,
+      "stock": 61
+    },
+    {
+      "id": "var_013",
+      "product_id": "prd_010",
+      "sku": "PRD_010-01",
+      "talla": "G",
+      "color": "Azul marino",
+      "precio": 625,
+      "precio_comunidad": 531,
+      "stock": 108
+    },
+    {
+      "id": "var_014",
+      "product_id": "prd_010",
+      "sku": "PRD_010-02",
+      "talla": "G",
+      "color": "Azul marino",
+      "precio": 652,
+      "precio_comunidad": 554,
+      "stock": 3
+    },
+    {
+      "id": "var_015",
+      "product_id": "prd_010",
+      "sku": "PRD_010-03",
+      "talla": "CH",
+      "color": "Negro",
+      "precio": 581,
+      "precio_comunidad": 494,
+      "stock": 51
+    },
+    {
+      "id": "var_016",
+      "product_id": "prd_011",
+      "sku": "PRD_011-01",
+      "talla": "Unica",
+      "color": "Blanco",
+      "precio": 211,
+      "precio_comunidad": 179,
+      "stock": 119
+    },
+    {
+      "id": "var_017",
+      "product_id": "prd_011",
+      "sku": "PRD_011-02",
+      "talla": "XG",
+      "color": "Verde",
+      "precio": 202,
+      "precio_comunidad": 172,
+      "stock": 108
+    },
+    {
+      "id": "var_018",
+      "product_id": "prd_012",
+      "sku": "PRD_012-01",
+      "talla": "Unica",
+      "color": "Blanco",
+      "precio": 456,
+      "precio_comunidad": 388,
+      "stock": 113
+    },
+    {
+      "id": "var_019",
+      "product_id": "prd_012",
+      "sku": "PRD_012-02",
+      "talla": "Unica",
+      "color": "Guinda",
+      "precio": 488,
+      "precio_comunidad": 415,
+      "stock": 109
+    },
+    {
+      "id": "var_020",
+      "product_id": "prd_012",
+      "sku": "PRD_012-03",
+      "talla": "XG",
+      "color": "Verde",
+      "precio": 469,
+      "precio_comunidad": 399,
+      "stock": 113
+    },
+    {
+      "id": "var_021",
+      "product_id": "prd_013",
+      "sku": "PRD_013-01",
+      "talla": "Unica",
+      "color": "Blanco",
+      "precio": 350,
+      "precio_comunidad": 298,
+      "stock": 84
+    },
+    {
+      "id": "var_022",
+      "product_id": "prd_014",
+      "sku": "PRD_014-01",
+      "talla": "CH",
+      "color": "Blanco",
+      "precio": 642,
+      "precio_comunidad": 546,
+      "stock": 12
+    },
+    {
+      "id": "var_023",
+      "product_id": "prd_014",
+      "sku": "PRD_014-02",
+      "talla": "Unica",
+      "color": "Verde",
+      "precio": 703,
+      "precio_comunidad": 598,
+      "stock": 13
+    },
+    {
+      "id": "var_024",
+      "product_id": "prd_014",
+      "sku": "PRD_014-03",
+      "talla": "Unica",
+      "color": "Guinda",
+      "precio": 718,
+      "precio_comunidad": 610,
+      "stock": 55
+    },
+    {
+      "id": "var_025",
+      "product_id": "prd_015",
+      "sku": "PRD_015-01",
+      "talla": "CH",
+      "color": "Blanco",
+      "precio": 341,
+      "precio_comunidad": 290,
+      "stock": 2
+    },
+    {
+      "id": "var_026",
+      "product_id": "prd_016",
+      "sku": "PRD_016-01",
+      "talla": "M",
+      "color": "Gris",
+      "precio": 83,
+      "precio_comunidad": 71,
+      "stock": 114
+    },
+    {
+      "id": "var_027",
+      "product_id": "prd_016",
+      "sku": "PRD_016-02",
+      "talla": "CH",
+      "color": "Guinda",
+      "precio": 139,
+      "precio_comunidad": 118,
+      "stock": 16
+    },
+    {
+      "id": "var_028",
+      "product_id": "prd_017",
+      "sku": "PRD_017-01",
+      "talla": "XG",
+      "color": "Negro",
+      "precio": 94,
+      "precio_comunidad": 80,
+      "stock": 30
+    },
+    {
+      "id": "var_029",
+      "product_id": "prd_017",
+      "sku": "PRD_017-02",
+      "talla": "XG",
+      "color": "Negro",
+      "precio": 85,
+      "precio_comunidad": 72,
+      "stock": 37
+    },
+    {
+      "id": "var_030",
+      "product_id": "prd_018",
+      "sku": "PRD_018-01",
+      "talla": "G",
+      "color": "Guinda",
+      "precio": 257,
+      "precio_comunidad": 218,
+      "stock": 24
+    },
+    {
+      "id": "var_031",
+      "product_id": "prd_018",
+      "sku": "PRD_018-02",
+      "talla": "CH",
+      "color": "Gris",
+      "precio": 321,
+      "precio_comunidad": 273,
+      "stock": 7
+    },
+    {
+      "id": "var_032",
+      "product_id": "prd_019",
+      "sku": "PRD_019-01",
+      "talla": "G",
+      "color": "Guinda",
+      "precio": 691,
+      "precio_comunidad": 587,
+      "stock": 83
+    },
+    {
+      "id": "var_033",
+      "product_id": "prd_019",
+      "sku": "PRD_019-02",
+      "talla": "G",
+      "color": "Azul marino",
+      "precio": 704,
+      "precio_comunidad": 598,
+      "stock": 34
+    },
+    {
+      "id": "var_034",
+      "product_id": "prd_019",
+      "sku": "PRD_019-03",
+      "talla": "M",
+      "color": "Gris",
+      "precio": 697,
+      "precio_comunidad": 592,
+      "stock": 37
+    },
+    {
+      "id": "var_035",
+      "product_id": "prd_020",
+      "sku": "PRD_020-01",
+      "talla": "Unica",
+      "color": "Negro",
+      "precio": 362,
+      "precio_comunidad": 308,
+      "stock": 25
+    },
+    {
+      "id": "var_036",
+      "product_id": "prd_021",
+      "sku": "PRD_021-01",
+      "talla": "XG",
+      "color": "Verde",
+      "precio": 639,
+      "precio_comunidad": 543,
+      "stock": 54
+    },
+    {
+      "id": "var_037",
+      "product_id": "prd_021",
+      "sku": "PRD_021-02",
+      "talla": "Unica",
+      "color": "Negro",
+      "precio": 675,
+      "precio_comunidad": 574,
+      "stock": 11
+    },
+    {
+      "id": "var_038",
+      "product_id": "prd_021",
+      "sku": "PRD_021-03",
+      "talla": "Unica",
+      "color": "Blanco",
+      "precio": 711,
+      "precio_comunidad": 604,
+      "stock": 89
+    },
+    {
+      "id": "var_039",
+      "product_id": "prd_022",
+      "sku": "PRD_022-01",
+      "talla": "M",
+      "color": "Gris",
+      "precio": 316,
+      "precio_comunidad": 269,
+      "stock": 112
+    },
+    {
+      "id": "var_040",
+      "product_id": "prd_023",
+      "sku": "PRD_023-01",
+      "talla": "Unica",
+      "color": "Guinda",
+      "precio": 140,
+      "precio_comunidad": 119,
+      "stock": 6
+    },
+    {
+      "id": "var_041",
+      "product_id": "prd_024",
+      "sku": "PRD_024-01",
+      "talla": "M",
+      "color": "Azul marino",
+      "precio": 595,
+      "precio_comunidad": 506,
+      "stock": 116
+    },
+    {
+      "id": "var_042",
+      "product_id": "prd_025",
+      "sku": "PRD_025-01",
+      "talla": "XG",
+      "color": "Blanco",
+      "precio": 654,
+      "precio_comunidad": 556,
+      "stock": 29
+    },
+    {
+      "id": "var_043",
+      "product_id": "prd_025",
+      "sku": "PRD_025-02",
+      "talla": "M",
+      "color": "Azul marino",
+      "precio": 710,
+      "precio_comunidad": 604,
+      "stock": 76
+    },
+    {
+      "id": "var_044",
+      "product_id": "prd_025",
+      "sku": "PRD_025-03",
+      "talla": "XG",
+      "color": "Verde",
+      "precio": 643,
+      "precio_comunidad": 547,
+      "stock": 83
+    },
+    {
+      "id": "var_045",
+      "product_id": "prd_026",
+      "sku": "PRD_026-01",
+      "talla": "CH",
+      "color": "Blanco",
+      "precio": 321,
+      "precio_comunidad": 273,
+      "stock": 103
+    },
+    {
+      "id": "var_046",
+      "product_id": "prd_026",
+      "sku": "PRD_026-02",
+      "talla": "G",
+      "color": "Negro",
+      "precio": 359,
+      "precio_comunidad": 305,
+      "stock": 94
+    },
+    {
+      "id": "var_047",
+      "product_id": "prd_026",
+      "sku": "PRD_026-03",
+      "talla": "G",
+      "color": "Gris",
+      "precio": 319,
+      "precio_comunidad": 271,
+      "stock": 104
+    },
+    {
+      "id": "var_048",
+      "product_id": "prd_027",
+      "sku": "PRD_027-01",
+      "talla": "M",
+      "color": "Gris",
+      "precio": 474,
+      "precio_comunidad": 403,
+      "stock": 22
+    },
+    {
+      "id": "var_049",
+      "product_id": "prd_028",
+      "sku": "PRD_028-01",
+      "talla": "M",
+      "color": "Negro",
+      "precio": 350,
+      "precio_comunidad": 298,
+      "stock": 61
+    },
+    {
+      "id": "var_050",
+      "product_id": "prd_029",
+      "sku": "PRD_029-01",
+      "talla": "G",
+      "color": "Blanco",
+      "precio": 487,
+      "precio_comunidad": 414,
+      "stock": 63
+    },
+    {
+      "id": "var_051",
+      "product_id": "prd_029",
+      "sku": "PRD_029-02",
+      "talla": "XG",
+      "color": "Negro",
+      "precio": 451,
+      "precio_comunidad": 383,
+      "stock": 89
+    },
+    {
+      "id": "var_052",
+      "product_id": "prd_030",
+      "sku": "PRD_030-01",
+      "talla": "Unica",
+      "color": "Verde",
+      "precio": 451,
+      "precio_comunidad": 383,
+      "stock": 54
+    },
+    {
+      "id": "var_053",
+      "product_id": "prd_030",
+      "sku": "PRD_030-02",
+      "talla": "M",
+      "color": "Gris",
+      "precio": 454,
+      "precio_comunidad": 386,
+      "stock": 20
+    },
+    {
+      "id": "var_054",
+      "product_id": "prd_030",
+      "sku": "PRD_030-03",
+      "talla": "G",
+      "color": "Negro",
+      "precio": 423,
+      "precio_comunidad": 360,
+      "stock": 39
+    },
+    {
+      "id": "var_055",
+      "product_id": "prd_031",
+      "sku": "PRD_031-01",
+      "talla": "XG",
+      "color": "Blanco",
+      "precio": 276,
+      "precio_comunidad": 235,
+      "stock": 106
+    },
+    {
+      "id": "var_056",
+      "product_id": "prd_031",
+      "sku": "PRD_031-02",
+      "talla": "CH",
+      "color": "Guinda",
+      "precio": 283,
+      "precio_comunidad": 241,
+      "stock": 22
+    },
+    {
+      "id": "var_057",
+      "product_id": "prd_031",
+      "sku": "PRD_031-03",
+      "talla": "XG",
+      "color": "Verde",
+      "precio": 341,
+      "precio_comunidad": 290,
+      "stock": 103
+    },
+    {
+      "id": "var_058",
+      "product_id": "prd_032",
+      "sku": "PRD_032-01",
+      "talla": "M",
+      "color": "Guinda",
+      "precio": 402,
+      "precio_comunidad": 342,
+      "stock": 43
+    },
+    {
+      "id": "var_059",
+      "product_id": "prd_032",
+      "sku": "PRD_032-02",
+      "talla": "Unica",
+      "color": "Negro",
+      "precio": 470,
+      "precio_comunidad": 400,
+      "stock": 113
+    },
+    {
+      "id": "var_060",
+      "product_id": "prd_033",
+      "sku": "PRD_033-01",
+      "talla": "XG",
+      "color": "Verde",
+      "precio": 298,
+      "precio_comunidad": 253,
+      "stock": 30
+    },
+    {
+      "id": "var_061",
+      "product_id": "prd_033",
+      "sku": "PRD_033-02",
+      "talla": "CH",
+      "color": "Guinda",
+      "precio": 257,
+      "precio_comunidad": 218,
+      "stock": 40
+    },
+    {
+      "id": "var_062",
+      "product_id": "prd_033",
+      "sku": "PRD_033-03",
+      "talla": "XG",
+      "color": "Azul marino",
+      "precio": 354,
+      "precio_comunidad": 301,
+      "stock": 27
+    },
+    {
+      "id": "var_063",
+      "product_id": "prd_034",
+      "sku": "PRD_034-01",
+      "talla": "CH",
+      "color": "Blanco",
+      "precio": 183,
+      "precio_comunidad": 156,
+      "stock": 52
+    },
+    {
+      "id": "var_064",
+      "product_id": "prd_034",
+      "sku": "PRD_034-02",
+      "talla": "G",
+      "color": "Verde",
+      "precio": 189,
+      "precio_comunidad": 161,
+      "stock": 64
+    },
+    {
+      "id": "var_065",
+      "product_id": "prd_034",
+      "sku": "PRD_034-03",
+      "talla": "CH",
+      "color": "Negro",
+      "precio": 136,
+      "precio_comunidad": 116,
+      "stock": 117
+    },
+    {
+      "id": "var_066",
+      "product_id": "prd_035",
+      "sku": "PRD_035-01",
+      "talla": "G",
+      "color": "Verde",
+      "precio": 490,
+      "precio_comunidad": 417,
+      "stock": 79
+    },
+    {
+      "id": "var_067",
+      "product_id": "prd_035",
+      "sku": "PRD_035-02",
+      "talla": "Unica",
+      "color": "Guinda",
+      "precio": 535,
+      "precio_comunidad": 455,
+      "stock": 84
+    },
+    {
+      "id": "var_068",
+      "product_id": "prd_036",
+      "sku": "PRD_036-01",
+      "talla": "XG",
+      "color": "Negro",
+      "precio": 273,
+      "precio_comunidad": 232,
+      "stock": 100
+    },
+    {
+      "id": "var_069",
+      "product_id": "prd_036",
+      "sku": "PRD_036-02",
+      "talla": "Unica",
+      "color": "Blanco",
+      "precio": 280,
+      "precio_comunidad": 238,
+      "stock": 81
+    },
+    {
+      "id": "var_070",
+      "product_id": "prd_037",
+      "sku": "PRD_037-01",
+      "talla": "Unica",
+      "color": "Azul marino",
+      "precio": 410,
+      "precio_comunidad": 349,
+      "stock": 109
+    },
+    {
+      "id": "var_071",
+      "product_id": "prd_037",
+      "sku": "PRD_037-02",
+      "talla": "XG",
+      "color": "Blanco",
+      "precio": 397,
+      "precio_comunidad": 337,
+      "stock": 93
+    },
+    {
+      "id": "var_072",
+      "product_id": "prd_037",
+      "sku": "PRD_037-03",
+      "talla": "G",
+      "color": "Guinda",
+      "precio": 414,
+      "precio_comunidad": 352,
+      "stock": 48
+    }
+  ],
+  "orders": [
+    {
+      "id": "ord_001",
+      "comprador_id": "usr_044",
+      "vendor_id": "ven_06",
+      "estado": "preparando",
+      "total": 2169,
+      "referencia_pago": "AGORA-ORD_001-3365",
+      "metodo_entrega": "aula",
+      "aula_entrega": "Punto Cafeteria",
+      "created_at": "2026-03-22 00:00:00"
+    },
+    {
+      "id": "ord_002",
+      "comprador_id": "usr_047",
+      "vendor_id": "ven_05",
+      "estado": "pendiente_pago",
+      "total": 543,
+      "referencia_pago": "AGORA-ORD_002-4963",
+      "metodo_entrega": "aula",
+      "aula_entrega": "B-110",
+      "created_at": "2026-04-30 00:00:00"
+    },
+    {
+      "id": "ord_003",
+      "comprador_id": "usr_030",
+      "vendor_id": "ven_03",
+      "estado": "preparando",
+      "total": 2229,
+      "referencia_pago": "AGORA-ORD_003-8252",
+      "metodo_entrega": "aula",
+      "aula_entrega": "Lab-IDAT",
+      "created_at": "2026-04-27 00:00:00"
+    },
+    {
+      "id": "ord_004",
+      "comprador_id": "usr_029",
+      "vendor_id": "ven_04",
+      "estado": "cancelado",
+      "total": 213,
+      "referencia_pago": "AGORA-ORD_004-8795",
+      "metodo_entrega": "aula",
+      "aula_entrega": "Punto Cafeteria",
+      "created_at": "2026-03-28 00:00:00"
+    },
+    {
+      "id": "ord_005",
+      "comprador_id": "usr_003",
+      "vendor_id": "ven_04",
+      "estado": "cancelado",
+      "total": 1037,
+      "referencia_pago": "AGORA-ORD_005-4537",
+      "metodo_entrega": "punto",
+      "aula_entrega": "A-203",
+      "created_at": "2026-04-19 00:00:00"
+    },
+    {
+      "id": "ord_006",
+      "comprador_id": "usr_057",
+      "vendor_id": "ven_01",
+      "estado": "entregado",
+      "total": 1551,
+      "referencia_pago": "AGORA-ORD_006-6314",
+      "metodo_entrega": "aula",
+      "aula_entrega": "Lab-IDAT",
+      "created_at": "2026-03-28 00:00:00"
+    },
+    {
+      "id": "ord_007",
+      "comprador_id": "usr_056",
+      "vendor_id": "ven_06",
+      "estado": "pendiente_pago",
+      "total": 2416,
+      "referencia_pago": "AGORA-ORD_007-6414",
+      "metodo_entrega": "punto",
+      "aula_entrega": "A-203",
+      "created_at": "2026-05-05 00:00:00"
+    },
+    {
+      "id": "ord_008",
+      "comprador_id": "usr_057",
+      "vendor_id": "ven_08",
+      "estado": "pendiente_pago",
+      "total": 156,
+      "referencia_pago": "AGORA-ORD_008-1750",
+      "metodo_entrega": "aula",
+      "aula_entrega": "A-203",
+      "created_at": "2026-05-04 00:00:00"
+    },
+    {
+      "id": "ord_009",
+      "comprador_id": "usr_051",
+      "vendor_id": "ven_02",
+      "estado": "pago_verificado",
+      "total": 3952,
+      "referencia_pago": "AGORA-ORD_009-2536",
+      "metodo_entrega": "aula",
+      "aula_entrega": "Punto Cafeteria",
+      "created_at": "2026-05-12 00:00:00"
+    },
+    {
+      "id": "ord_010",
+      "comprador_id": "usr_043",
+      "vendor_id": "ven_01",
+      "estado": "entregado",
+      "total": 2117,
+      "referencia_pago": "AGORA-ORD_010-8641",
+      "metodo_entrega": "aula",
+      "aula_entrega": "A-203",
+      "created_at": "2026-05-18 00:00:00"
+    },
+    {
+      "id": "ord_011",
+      "comprador_id": "usr_044",
+      "vendor_id": "ven_07",
+      "estado": "comprobante_enviado",
+      "total": 298,
+      "referencia_pago": "AGORA-ORD_011-3841",
+      "metodo_entrega": "punto",
+      "aula_entrega": "Lab-IDAT",
+      "created_at": "2026-04-19 00:00:00"
+    },
+    {
+      "id": "ord_012",
+      "comprador_id": "usr_053",
+      "vendor_id": "ven_03",
+      "estado": "pendiente_pago",
+      "total": 388,
+      "referencia_pago": "AGORA-ORD_012-9150",
+      "metodo_entrega": "aula",
+      "aula_entrega": "A-203",
+      "created_at": "2026-05-04 00:00:00"
+    },
+    {
+      "id": "ord_013",
+      "comprador_id": "usr_043",
+      "vendor_id": "ven_04",
+      "estado": "preparando",
+      "total": 2054,
+      "referencia_pago": "AGORA-ORD_013-8420",
+      "metodo_entrega": "punto",
+      "aula_entrega": "B-110",
+      "created_at": "2026-04-24 00:00:00"
+    },
+    {
+      "id": "ord_014",
+      "comprador_id": "usr_009",
+      "vendor_id": "ven_01",
+      "estado": "preparando",
+      "total": 1967,
+      "referencia_pago": "AGORA-ORD_014-9488",
+      "metodo_entrega": "aula",
+      "aula_entrega": "Lab-IDAT",
+      "created_at": "2026-05-09 00:00:00"
+    },
+    {
+      "id": "ord_015",
+      "comprador_id": "usr_058",
+      "vendor_id": "ven_04",
+      "estado": "pendiente_pago",
+      "total": 832,
+      "referencia_pago": "AGORA-ORD_015-4151",
+      "metodo_entrega": "punto",
+      "aula_entrega": "A-203",
+      "created_at": "2026-03-28 00:00:00"
+    },
+    {
+      "id": "ord_016",
+      "comprador_id": "usr_013",
+      "vendor_id": "ven_07",
+      "estado": "pago_verificado",
+      "total": 2367,
+      "referencia_pago": "AGORA-ORD_016-5780",
+      "metodo_entrega": "aula",
+      "aula_entrega": "A-203",
+      "created_at": "2026-05-06 00:00:00"
+    },
+    {
+      "id": "ord_017",
+      "comprador_id": "usr_034",
+      "vendor_id": "ven_07",
+      "estado": "listo_entrega",
+      "total": 2563,
+      "referencia_pago": "AGORA-ORD_017-5984",
+      "metodo_entrega": "aula",
+      "aula_entrega": "A-203",
+      "created_at": "2026-04-29 00:00:00"
+    },
+    {
+      "id": "ord_018",
+      "comprador_id": "usr_034",
+      "vendor_id": "ven_02",
+      "estado": "preparando",
+      "total": 845,
+      "referencia_pago": "AGORA-ORD_018-9727",
+      "metodo_entrega": "aula",
+      "aula_entrega": "A-203",
+      "created_at": "2026-05-13 00:00:00"
+    },
+    {
+      "id": "ord_019",
+      "comprador_id": "usr_050",
+      "vendor_id": "ven_07",
+      "estado": "cancelado",
+      "total": 1962,
+      "referencia_pago": "AGORA-ORD_019-5801",
+      "metodo_entrega": "aula",
+      "aula_entrega": "B-110",
+      "created_at": "2026-05-16 00:00:00"
+    },
+    {
+      "id": "ord_020",
+      "comprador_id": "usr_023",
+      "vendor_id": "ven_05",
+      "estado": "pago_verificado",
+      "total": 2234,
+      "referencia_pago": "AGORA-ORD_020-6121",
+      "metodo_entrega": "punto",
+      "aula_entrega": "Lab-IDAT",
+      "created_at": "2026-03-22 00:00:00"
+    },
+    {
+      "id": "ord_021",
+      "comprador_id": "usr_042",
+      "vendor_id": "ven_01",
+      "estado": "cancelado",
+      "total": 1676,
+      "referencia_pago": "AGORA-ORD_021-6785",
+      "metodo_entrega": "punto",
+      "aula_entrega": "B-110",
+      "created_at": "2026-05-11 00:00:00"
+    },
+    {
+      "id": "ord_022",
+      "comprador_id": "usr_056",
+      "vendor_id": "ven_04",
+      "estado": "pago_verificado",
+      "total": 1184,
+      "referencia_pago": "AGORA-ORD_022-8334",
+      "metodo_entrega": "aula",
+      "aula_entrega": "B-110",
+      "created_at": "2026-05-08 00:00:00"
+    },
+    {
+      "id": "ord_023",
+      "comprador_id": "usr_022",
+      "vendor_id": "ven_08",
+      "estado": "comprobante_enviado",
+      "total": 1015,
+      "referencia_pago": "AGORA-ORD_023-6787",
+      "metodo_entrega": "aula",
+      "aula_entrega": "B-110",
+      "created_at": "2026-05-11 00:00:00"
+    },
+    {
+      "id": "ord_024",
+      "comprador_id": "usr_008",
+      "vendor_id": "ven_08",
+      "estado": "comprobante_enviado",
+      "total": 654,
+      "referencia_pago": "AGORA-ORD_024-2323",
+      "metodo_entrega": "punto",
+      "aula_entrega": "A-203",
+      "created_at": "2026-05-03 00:00:00"
+    },
+    {
+      "id": "ord_025",
+      "comprador_id": "usr_035",
+      "vendor_id": "ven_06",
+      "estado": "comprobante_enviado",
+      "total": 1622,
+      "referencia_pago": "AGORA-ORD_025-8504",
+      "metodo_entrega": "aula",
+      "aula_entrega": "Lab-IDAT",
+      "created_at": "2026-03-29 00:00:00"
+    },
+    {
+      "id": "ord_026",
+      "comprador_id": "usr_060",
+      "vendor_id": "ven_04",
+      "estado": "pendiente_pago",
+      "total": 654,
+      "referencia_pago": "AGORA-ORD_026-7102",
+      "metodo_entrega": "aula",
+      "aula_entrega": "B-110",
+      "created_at": "2026-04-20 00:00:00"
+    },
+    {
+      "id": "ord_027",
+      "comprador_id": "usr_025",
+      "vendor_id": "ven_07",
+      "estado": "entregado",
+      "total": 1175,
+      "referencia_pago": "AGORA-ORD_027-7712",
+      "metodo_entrega": "aula",
+      "aula_entrega": "B-110",
+      "created_at": "2026-03-31 00:00:00"
+    },
+    {
+      "id": "ord_028",
+      "comprador_id": "usr_005",
+      "vendor_id": "ven_06",
+      "estado": "entregado",
+      "total": 1641,
+      "referencia_pago": "AGORA-ORD_028-4323",
+      "metodo_entrega": "aula",
+      "aula_entrega": "Lab-IDAT",
+      "created_at": "2026-04-10 00:00:00"
+    },
+    {
+      "id": "ord_029",
+      "comprador_id": "usr_047",
+      "vendor_id": "ven_08",
+      "estado": "entregado",
+      "total": 566,
+      "referencia_pago": "AGORA-ORD_029-7621",
+      "metodo_entrega": "punto",
+      "aula_entrega": "A-203",
+      "created_at": "2026-05-01 00:00:00"
+    },
+    {
+      "id": "ord_030",
+      "comprador_id": "usr_049",
+      "vendor_id": "ven_03",
+      "estado": "pendiente_pago",
+      "total": 1638,
+      "referencia_pago": "AGORA-ORD_030-9464",
+      "metodo_entrega": "aula",
+      "aula_entrega": "Punto Cafeteria",
+      "created_at": "2026-05-06 00:00:00"
+    },
+    {
+      "id": "ord_031",
+      "comprador_id": "usr_030",
+      "vendor_id": "ven_06",
+      "estado": "comprobante_enviado",
+      "total": 1451,
+      "referencia_pago": "AGORA-ORD_031-7129",
+      "metodo_entrega": "punto",
+      "aula_entrega": "A-203",
+      "created_at": "2026-03-28 00:00:00"
+    },
+    {
+      "id": "ord_032",
+      "comprador_id": "usr_026",
+      "vendor_id": "ven_02",
+      "estado": "comprobante_enviado",
+      "total": 2529,
+      "referencia_pago": "AGORA-ORD_032-2155",
+      "metodo_entrega": "aula",
+      "aula_entrega": "B-110",
+      "created_at": "2026-04-13 00:00:00"
+    },
+    {
+      "id": "ord_033",
+      "comprador_id": "usr_021",
+      "vendor_id": "ven_06",
+      "estado": "comprobante_enviado",
+      "total": 1722,
+      "referencia_pago": "AGORA-ORD_033-1376",
+      "metodo_entrega": "aula",
+      "aula_entrega": "Punto Cafeteria",
+      "created_at": "2026-04-02 00:00:00"
+    },
+    {
+      "id": "ord_034",
+      "comprador_id": "usr_013",
+      "vendor_id": "ven_07",
+      "estado": "entregado",
+      "total": 1473,
+      "referencia_pago": "AGORA-ORD_034-6080",
+      "metodo_entrega": "aula",
+      "aula_entrega": "Punto Cafeteria",
+      "created_at": "2026-05-15 00:00:00"
+    },
+    {
+      "id": "ord_035",
+      "comprador_id": "usr_058",
+      "vendor_id": "ven_04",
+      "estado": "cancelado",
+      "total": 828,
+      "referencia_pago": "AGORA-ORD_035-7565",
+      "metodo_entrega": "aula",
+      "aula_entrega": "B-110",
+      "created_at": "2026-04-18 00:00:00"
+    },
+    {
+      "id": "ord_036",
+      "comprador_id": "usr_018",
+      "vendor_id": "ven_03",
+      "estado": "cancelado",
+      "total": 1092,
+      "referencia_pago": "AGORA-ORD_036-1748",
+      "metodo_entrega": "punto",
+      "aula_entrega": "Punto Cafeteria",
+      "created_at": "2026-05-17 00:00:00"
+    },
+    {
+      "id": "ord_037",
+      "comprador_id": "usr_005",
+      "vendor_id": "ven_07",
+      "estado": "listo_entrega",
+      "total": 894,
+      "referencia_pago": "AGORA-ORD_037-1792",
+      "metodo_entrega": "aula",
+      "aula_entrega": "Lab-IDAT",
+      "created_at": "2026-05-12 00:00:00"
+    },
+    {
+      "id": "ord_038",
+      "comprador_id": "usr_056",
+      "vendor_id": "ven_01",
+      "estado": "listo_entrega",
+      "total": 290,
+      "referencia_pago": "AGORA-ORD_038-1815",
+      "metodo_entrega": "punto",
+      "aula_entrega": "B-110",
+      "created_at": "2026-04-09 00:00:00"
+    },
+    {
+      "id": "ord_039",
+      "comprador_id": "usr_039",
+      "vendor_id": "ven_07",
+      "estado": "comprobante_enviado",
+      "total": 2022,
+      "referencia_pago": "AGORA-ORD_039-9326",
+      "metodo_entrega": "punto",
+      "aula_entrega": "B-110",
+      "created_at": "2026-03-29 00:00:00"
+    },
+    {
+      "id": "ord_040",
+      "comprador_id": "usr_033",
+      "vendor_id": "ven_08",
+      "estado": "preparando",
+      "total": 704,
+      "referencia_pago": "AGORA-ORD_040-3418",
+      "metodo_entrega": "punto",
+      "aula_entrega": "Lab-IDAT",
+      "created_at": "2026-04-01 00:00:00"
+    },
+    {
+      "id": "ord_041",
+      "comprador_id": "usr_035",
+      "vendor_id": "ven_07",
+      "estado": "comprobante_enviado",
+      "total": 1701,
+      "referencia_pago": "AGORA-ORD_041-6303",
+      "metodo_entrega": "aula",
+      "aula_entrega": "A-203",
+      "created_at": "2026-04-15 00:00:00"
+    },
+    {
+      "id": "ord_042",
+      "comprador_id": "usr_031",
+      "vendor_id": "ven_03",
+      "estado": "cancelado",
+      "total": 2950,
+      "referencia_pago": "AGORA-ORD_042-4042",
+      "metodo_entrega": "aula",
+      "aula_entrega": "B-110",
+      "created_at": "2026-04-05 00:00:00"
+    },
+    {
+      "id": "ord_043",
+      "comprador_id": "usr_048",
+      "vendor_id": "ven_03",
+      "estado": "preparando",
+      "total": 1313,
+      "referencia_pago": "AGORA-ORD_043-2764",
+      "metodo_entrega": "punto",
+      "aula_entrega": "A-203",
+      "created_at": "2026-04-05 00:00:00"
+    },
+    {
+      "id": "ord_044",
+      "comprador_id": "usr_006",
+      "vendor_id": "ven_08",
+      "estado": "listo_entrega",
+      "total": 1286,
+      "referencia_pago": "AGORA-ORD_044-1901",
+      "metodo_entrega": "aula",
+      "aula_entrega": "A-203",
+      "created_at": "2026-04-20 00:00:00"
+    },
+    {
+      "id": "ord_045",
+      "comprador_id": "usr_045",
+      "vendor_id": "ven_07",
+      "estado": "cancelado",
+      "total": 235,
+      "referencia_pago": "AGORA-ORD_045-4482",
+      "metodo_entrega": "punto",
+      "aula_entrega": "A-203",
+      "created_at": "2026-04-24 00:00:00"
+    },
+    {
+      "id": "ord_046",
+      "comprador_id": "usr_048",
+      "vendor_id": "ven_02",
+      "estado": "cancelado",
+      "total": 1527,
+      "referencia_pago": "AGORA-ORD_046-9118",
+      "metodo_entrega": "punto",
+      "aula_entrega": "Punto Cafeteria",
+      "created_at": "2026-05-09 00:00:00"
+    },
+    {
+      "id": "ord_047",
+      "comprador_id": "usr_040",
+      "vendor_id": "ven_04",
+      "estado": "entregado",
+      "total": 436,
+      "referencia_pago": "AGORA-ORD_047-4262",
+      "metodo_entrega": "aula",
+      "aula_entrega": "B-110",
+      "created_at": "2026-05-20 00:00:00"
+    },
+    {
+      "id": "ord_048",
+      "comprador_id": "usr_029",
+      "vendor_id": "ven_06",
+      "estado": "cancelado",
+      "total": 544,
+      "referencia_pago": "AGORA-ORD_048-1677",
+      "metodo_entrega": "punto",
+      "aula_entrega": "A-203",
+      "created_at": "2026-04-18 00:00:00"
+    },
+    {
+      "id": "ord_049",
+      "comprador_id": "usr_021",
+      "vendor_id": "ven_02",
+      "estado": "cancelado",
+      "total": 2654,
+      "referencia_pago": "AGORA-ORD_049-6547",
+      "metodo_entrega": "aula",
+      "aula_entrega": "Lab-IDAT",
+      "created_at": "2026-04-19 00:00:00"
+    },
+    {
+      "id": "ord_050",
+      "comprador_id": "usr_042",
+      "vendor_id": "ven_04",
+      "estado": "listo_entrega",
+      "total": 431,
+      "referencia_pago": "AGORA-ORD_050-8891",
+      "metodo_entrega": "aula",
+      "aula_entrega": "A-203",
+      "created_at": "2026-05-02 00:00:00"
+    }
+  ],
+  "order_items": [
+    {
+      "id": "oit_001",
+      "order_id": "ord_001",
+      "variant_id": "var_040",
+      "cantidad": 3,
+      "precio_unit": 119
+    },
+    {
+      "id": "oit_002",
+      "order_id": "ord_001",
+      "variant_id": "var_043",
+      "cantidad": 3,
+      "precio_unit": 604
+    },
+    {
+      "id": "oit_003",
+      "order_id": "ord_002",
+      "variant_id": "var_036",
+      "cantidad": 1,
+      "precio_unit": 543
+    },
+    {
+      "id": "oit_004",
+      "order_id": "ord_003",
+      "variant_id": "var_020",
+      "cantidad": 1,
+      "precio_unit": 399
+    },
+    {
+      "id": "oit_005",
+      "order_id": "ord_003",
+      "variant_id": "var_024",
+      "cantidad": 3,
+      "precio_unit": 610
+    },
+    {
+      "id": "oit_006",
+      "order_id": "ord_004",
+      "variant_id": "var_026",
+      "cantidad": 3,
+      "precio_unit": 71
+    },
+    {
+      "id": "oit_007",
+      "order_id": "ord_005",
+      "variant_id": "var_030",
+      "cantidad": 1,
+      "precio_unit": 218
+    },
+    {
+      "id": "oit_008",
+      "order_id": "ord_005",
+      "variant_id": "var_031",
+      "cantidad": 1,
+      "precio_unit": 273
+    },
+    {
+      "id": "oit_009",
+      "order_id": "ord_005",
+      "variant_id": "var_031",
+      "cantidad": 2,
+      "precio_unit": 273
+    },
+    {
+      "id": "oit_010",
+      "order_id": "ord_006",
+      "variant_id": "var_002",
+      "cantidad": 2,
+      "precio_unit": 558
+    },
+    {
+      "id": "oit_011",
+      "order_id": "ord_006",
+      "variant_id": "var_003",
+      "cantidad": 3,
+      "precio_unit": 145
+    },
+    {
+      "id": "oit_012",
+      "order_id": "ord_007",
+      "variant_id": "var_043",
+      "cantidad": 1,
+      "precio_unit": 604
+    },
+    {
+      "id": "oit_013",
+      "order_id": "ord_007",
+      "variant_id": "var_043",
+      "cantidad": 3,
+      "precio_unit": 604
+    },
+    {
+      "id": "oit_014",
+      "order_id": "ord_008",
+      "variant_id": "var_063",
+      "cantidad": 1,
+      "precio_unit": 156
+    },
+    {
+      "id": "oit_015",
+      "order_id": "ord_009",
+      "variant_id": "var_010",
+      "cantidad": 2,
+      "precio_unit": 509
+    },
+    {
+      "id": "oit_016",
+      "order_id": "ord_009",
+      "variant_id": "var_010",
+      "cantidad": 3,
+      "precio_unit": 509
+    },
+    {
+      "id": "oit_017",
+      "order_id": "ord_009",
+      "variant_id": "var_009",
+      "cantidad": 3,
+      "precio_unit": 469
+    },
+    {
+      "id": "oit_018",
+      "order_id": "ord_010",
+      "variant_id": "var_004",
+      "cantidad": 3,
+      "precio_unit": 251
+    },
+    {
+      "id": "oit_019",
+      "order_id": "ord_010",
+      "variant_id": "var_001",
+      "cantidad": 1,
+      "precio_unit": 122
+    },
+    {
+      "id": "oit_020",
+      "order_id": "ord_010",
+      "variant_id": "var_005",
+      "cantidad": 3,
+      "precio_unit": 414
+    },
+    {
+      "id": "oit_021",
+      "order_id": "ord_011",
+      "variant_id": "var_049",
+      "cantidad": 1,
+      "precio_unit": 298
+    },
+    {
+      "id": "oit_022",
+      "order_id": "ord_012",
+      "variant_id": "var_018",
+      "cantidad": 1,
+      "precio_unit": 388
+    },
+    {
+      "id": "oit_023",
+      "order_id": "ord_013",
+      "variant_id": "var_028",
+      "cantidad": 1,
+      "precio_unit": 80
+    },
+    {
+      "id": "oit_024",
+      "order_id": "ord_013",
+      "variant_id": "var_026",
+      "cantidad": 3,
+      "precio_unit": 71
+    },
+    {
+      "id": "oit_025",
+      "order_id": "ord_013",
+      "variant_id": "var_032",
+      "cantidad": 3,
+      "precio_unit": 587
+    },
+    {
+      "id": "oit_026",
+      "order_id": "ord_014",
+      "variant_id": "var_003",
+      "cantidad": 2,
+      "precio_unit": 145
+    },
+    {
+      "id": "oit_027",
+      "order_id": "ord_014",
+      "variant_id": "var_005",
+      "cantidad": 3,
+      "precio_unit": 414
+    },
+    {
+      "id": "oit_028",
+      "order_id": "ord_014",
+      "variant_id": "var_003",
+      "cantidad": 3,
+      "precio_unit": 145
+    },
+    {
+      "id": "oit_029",
+      "order_id": "ord_015",
+      "variant_id": "var_028",
+      "cantidad": 3,
+      "precio_unit": 80
+    },
+    {
+      "id": "oit_030",
+      "order_id": "ord_015",
+      "variant_id": "var_034",
+      "cantidad": 1,
+      "precio_unit": 592
+    },
+    {
+      "id": "oit_031",
+      "order_id": "ord_016",
+      "variant_id": "var_048",
+      "cantidad": 3,
+      "precio_unit": 403
+    },
+    {
+      "id": "oit_032",
+      "order_id": "ord_016",
+      "variant_id": "var_053",
+      "cantidad": 3,
+      "precio_unit": 386
+    },
+    {
+      "id": "oit_033",
+      "order_id": "ord_017",
+      "variant_id": "var_056",
+      "cantidad": 1,
+      "precio_unit": 241
+    },
+    {
+      "id": "oit_034",
+      "order_id": "ord_017",
+      "variant_id": "var_050",
+      "cantidad": 3,
+      "precio_unit": 414
+    },
+    {
+      "id": "oit_035",
+      "order_id": "ord_017",
+      "variant_id": "var_054",
+      "cantidad": 3,
+      "precio_unit": 360
+    },
+    {
+      "id": "oit_036",
+      "order_id": "ord_018",
+      "variant_id": "var_011",
+      "cantidad": 1,
+      "precio_unit": 299
+    },
+    {
+      "id": "oit_037",
+      "order_id": "ord_018",
+      "variant_id": "var_012",
+      "cantidad": 2,
+      "precio_unit": 273
+    },
+    {
+      "id": "oit_038",
+      "order_id": "ord_019",
+      "variant_id": "var_054",
+      "cantidad": 2,
+      "precio_unit": 360
+    },
+    {
+      "id": "oit_039",
+      "order_id": "ord_019",
+      "variant_id": "var_050",
+      "cantidad": 2,
+      "precio_unit": 414
+    },
+    {
+      "id": "oit_040",
+      "order_id": "ord_019",
+      "variant_id": "var_050",
+      "cantidad": 1,
+      "precio_unit": 414
+    },
+    {
+      "id": "oit_041",
+      "order_id": "ord_020",
+      "variant_id": "var_036",
+      "cantidad": 2,
+      "precio_unit": 543
+    },
+    {
+      "id": "oit_042",
+      "order_id": "ord_020",
+      "variant_id": "var_037",
+      "cantidad": 2,
+      "precio_unit": 574
+    },
+    {
+      "id": "oit_043",
+      "order_id": "ord_021",
+      "variant_id": "var_005",
+      "cantidad": 2,
+      "precio_unit": 414
+    },
+    {
+      "id": "oit_044",
+      "order_id": "ord_021",
+      "variant_id": "var_002",
+      "cantidad": 1,
+      "precio_unit": 558
+    },
+    {
+      "id": "oit_045",
+      "order_id": "ord_021",
+      "variant_id": "var_003",
+      "cantidad": 2,
+      "precio_unit": 145
+    },
+    {
+      "id": "oit_046",
+      "order_id": "ord_022",
+      "variant_id": "var_034",
+      "cantidad": 2,
+      "precio_unit": 592
+    },
+    {
+      "id": "oit_047",
+      "order_id": "ord_023",
+      "variant_id": "var_069",
+      "cantidad": 3,
+      "precio_unit": 238
+    },
+    {
+      "id": "oit_048",
+      "order_id": "ord_023",
+      "variant_id": "var_062",
+      "cantidad": 1,
+      "precio_unit": 301
+    },
+    {
+      "id": "oit_049",
+      "order_id": "ord_024",
+      "variant_id": "var_061",
+      "cantidad": 3,
+      "precio_unit": 218
+    },
+    {
+      "id": "oit_050",
+      "order_id": "ord_025",
+      "variant_id": "var_041",
+      "cantidad": 2,
+      "precio_unit": 506
+    },
+    {
+      "id": "oit_051",
+      "order_id": "ord_025",
+      "variant_id": "var_046",
+      "cantidad": 2,
+      "precio_unit": 305
+    },
+    {
+      "id": "oit_052",
+      "order_id": "ord_026",
+      "variant_id": "var_030",
+      "cantidad": 3,
+      "precio_unit": 218
+    },
+    {
+      "id": "oit_053",
+      "order_id": "ord_027",
+      "variant_id": "var_053",
+      "cantidad": 2,
+      "precio_unit": 386
+    },
+    {
+      "id": "oit_054",
+      "order_id": "ord_027",
+      "variant_id": "var_048",
+      "cantidad": 1,
+      "precio_unit": 403
+    },
+    {
+      "id": "oit_055",
+      "order_id": "ord_028",
+      "variant_id": "var_044",
+      "cantidad": 1,
+      "precio_unit": 547
+    },
+    {
+      "id": "oit_056",
+      "order_id": "ord_028",
+      "variant_id": "var_044",
+      "cantidad": 2,
+      "precio_unit": 547
+    },
+    {
+      "id": "oit_057",
+      "order_id": "ord_029",
+      "variant_id": "var_065",
+      "cantidad": 3,
+      "precio_unit": 116
+    },
+    {
+      "id": "oit_058",
+      "order_id": "ord_029",
+      "variant_id": "var_061",
+      "cantidad": 1,
+      "precio_unit": 218
+    },
+    {
+      "id": "oit_059",
+      "order_id": "ord_030",
+      "variant_id": "var_022",
+      "cantidad": 2,
+      "precio_unit": 546
+    },
+    {
+      "id": "oit_060",
+      "order_id": "ord_030",
+      "variant_id": "var_022",
+      "cantidad": 1,
+      "precio_unit": 546
+    },
+    {
+      "id": "oit_061",
+      "order_id": "ord_031",
+      "variant_id": "var_040",
+      "cantidad": 3,
+      "precio_unit": 119
+    },
+    {
+      "id": "oit_062",
+      "order_id": "ord_031",
+      "variant_id": "var_044",
+      "cantidad": 2,
+      "precio_unit": 547
+    },
+    {
+      "id": "oit_063",
+      "order_id": "ord_032",
+      "variant_id": "var_009",
+      "cantidad": 3,
+      "precio_unit": 469
+    },
+    {
+      "id": "oit_064",
+      "order_id": "ord_032",
+      "variant_id": "var_006",
+      "cantidad": 3,
+      "precio_unit": 374
+    },
+    {
+      "id": "oit_065",
+      "order_id": "ord_033",
+      "variant_id": "var_042",
+      "cantidad": 2,
+      "precio_unit": 556
+    },
+    {
+      "id": "oit_066",
+      "order_id": "ord_033",
+      "variant_id": "var_046",
+      "cantidad": 2,
+      "precio_unit": 305
+    },
+    {
+      "id": "oit_067",
+      "order_id": "ord_034",
+      "variant_id": "var_049",
+      "cantidad": 1,
+      "precio_unit": 298
+    },
+    {
+      "id": "oit_068",
+      "order_id": "ord_034",
+      "variant_id": "var_053",
+      "cantidad": 2,
+      "precio_unit": 386
+    },
+    {
+      "id": "oit_069",
+      "order_id": "ord_034",
+      "variant_id": "var_048",
+      "cantidad": 1,
+      "precio_unit": 403
+    },
+    {
+      "id": "oit_070",
+      "order_id": "ord_035",
+      "variant_id": "var_034",
+      "cantidad": 1,
+      "precio_unit": 592
+    },
+    {
+      "id": "oit_071",
+      "order_id": "ord_035",
+      "variant_id": "var_027",
+      "cantidad": 2,
+      "precio_unit": 118
+    },
+    {
+      "id": "oit_072",
+      "order_id": "ord_036",
+      "variant_id": "var_022",
+      "cantidad": 2,
+      "precio_unit": 546
+    },
+    {
+      "id": "oit_073",
+      "order_id": "ord_037",
+      "variant_id": "var_049",
+      "cantidad": 3,
+      "precio_unit": 298
+    },
+    {
+      "id": "oit_074",
+      "order_id": "ord_038",
+      "variant_id": "var_003",
+      "cantidad": 2,
+      "precio_unit": 145
+    },
+    {
+      "id": "oit_075",
+      "order_id": "ord_039",
+      "variant_id": "var_056",
+      "cantidad": 2,
+      "precio_unit": 241
+    },
+    {
+      "id": "oit_076",
+      "order_id": "ord_039",
+      "variant_id": "var_050",
+      "cantidad": 3,
+      "precio_unit": 414
+    },
+    {
+      "id": "oit_077",
+      "order_id": "ord_039",
+      "variant_id": "var_049",
+      "cantidad": 1,
+      "precio_unit": 298
+    },
+    {
+      "id": "oit_078",
+      "order_id": "ord_040",
+      "variant_id": "var_072",
+      "cantidad": 1,
+      "precio_unit": 352
+    },
+    {
+      "id": "oit_079",
+      "order_id": "ord_040",
+      "variant_id": "var_072",
+      "cantidad": 1,
+      "precio_unit": 352
+    },
+    {
+      "id": "oit_080",
+      "order_id": "ord_041",
+      "variant_id": "var_055",
+      "cantidad": 1,
+      "precio_unit": 235
+    },
+    {
+      "id": "oit_081",
+      "order_id": "ord_041",
+      "variant_id": "var_053",
+      "cantidad": 1,
+      "precio_unit": 386
+    },
+    {
+      "id": "oit_082",
+      "order_id": "ord_041",
+      "variant_id": "var_054",
+      "cantidad": 3,
+      "precio_unit": 360
+    },
+    {
+      "id": "oit_083",
+      "order_id": "ord_042",
+      "variant_id": "var_022",
+      "cantidad": 2,
+      "precio_unit": 546
+    },
+    {
+      "id": "oit_084",
+      "order_id": "ord_042",
+      "variant_id": "var_025",
+      "cantidad": 3,
+      "precio_unit": 290
+    },
+    {
+      "id": "oit_085",
+      "order_id": "ord_042",
+      "variant_id": "var_015",
+      "cantidad": 2,
+      "precio_unit": 494
+    },
+    {
+      "id": "oit_086",
+      "order_id": "ord_043",
+      "variant_id": "var_016",
+      "cantidad": 3,
+      "precio_unit": 179
+    },
+    {
+      "id": "oit_087",
+      "order_id": "ord_043",
+      "variant_id": "var_018",
+      "cantidad": 2,
+      "precio_unit": 388
+    },
+    {
+      "id": "oit_088",
+      "order_id": "ord_044",
+      "variant_id": "var_058",
+      "cantidad": 2,
+      "precio_unit": 342
+    },
+    {
+      "id": "oit_089",
+      "order_id": "ord_044",
+      "variant_id": "var_062",
+      "cantidad": 2,
+      "precio_unit": 301
+    },
+    {
+      "id": "oit_090",
+      "order_id": "ord_045",
+      "variant_id": "var_055",
+      "cantidad": 1,
+      "precio_unit": 235
+    },
+    {
+      "id": "oit_091",
+      "order_id": "ord_046",
+      "variant_id": "var_010",
+      "cantidad": 3,
+      "precio_unit": 509
+    },
+    {
+      "id": "oit_092",
+      "order_id": "ord_047",
+      "variant_id": "var_030",
+      "cantidad": 2,
+      "precio_unit": 218
+    },
+    {
+      "id": "oit_093",
+      "order_id": "ord_048",
+      "variant_id": "var_047",
+      "cantidad": 1,
+      "precio_unit": 271
+    },
+    {
+      "id": "oit_094",
+      "order_id": "ord_048",
+      "variant_id": "var_045",
+      "cantidad": 1,
+      "precio_unit": 273
+    },
+    {
+      "id": "oit_095",
+      "order_id": "ord_049",
+      "variant_id": "var_012",
+      "cantidad": 3,
+      "precio_unit": 273
+    },
+    {
+      "id": "oit_096",
+      "order_id": "ord_049",
+      "variant_id": "var_009",
+      "cantidad": 2,
+      "precio_unit": 469
+    },
+    {
+      "id": "oit_097",
+      "order_id": "ord_049",
+      "variant_id": "var_011",
+      "cantidad": 3,
+      "precio_unit": 299
+    },
+    {
+      "id": "oit_098",
+      "order_id": "ord_050",
+      "variant_id": "var_026",
+      "cantidad": 3,
+      "precio_unit": 71
+    },
+    {
+      "id": "oit_099",
+      "order_id": "ord_050",
+      "variant_id": "var_030",
+      "cantidad": 1,
+      "precio_unit": 218
+    }
+  ],
+  "payments": [
+    {
+      "id": "pay_001",
+      "order_id": "ord_001",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_001-3365",
+      "monto_declarado": 2169,
+      "estado": "verificado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_001.jpg"
+    },
+    {
+      "id": "pay_002",
+      "order_id": "ord_002",
+      "metodo": "efectivo",
+      "referencia": "AGORA-ORD_002-4963",
+      "monto_declarado": 543,
+      "estado": "pendiente",
+      "comprobante_url": ""
+    },
+    {
+      "id": "pay_003",
+      "order_id": "ord_003",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_003-8252",
+      "monto_declarado": 2229,
+      "estado": "verificado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_003.jpg"
+    },
+    {
+      "id": "pay_004",
+      "order_id": "ord_004",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_004-8795",
+      "monto_declarado": 213,
+      "estado": "rechazado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_004.jpg"
+    },
+    {
+      "id": "pay_005",
+      "order_id": "ord_005",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_005-4537",
+      "monto_declarado": 1037,
+      "estado": "rechazado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_005.jpg"
+    },
+    {
+      "id": "pay_006",
+      "order_id": "ord_006",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_006-6314",
+      "monto_declarado": 1551,
+      "estado": "verificado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_006.jpg"
+    },
+    {
+      "id": "pay_007",
+      "order_id": "ord_007",
+      "metodo": "efectivo",
+      "referencia": "AGORA-ORD_007-6414",
+      "monto_declarado": 2416,
+      "estado": "pendiente",
+      "comprobante_url": ""
+    },
+    {
+      "id": "pay_008",
+      "order_id": "ord_008",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_008-1750",
+      "monto_declarado": 156,
+      "estado": "pendiente",
+      "comprobante_url": ""
+    },
+    {
+      "id": "pay_009",
+      "order_id": "ord_009",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_009-2536",
+      "monto_declarado": 3952,
+      "estado": "verificado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_009.jpg"
+    },
+    {
+      "id": "pay_010",
+      "order_id": "ord_010",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_010-8641",
+      "monto_declarado": 2117,
+      "estado": "verificado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_010.jpg"
+    },
+    {
+      "id": "pay_011",
+      "order_id": "ord_011",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_011-3841",
+      "monto_declarado": 298,
+      "estado": "enviado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_011.jpg"
+    },
+    {
+      "id": "pay_012",
+      "order_id": "ord_012",
+      "metodo": "efectivo",
+      "referencia": "AGORA-ORD_012-9150",
+      "monto_declarado": 388,
+      "estado": "pendiente",
+      "comprobante_url": ""
+    },
+    {
+      "id": "pay_013",
+      "order_id": "ord_013",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_013-8420",
+      "monto_declarado": 2054,
+      "estado": "verificado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_013.jpg"
+    },
+    {
+      "id": "pay_014",
+      "order_id": "ord_014",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_014-9488",
+      "monto_declarado": 1967,
+      "estado": "verificado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_014.jpg"
+    },
+    {
+      "id": "pay_015",
+      "order_id": "ord_015",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_015-4151",
+      "monto_declarado": 832,
+      "estado": "pendiente",
+      "comprobante_url": ""
+    },
+    {
+      "id": "pay_016",
+      "order_id": "ord_016",
+      "metodo": "efectivo",
+      "referencia": "AGORA-ORD_016-5780",
+      "monto_declarado": 2367,
+      "estado": "verificado",
+      "comprobante_url": ""
+    },
+    {
+      "id": "pay_017",
+      "order_id": "ord_017",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_017-5984",
+      "monto_declarado": 2563,
+      "estado": "verificado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_017.jpg"
+    },
+    {
+      "id": "pay_018",
+      "order_id": "ord_018",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_018-9727",
+      "monto_declarado": 845,
+      "estado": "verificado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_018.jpg"
+    },
+    {
+      "id": "pay_019",
+      "order_id": "ord_019",
+      "metodo": "efectivo",
+      "referencia": "AGORA-ORD_019-5801",
+      "monto_declarado": 1962,
+      "estado": "rechazado",
+      "comprobante_url": ""
+    },
+    {
+      "id": "pay_020",
+      "order_id": "ord_020",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_020-6121",
+      "monto_declarado": 2234,
+      "estado": "verificado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_020.jpg"
+    },
+    {
+      "id": "pay_021",
+      "order_id": "ord_021",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_021-6785",
+      "monto_declarado": 1676,
+      "estado": "rechazado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_021.jpg"
+    },
+    {
+      "id": "pay_022",
+      "order_id": "ord_022",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_022-8334",
+      "monto_declarado": 1184,
+      "estado": "verificado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_022.jpg"
+    },
+    {
+      "id": "pay_023",
+      "order_id": "ord_023",
+      "metodo": "efectivo",
+      "referencia": "AGORA-ORD_023-6787",
+      "monto_declarado": 1015,
+      "estado": "enviado",
+      "comprobante_url": ""
+    },
+    {
+      "id": "pay_024",
+      "order_id": "ord_024",
+      "metodo": "efectivo",
+      "referencia": "AGORA-ORD_024-2323",
+      "monto_declarado": 654,
+      "estado": "enviado",
+      "comprobante_url": ""
+    },
+    {
+      "id": "pay_025",
+      "order_id": "ord_025",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_025-8504",
+      "monto_declarado": 1622,
+      "estado": "enviado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_025.jpg"
+    },
+    {
+      "id": "pay_026",
+      "order_id": "ord_026",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_026-7102",
+      "monto_declarado": 654,
+      "estado": "pendiente",
+      "comprobante_url": ""
+    },
+    {
+      "id": "pay_027",
+      "order_id": "ord_027",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_027-7712",
+      "monto_declarado": 1175,
+      "estado": "verificado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_027.jpg"
+    },
+    {
+      "id": "pay_028",
+      "order_id": "ord_028",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_028-4323",
+      "monto_declarado": 1641,
+      "estado": "verificado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_028.jpg"
+    },
+    {
+      "id": "pay_029",
+      "order_id": "ord_029",
+      "metodo": "efectivo",
+      "referencia": "AGORA-ORD_029-7621",
+      "monto_declarado": 566,
+      "estado": "verificado",
+      "comprobante_url": ""
+    },
+    {
+      "id": "pay_030",
+      "order_id": "ord_030",
+      "metodo": "efectivo",
+      "referencia": "AGORA-ORD_030-9464",
+      "monto_declarado": 1638,
+      "estado": "pendiente",
+      "comprobante_url": ""
+    },
+    {
+      "id": "pay_031",
+      "order_id": "ord_031",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_031-7129",
+      "monto_declarado": 1451,
+      "estado": "enviado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_031.jpg"
+    },
+    {
+      "id": "pay_032",
+      "order_id": "ord_032",
+      "metodo": "efectivo",
+      "referencia": "AGORA-ORD_032-2155",
+      "monto_declarado": 2529,
+      "estado": "enviado",
+      "comprobante_url": ""
+    },
+    {
+      "id": "pay_033",
+      "order_id": "ord_033",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_033-1376",
+      "monto_declarado": 1722,
+      "estado": "enviado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_033.jpg"
+    },
+    {
+      "id": "pay_034",
+      "order_id": "ord_034",
+      "metodo": "efectivo",
+      "referencia": "AGORA-ORD_034-6080",
+      "monto_declarado": 1473,
+      "estado": "verificado",
+      "comprobante_url": ""
+    },
+    {
+      "id": "pay_035",
+      "order_id": "ord_035",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_035-7565",
+      "monto_declarado": 828,
+      "estado": "rechazado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_035.jpg"
+    },
+    {
+      "id": "pay_036",
+      "order_id": "ord_036",
+      "metodo": "efectivo",
+      "referencia": "AGORA-ORD_036-1748",
+      "monto_declarado": 1092,
+      "estado": "rechazado",
+      "comprobante_url": ""
+    },
+    {
+      "id": "pay_037",
+      "order_id": "ord_037",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_037-1792",
+      "monto_declarado": 894,
+      "estado": "verificado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_037.jpg"
+    },
+    {
+      "id": "pay_038",
+      "order_id": "ord_038",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_038-1815",
+      "monto_declarado": 290,
+      "estado": "verificado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_038.jpg"
+    },
+    {
+      "id": "pay_039",
+      "order_id": "ord_039",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_039-9326",
+      "monto_declarado": 2022,
+      "estado": "enviado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_039.jpg"
+    },
+    {
+      "id": "pay_040",
+      "order_id": "ord_040",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_040-3418",
+      "monto_declarado": 704,
+      "estado": "verificado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_040.jpg"
+    },
+    {
+      "id": "pay_041",
+      "order_id": "ord_041",
+      "metodo": "efectivo",
+      "referencia": "AGORA-ORD_041-6303",
+      "monto_declarado": 1701,
+      "estado": "enviado",
+      "comprobante_url": ""
+    },
+    {
+      "id": "pay_042",
+      "order_id": "ord_042",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_042-4042",
+      "monto_declarado": 2950,
+      "estado": "rechazado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_042.jpg"
+    },
+    {
+      "id": "pay_043",
+      "order_id": "ord_043",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_043-2764",
+      "monto_declarado": 1313,
+      "estado": "verificado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_043.jpg"
+    },
+    {
+      "id": "pay_044",
+      "order_id": "ord_044",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_044-1901",
+      "monto_declarado": 1286,
+      "estado": "verificado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_044.jpg"
+    },
+    {
+      "id": "pay_045",
+      "order_id": "ord_045",
+      "metodo": "efectivo",
+      "referencia": "AGORA-ORD_045-4482",
+      "monto_declarado": 235,
+      "estado": "rechazado",
+      "comprobante_url": ""
+    },
+    {
+      "id": "pay_046",
+      "order_id": "ord_046",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_046-9118",
+      "monto_declarado": 1527,
+      "estado": "rechazado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_046.jpg"
+    },
+    {
+      "id": "pay_047",
+      "order_id": "ord_047",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_047-4262",
+      "monto_declarado": 436,
+      "estado": "verificado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_047.jpg"
+    },
+    {
+      "id": "pay_048",
+      "order_id": "ord_048",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_048-1677",
+      "monto_declarado": 544,
+      "estado": "rechazado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_048.jpg"
+    },
+    {
+      "id": "pay_049",
+      "order_id": "ord_049",
+      "metodo": "efectivo",
+      "referencia": "AGORA-ORD_049-6547",
+      "monto_declarado": 2654,
+      "estado": "rechazado",
+      "comprobante_url": ""
+    },
+    {
+      "id": "pay_050",
+      "order_id": "ord_050",
+      "metodo": "spei",
+      "referencia": "AGORA-ORD_050-8891",
+      "monto_declarado": 431,
+      "estado": "verificado",
+      "comprobante_url": "https://storage.upy.local/comprobantes/ord_050.jpg"
+    }
+  ]
+}

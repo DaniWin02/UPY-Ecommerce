@@ -1,0 +1,722 @@
+[
+  {
+    "id": "var_001",
+    "product_id": "prd_001",
+    "sku": "PRD_001-01",
+    "talla": "G",
+    "color": "Verde",
+    "precio": 143,
+    "precio_comunidad": 122,
+    "stock": 98
+  },
+  {
+    "id": "var_002",
+    "product_id": "prd_002",
+    "sku": "PRD_002-01",
+    "talla": "Unica",
+    "color": "Gris",
+    "precio": 657,
+    "precio_comunidad": 558,
+    "stock": 63
+  },
+  {
+    "id": "var_003",
+    "product_id": "prd_003",
+    "sku": "PRD_003-01",
+    "talla": "XG",
+    "color": "Gris",
+    "precio": 171,
+    "precio_comunidad": 145,
+    "stock": 36
+  },
+  {
+    "id": "var_004",
+    "product_id": "prd_004",
+    "sku": "PRD_004-01",
+    "talla": "XG",
+    "color": "Guinda",
+    "precio": 295,
+    "precio_comunidad": 251,
+    "stock": 44
+  },
+  {
+    "id": "var_005",
+    "product_id": "prd_005",
+    "sku": "PRD_005-01",
+    "talla": "CH",
+    "color": "Verde",
+    "precio": 487,
+    "precio_comunidad": 414,
+    "stock": 2
+  },
+  {
+    "id": "var_006",
+    "product_id": "prd_006",
+    "sku": "PRD_006-01",
+    "talla": "CH",
+    "color": "Negro",
+    "precio": 440,
+    "precio_comunidad": 374,
+    "stock": 60
+  },
+  {
+    "id": "var_007",
+    "product_id": "prd_006",
+    "sku": "PRD_006-02",
+    "talla": "G",
+    "color": "Verde",
+    "precio": 401,
+    "precio_comunidad": 341,
+    "stock": 10
+  },
+  {
+    "id": "var_008",
+    "product_id": "prd_007",
+    "sku": "PRD_007-01",
+    "talla": "G",
+    "color": "Verde",
+    "precio": 174,
+    "precio_comunidad": 148,
+    "stock": 64
+  },
+  {
+    "id": "var_009",
+    "product_id": "prd_008",
+    "sku": "PRD_008-01",
+    "talla": "G",
+    "color": "Guinda",
+    "precio": 552,
+    "precio_comunidad": 469,
+    "stock": 115
+  },
+  {
+    "id": "var_010",
+    "product_id": "prd_008",
+    "sku": "PRD_008-02",
+    "talla": "Unica",
+    "color": "Azul marino",
+    "precio": 599,
+    "precio_comunidad": 509,
+    "stock": 104
+  },
+  {
+    "id": "var_011",
+    "product_id": "prd_009",
+    "sku": "PRD_009-01",
+    "talla": "G",
+    "color": "Gris",
+    "precio": 352,
+    "precio_comunidad": 299,
+    "stock": 112
+  },
+  {
+    "id": "var_012",
+    "product_id": "prd_009",
+    "sku": "PRD_009-02",
+    "talla": "M",
+    "color": "Gris",
+    "precio": 321,
+    "precio_comunidad": 273,
+    "stock": 61
+  },
+  {
+    "id": "var_013",
+    "product_id": "prd_010",
+    "sku": "PRD_010-01",
+    "talla": "G",
+    "color": "Azul marino",
+    "precio": 625,
+    "precio_comunidad": 531,
+    "stock": 108
+  },
+  {
+    "id": "var_014",
+    "product_id": "prd_010",
+    "sku": "PRD_010-02",
+    "talla": "G",
+    "color": "Azul marino",
+    "precio": 652,
+    "precio_comunidad": 554,
+    "stock": 3
+  },
+  {
+    "id": "var_015",
+    "product_id": "prd_010",
+    "sku": "PRD_010-03",
+    "talla": "CH",
+    "color": "Negro",
+    "precio": 581,
+    "precio_comunidad": 494,
+    "stock": 51
+  },
+  {
+    "id": "var_016",
+    "product_id": "prd_011",
+    "sku": "PRD_011-01",
+    "talla": "Unica",
+    "color": "Blanco",
+    "precio": 211,
+    "precio_comunidad": 179,
+    "stock": 119
+  },
+  {
+    "id": "var_017",
+    "product_id": "prd_011",
+    "sku": "PRD_011-02",
+    "talla": "XG",
+    "color": "Verde",
+    "precio": 202,
+    "precio_comunidad": 172,
+    "stock": 108
+  },
+  {
+    "id": "var_018",
+    "product_id": "prd_012",
+    "sku": "PRD_012-01",
+    "talla": "Unica",
+    "color": "Blanco",
+    "precio": 456,
+    "precio_comunidad": 388,
+    "stock": 113
+  },
+  {
+    "id": "var_019",
+    "product_id": "prd_012",
+    "sku": "PRD_012-02",
+    "talla": "Unica",
+    "color": "Guinda",
+    "precio": 488,
+    "precio_comunidad": 415,
+    "stock": 109
+  },
+  {
+    "id": "var_020",
+    "product_id": "prd_012",
+    "sku": "PRD_012-03",
+    "talla": "XG",
+    "color": "Verde",
+    "precio": 469,
+    "precio_comunidad": 399,
+    "stock": 113
+  },
+  {
+    "id": "var_021",
+    "product_id": "prd_013",
+    "sku": "PRD_013-01",
+    "talla": "Unica",
+    "color": "Blanco",
+    "precio": 350,
+    "precio_comunidad": 298,
+    "stock": 84
+  },
+  {
+    "id": "var_022",
+    "product_id": "prd_014",
+    "sku": "PRD_014-01",
+    "talla": "CH",
+    "color": "Blanco",
+    "precio": 642,
+    "precio_comunidad": 546,
+    "stock": 12
+  },
+  {
+    "id": "var_023",
+    "product_id": "prd_014",
+    "sku": "PRD_014-02",
+    "talla": "Unica",
+    "color": "Verde",
+    "precio": 703,
+    "precio_comunidad": 598,
+    "stock": 13
+  },
+  {
+    "id": "var_024",
+    "product_id": "prd_014",
+    "sku": "PRD_014-03",
+    "talla": "Unica",
+    "color": "Guinda",
+    "precio": 718,
+    "precio_comunidad": 610,
+    "stock": 55
+  },
+  {
+    "id": "var_025",
+    "product_id": "prd_015",
+    "sku": "PRD_015-01",
+    "talla": "CH",
+    "color": "Blanco",
+    "precio": 341,
+    "precio_comunidad": 290,
+    "stock": 2
+  },
+  {
+    "id": "var_026",
+    "product_id": "prd_016",
+    "sku": "PRD_016-01",
+    "talla": "M",
+    "color": "Gris",
+    "precio": 83,
+    "precio_comunidad": 71,
+    "stock": 114
+  },
+  {
+    "id": "var_027",
+    "product_id": "prd_016",
+    "sku": "PRD_016-02",
+    "talla": "CH",
+    "color": "Guinda",
+    "precio": 139,
+    "precio_comunidad": 118,
+    "stock": 16
+  },
+  {
+    "id": "var_028",
+    "product_id": "prd_017",
+    "sku": "PRD_017-01",
+    "talla": "XG",
+    "color": "Negro",
+    "precio": 94,
+    "precio_comunidad": 80,
+    "stock": 30
+  },
+  {
+    "id": "var_029",
+    "product_id": "prd_017",
+    "sku": "PRD_017-02",
+    "talla": "XG",
+    "color": "Negro",
+    "precio": 85,
+    "precio_comunidad": 72,
+    "stock": 37
+  },
+  {
+    "id": "var_030",
+    "product_id": "prd_018",
+    "sku": "PRD_018-01",
+    "talla": "G",
+    "color": "Guinda",
+    "precio": 257,
+    "precio_comunidad": 218,
+    "stock": 24
+  },
+  {
+    "id": "var_031",
+    "product_id": "prd_018",
+    "sku": "PRD_018-02",
+    "talla": "CH",
+    "color": "Gris",
+    "precio": 321,
+    "precio_comunidad": 273,
+    "stock": 7
+  },
+  {
+    "id": "var_032",
+    "product_id": "prd_019",
+    "sku": "PRD_019-01",
+    "talla": "G",
+    "color": "Guinda",
+    "precio": 691,
+    "precio_comunidad": 587,
+    "stock": 83
+  },
+  {
+    "id": "var_033",
+    "product_id": "prd_019",
+    "sku": "PRD_019-02",
+    "talla": "G",
+    "color": "Azul marino",
+    "precio": 704,
+    "precio_comunidad": 598,
+    "stock": 34
+  },
+  {
+    "id": "var_034",
+    "product_id": "prd_019",
+    "sku": "PRD_019-03",
+    "talla": "M",
+    "color": "Gris",
+    "precio": 697,
+    "precio_comunidad": 592,
+    "stock": 37
+  },
+  {
+    "id": "var_035",
+    "product_id": "prd_020",
+    "sku": "PRD_020-01",
+    "talla": "Unica",
+    "color": "Negro",
+    "precio": 362,
+    "precio_comunidad": 308,
+    "stock": 25
+  },
+  {
+    "id": "var_036",
+    "product_id": "prd_021",
+    "sku": "PRD_021-01",
+    "talla": "XG",
+    "color": "Verde",
+    "precio": 639,
+    "precio_comunidad": 543,
+    "stock": 54
+  },
+  {
+    "id": "var_037",
+    "product_id": "prd_021",
+    "sku": "PRD_021-02",
+    "talla": "Unica",
+    "color": "Negro",
+    "precio": 675,
+    "precio_comunidad": 574,
+    "stock": 11
+  },
+  {
+    "id": "var_038",
+    "product_id": "prd_021",
+    "sku": "PRD_021-03",
+    "talla": "Unica",
+    "color": "Blanco",
+    "precio": 711,
+    "precio_comunidad": 604,
+    "stock": 89
+  },
+  {
+    "id": "var_039",
+    "product_id": "prd_022",
+    "sku": "PRD_022-01",
+    "talla": "M",
+    "color": "Gris",
+    "precio": 316,
+    "precio_comunidad": 269,
+    "stock": 112
+  },
+  {
+    "id": "var_040",
+    "product_id": "prd_023",
+    "sku": "PRD_023-01",
+    "talla": "Unica",
+    "color": "Guinda",
+    "precio": 140,
+    "precio_comunidad": 119,
+    "stock": 6
+  },
+  {
+    "id": "var_041",
+    "product_id": "prd_024",
+    "sku": "PRD_024-01",
+    "talla": "M",
+    "color": "Azul marino",
+    "precio": 595,
+    "precio_comunidad": 506,
+    "stock": 116
+  },
+  {
+    "id": "var_042",
+    "product_id": "prd_025",
+    "sku": "PRD_025-01",
+    "talla": "XG",
+    "color": "Blanco",
+    "precio": 654,
+    "precio_comunidad": 556,
+    "stock": 29
+  },
+  {
+    "id": "var_043",
+    "product_id": "prd_025",
+    "sku": "PRD_025-02",
+    "talla": "M",
+    "color": "Azul marino",
+    "precio": 710,
+    "precio_comunidad": 604,
+    "stock": 76
+  },
+  {
+    "id": "var_044",
+    "product_id": "prd_025",
+    "sku": "PRD_025-03",
+    "talla": "XG",
+    "color": "Verde",
+    "precio": 643,
+    "precio_comunidad": 547,
+    "stock": 83
+  },
+  {
+    "id": "var_045",
+    "product_id": "prd_026",
+    "sku": "PRD_026-01",
+    "talla": "CH",
+    "color": "Blanco",
+    "precio": 321,
+    "precio_comunidad": 273,
+    "stock": 103
+  },
+  {
+    "id": "var_046",
+    "product_id": "prd_026",
+    "sku": "PRD_026-02",
+    "talla": "G",
+    "color": "Negro",
+    "precio": 359,
+    "precio_comunidad": 305,
+    "stock": 94
+  },
+  {
+    "id": "var_047",
+    "product_id": "prd_026",
+    "sku": "PRD_026-03",
+    "talla": "G",
+    "color": "Gris",
+    "precio": 319,
+    "precio_comunidad": 271,
+    "stock": 104
+  },
+  {
+    "id": "var_048",
+    "product_id": "prd_027",
+    "sku": "PRD_027-01",
+    "talla": "M",
+    "color": "Gris",
+    "precio": 474,
+    "precio_comunidad": 403,
+    "stock": 22
+  },
+  {
+    "id": "var_049",
+    "product_id": "prd_028",
+    "sku": "PRD_028-01",
+    "talla": "M",
+    "color": "Negro",
+    "precio": 350,
+    "precio_comunidad": 298,
+    "stock": 61
+  },
+  {
+    "id": "var_050",
+    "product_id": "prd_029",
+    "sku": "PRD_029-01",
+    "talla": "G",
+    "color": "Blanco",
+    "precio": 487,
+    "precio_comunidad": 414,
+    "stock": 63
+  },
+  {
+    "id": "var_051",
+    "product_id": "prd_029",
+    "sku": "PRD_029-02",
+    "talla": "XG",
+    "color": "Negro",
+    "precio": 451,
+    "precio_comunidad": 383,
+    "stock": 89
+  },
+  {
+    "id": "var_052",
+    "product_id": "prd_030",
+    "sku": "PRD_030-01",
+    "talla": "Unica",
+    "color": "Verde",
+    "precio": 451,
+    "precio_comunidad": 383,
+    "stock": 54
+  },
+  {
+    "id": "var_053",
+    "product_id": "prd_030",
+    "sku": "PRD_030-02",
+    "talla": "M",
+    "color": "Gris",
+    "precio": 454,
+    "precio_comunidad": 386,
+    "stock": 20
+  },
+  {
+    "id": "var_054",
+    "product_id": "prd_030",
+    "sku": "PRD_030-03",
+    "talla": "G",
+    "color": "Negro",
+    "precio": 423,
+    "precio_comunidad": 360,
+    "stock": 39
+  },
+  {
+    "id": "var_055",
+    "product_id": "prd_031",
+    "sku": "PRD_031-01",
+    "talla": "XG",
+    "color": "Blanco",
+    "precio": 276,
+    "precio_comunidad": 235,
+    "stock": 106
+  },
+  {
+    "id": "var_056",
+    "product_id": "prd_031",
+    "sku": "PRD_031-02",
+    "talla": "CH",
+    "color": "Guinda",
+    "precio": 283,
+    "precio_comunidad": 241,
+    "stock": 22
+  },
+  {
+    "id": "var_057",
+    "product_id": "prd_031",
+    "sku": "PRD_031-03",
+    "talla": "XG",
+    "color": "Verde",
+    "precio": 341,
+    "precio_comunidad": 290,
+    "stock": 103
+  },
+  {
+    "id": "var_058",
+    "product_id": "prd_032",
+    "sku": "PRD_032-01",
+    "talla": "M",
+    "color": "Guinda",
+    "precio": 402,
+    "precio_comunidad": 342,
+    "stock": 43
+  },
+  {
+    "id": "var_059",
+    "product_id": "prd_032",
+    "sku": "PRD_032-02",
+    "talla": "Unica",
+    "color": "Negro",
+    "precio": 470,
+    "precio_comunidad": 400,
+    "stock": 113
+  },
+  {
+    "id": "var_060",
+    "product_id": "prd_033",
+    "sku": "PRD_033-01",
+    "talla": "XG",
+    "color": "Verde",
+    "precio": 298,
+    "precio_comunidad": 253,
+    "stock": 30
+  },
+  {
+    "id": "var_061",
+    "product_id": "prd_033",
+    "sku": "PRD_033-02",
+    "talla": "CH",
+    "color": "Guinda",
+    "precio": 257,
+    "precio_comunidad": 218,
+    "stock": 40
+  },
+  {
+    "id": "var_062",
+    "product_id": "prd_033",
+    "sku": "PRD_033-03",
+    "talla": "XG",
+    "color": "Azul marino",
+    "precio": 354,
+    "precio_comunidad": 301,
+    "stock": 27
+  },
+  {
+    "id": "var_063",
+    "product_id": "prd_034",
+    "sku": "PRD_034-01",
+    "talla": "CH",
+    "color": "Blanco",
+    "precio": 183,
+    "precio_comunidad": 156,
+    "stock": 52
+  },
+  {
+    "id": "var_064",
+    "product_id": "prd_034",
+    "sku": "PRD_034-02",
+    "talla": "G",
+    "color": "Verde",
+    "precio": 189,
+    "precio_comunidad": 161,
+    "stock": 64
+  },
+  {
+    "id": "var_065",
+    "product_id": "prd_034",
+    "sku": "PRD_034-03",
+    "talla": "CH",
+    "color": "Negro",
+    "precio": 136,
+    "precio_comunidad": 116,
+    "stock": 117
+  },
+  {
+    "id": "var_066",
+    "product_id": "prd_035",
+    "sku": "PRD_035-01",
+    "talla": "G",
+    "color": "Verde",
+    "precio": 490,
+    "precio_comunidad": 417,
+    "stock": 79
+  },
+  {
+    "id": "var_067",
+    "product_id": "prd_035",
+    "sku": "PRD_035-02",
+    "talla": "Unica",
+    "color": "Guinda",
+    "precio": 535,
+    "precio_comunidad": 455,
+    "stock": 84
+  },
+  {
+    "id": "var_068",
+    "product_id": "prd_036",
+    "sku": "PRD_036-01",
+    "talla": "XG",
+    "color": "Negro",
+    "precio": 273,
+    "precio_comunidad": 232,
+    "stock": 100
+  },
+  {
+    "id": "var_069",
+    "product_id": "prd_036",
+    "sku": "PRD_036-02",
+    "talla": "Unica",
+    "color": "Blanco",
+    "precio": 280,
+    "precio_comunidad": 238,
+    "stock": 81
+  },
+  {
+    "id": "var_070",
+    "product_id": "prd_037",
+    "sku": "PRD_037-01",
+    "talla": "Unica",
+    "color": "Azul marino",
+    "precio": 410,
+    "precio_comunidad": 349,
+    "stock": 109
+  },
+  {
+    "id": "var_071",
+    "product_id": "prd_037",
+    "sku": "PRD_037-02",
+    "talla": "XG",
+    "color": "Blanco",
+    "precio": 397,
+    "precio_comunidad": 337,
+    "stock": 93
+  },
+  {
+    "id": "var_072",
+    "product_id": "prd_037",
+    "sku": "PRD_037-03",
+    "talla": "G",
+    "color": "Guinda",
+    "precio": 414,
+    "precio_comunidad": 352,
+    "stock": 48
+  }
+]

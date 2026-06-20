@@ -1,0 +1,15 @@
+# =====================================================================
+# Ágora Campus — .gitattributes
+# Normalización de fin de línea: forzamos LF en el repositorio para
+# evitar diferencias entre Windows y macOS/Linux.
+# =====================================================================
+
+# Por defecto, Git decide qué archivos son texto y normaliza a LF al commitear.
+* text=auto eol=lf
+
+# El lockfile lo genera la herramienta: márcalo como generado para que
+# GitHub lo colapse en los diffs y no cuente en estadísticas de lenguaje.
+package-lock.json linguist-generated=true
+
+# Asegura que la documentación Markdown sí se detecte en las estadísticas.
+*.md linguist-detectable=true

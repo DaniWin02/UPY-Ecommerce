@@ -1,0 +1,9 @@
+id,slug,nombre,tipo,clabe,estado,aula_default
+ven_01,club-de-robotica-upy,Club de Robótica UPY,club,021810189411629029,pendiente,Aula Magna
+ven_02,sociedad-de-alumnos-de-datos,Sociedad de Alumnos de Datos,club,021871409719184319,activo,B-110
+ven_03,facultad-de-ingenieria-en-datos,Facultad de Ingeniería en Datos,facultad,021880347630320095,activo,Lab-Mecatronica
+ven_04,cafe-upy,Café UPY,emprendimiento,021887658022558649,activo,Lab-Mecatronica
+ven_05,club-de-videojuegos,Club de Videojuegos,club,021845296156705710,activo,C-201
+ven_06,mecatronica-store,Mecatrónica Store,emprendimiento,021870647014053053,pendiente,Lab-IDAT
+ven_07,grupo-cultural-upy,Grupo Cultural UPY,club,021855845424651099,activo,Lab-Mecatronica
+ven_08,club-deportivo-jaguares,Club Deportivo Jaguares,club,021866006059070543,activo,A-203

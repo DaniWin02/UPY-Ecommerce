@@ -1,0 +1,335 @@
+[
+  {
+    "id": "prd_001",
+    "vendor_id": "ven_01",
+    "nombre": "Kit Arduino · Club",
+    "tipo": "preventa",
+    "estado": "publicado",
+    "precio_base": 143,
+    "created_at": "2026-04-12 00:00:00"
+  },
+  {
+    "id": "prd_002",
+    "vendor_id": "ven_01",
+    "nombre": "Tote bag · Club",
+    "tipo": "fisico",
+    "estado": "publicado",
+    "precio_base": 618,
+    "created_at": "2026-03-09 00:00:00"
+  },
+  {
+    "id": "prd_003",
+    "vendor_id": "ven_01",
+    "nombre": "Libreta de notas · Club",
+    "tipo": "fisico",
+    "estado": "publicado",
+    "precio_base": 182,
+    "created_at": "2026-03-28 00:00:00"
+  },
+  {
+    "id": "prd_004",
+    "vendor_id": "ven_01",
+    "nombre": "Sticker pack · Club",
+    "tipo": "fisico",
+    "estado": "publicado",
+    "precio_base": 247,
+    "created_at": "2026-04-09 00:00:00"
+  },
+  {
+    "id": "prd_005",
+    "vendor_id": "ven_01",
+    "nombre": "Hoodie UPY · Club",
+    "tipo": "preventa",
+    "estado": "publicado",
+    "precio_base": 432,
+    "created_at": "2026-04-08 00:00:00"
+  },
+  {
+    "id": "prd_006",
+    "vendor_id": "ven_02",
+    "nombre": "Gorra bordada · Sociedad",
+    "tipo": "fisico",
+    "estado": "publicado",
+    "precio_base": 405,
+    "created_at": "2026-04-11 00:00:00"
+  },
+  {
+    "id": "prd_007",
+    "vendor_id": "ven_02",
+    "nombre": "Mousepad XL · Sociedad",
+    "tipo": "preventa",
+    "estado": "publicado",
+    "precio_base": 159,
+    "created_at": "2026-03-03 00:00:00"
+  },
+  {
+    "id": "prd_008",
+    "vendor_id": "ven_02",
+    "nombre": "Entrada Hackathon · Sociedad",
+    "tipo": "preventa",
+    "estado": "publicado",
+    "precio_base": 541,
+    "created_at": "2026-03-12 00:00:00"
+  },
+  {
+    "id": "prd_009",
+    "vendor_id": "ven_02",
+    "nombre": "Mousepad XL · Sociedad",
+    "tipo": "fisico",
+    "estado": "publicado",
+    "precio_base": 275,
+    "created_at": "2026-03-19 00:00:00"
+  },
+  {
+    "id": "prd_010",
+    "vendor_id": "ven_03",
+    "nombre": "Termo 600ml · Facultad",
+    "tipo": "fisico",
+    "estado": "borrador",
+    "precio_base": 595,
+    "created_at": "2026-03-01 00:00:00"
+  },
+  {
+    "id": "prd_011",
+    "vendor_id": "ven_03",
+    "nombre": "Entrada Hackathon · Facultad",
+    "tipo": "fisico",
+    "estado": "borrador",
+    "precio_base": 138,
+    "created_at": "2026-03-25 00:00:00"
+  },
+  {
+    "id": "prd_012",
+    "vendor_id": "ven_03",
+    "nombre": "Gorra bordada · Facultad",
+    "tipo": "fisico",
+    "estado": "publicado",
+    "precio_base": 446,
+    "created_at": "2026-04-19 00:00:00"
+  },
+  {
+    "id": "prd_013",
+    "vendor_id": "ven_03",
+    "nombre": "Sudadera con cierre · Facultad",
+    "tipo": "fisico",
+    "estado": "publicado",
+    "precio_base": 274,
+    "created_at": "2026-03-07 00:00:00"
+  },
+  {
+    "id": "prd_014",
+    "vendor_id": "ven_03",
+    "nombre": "Taza termica · Facultad",
+    "tipo": "preventa",
+    "estado": "publicado",
+    "precio_base": 649,
+    "created_at": "2026-04-02 00:00:00"
+  },
+  {
+    "id": "prd_015",
+    "vendor_id": "ven_03",
+    "nombre": "Gorra bordada · Facultad",
+    "tipo": "fisico",
+    "estado": "borrador",
+    "precio_base": 333,
+    "created_at": "2026-04-15 00:00:00"
+  },
+  {
+    "id": "prd_016",
+    "vendor_id": "ven_04",
+    "nombre": "Termo 600ml · Café",
+    "tipo": "drop",
+    "estado": "publicado",
+    "precio_base": 89,
+    "created_at": "2026-03-10 00:00:00"
+  },
+  {
+    "id": "prd_017",
+    "vendor_id": "ven_04",
+    "nombre": "Kit Arduino · Café",
+    "tipo": "fisico",
+    "estado": "publicado",
+    "precio_base": 61,
+    "created_at": "2026-03-19 00:00:00"
+  },
+  {
+    "id": "prd_018",
+    "vendor_id": "ven_04",
+    "nombre": "Tote bag · Café",
+    "tipo": "fisico",
+    "estado": "publicado",
+    "precio_base": 265,
+    "created_at": "2026-04-15 00:00:00"
+  },
+  {
+    "id": "prd_019",
+    "vendor_id": "ven_04",
+    "nombre": "Gorra bordada · Café",
+    "tipo": "fisico",
+    "estado": "publicado",
+    "precio_base": 649,
+    "created_at": "2026-03-13 00:00:00"
+  },
+  {
+    "id": "prd_020",
+    "vendor_id": "ven_05",
+    "nombre": "Sudadera con cierre · Club",
+    "tipo": "drop",
+    "estado": "publicado",
+    "precio_base": 362,
+    "created_at": "2026-04-04 00:00:00"
+  },
+  {
+    "id": "prd_021",
+    "vendor_id": "ven_05",
+    "nombre": "Playera UPY · Club",
+    "tipo": "fisico",
+    "estado": "borrador",
+    "precio_base": 632,
+    "created_at": "2026-04-09 00:00:00"
+  },
+  {
+    "id": "prd_022",
+    "vendor_id": "ven_05",
+    "nombre": "Playera UPY · Club",
+    "tipo": "drop",
+    "estado": "publicado",
+    "precio_base": 317,
+    "created_at": "2026-03-24 00:00:00"
+  },
+  {
+    "id": "prd_023",
+    "vendor_id": "ven_06",
+    "nombre": "Sudadera con cierre · Mecatrónica",
+    "tipo": "fisico",
+    "estado": "publicado",
+    "precio_base": 109,
+    "created_at": "2026-03-14 00:00:00"
+  },
+  {
+    "id": "prd_024",
+    "vendor_id": "ven_06",
+    "nombre": "Pin metalico · Mecatrónica",
+    "tipo": "drop",
+    "estado": "borrador",
+    "precio_base": 566,
+    "created_at": "2026-04-19 00:00:00"
+  },
+  {
+    "id": "prd_025",
+    "vendor_id": "ven_06",
+    "nombre": "Hoodie UPY · Mecatrónica",
+    "tipo": "fisico",
+    "estado": "borrador",
+    "precio_base": 631,
+    "created_at": "2026-04-05 00:00:00"
+  },
+  {
+    "id": "prd_026",
+    "vendor_id": "ven_06",
+    "nombre": "Pin metalico · Mecatrónica",
+    "tipo": "drop",
+    "estado": "publicado",
+    "precio_base": 283,
+    "created_at": "2026-03-08 00:00:00"
+  },
+  {
+    "id": "prd_027",
+    "vendor_id": "ven_07",
+    "nombre": "Pin metalico · Grupo",
+    "tipo": "fisico",
+    "estado": "borrador",
+    "precio_base": 493,
+    "created_at": "2026-04-15 00:00:00"
+  },
+  {
+    "id": "prd_028",
+    "vendor_id": "ven_07",
+    "nombre": "Termo 600ml · Grupo",
+    "tipo": "fisico",
+    "estado": "publicado",
+    "precio_base": 274,
+    "created_at": "2026-03-20 00:00:00"
+  },
+  {
+    "id": "prd_029",
+    "vendor_id": "ven_07",
+    "nombre": "Libreta de notas · Grupo",
+    "tipo": "fisico",
+    "estado": "borrador",
+    "precio_base": 471,
+    "created_at": "2026-04-07 00:00:00"
+  },
+  {
+    "id": "prd_030",
+    "vendor_id": "ven_07",
+    "nombre": "Sudadera con cierre · Grupo",
+    "tipo": "fisico",
+    "estado": "publicado",
+    "precio_base": 437,
+    "created_at": "2026-03-05 00:00:00"
+  },
+  {
+    "id": "prd_031",
+    "vendor_id": "ven_07",
+    "nombre": "Entrada Hackathon · Grupo",
+    "tipo": "preventa",
+    "estado": "publicado",
+    "precio_base": 288,
+    "created_at": "2026-04-14 00:00:00"
+  },
+  {
+    "id": "prd_032",
+    "vendor_id": "ven_08",
+    "nombre": "Mousepad XL · Club",
+    "tipo": "fisico",
+    "estado": "publicado",
+    "precio_base": 400,
+    "created_at": "2026-04-01 00:00:00"
+  },
+  {
+    "id": "prd_033",
+    "vendor_id": "ven_08",
+    "nombre": "Tote bag · Club",
+    "tipo": "drop",
+    "estado": "publicado",
+    "precio_base": 277,
+    "created_at": "2026-04-09 00:00:00"
+  },
+  {
+    "id": "prd_034",
+    "vendor_id": "ven_08",
+    "nombre": "Pin metalico · Club",
+    "tipo": "fisico",
+    "estado": "publicado",
+    "precio_base": 121,
+    "created_at": "2026-04-16 00:00:00"
+  },
+  {
+    "id": "prd_035",
+    "vendor_id": "ven_08",
+    "nombre": "Sudadera con cierre · Club",
+    "tipo": "preventa",
+    "estado": "borrador",
+    "precio_base": 483,
+    "created_at": "2026-04-15 00:00:00"
+  },
+  {
+    "id": "prd_036",
+    "vendor_id": "ven_08",
+    "nombre": "Taza termica · Club",
+    "tipo": "preventa",
+    "estado": "publicado",
+    "precio_base": 253,
+    "created_at": "2026-03-14 00:00:00"
+  },
+  {
+    "id": "prd_037",
+    "vendor_id": "ven_08",
+    "nombre": "Hoodie UPY · Club",
+    "tipo": "fisico",
+    "estado": "borrador",
+    "precio_base": 414,
+    "created_at": "2026-03-11 00:00:00"
+  }
+]

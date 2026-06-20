@@ -1,0 +1,73 @@
+id,product_id,sku,talla,color,precio,precio_comunidad,stock
+var_001,prd_001,PRD_001-01,G,Verde,143,122,98
+var_002,prd_002,PRD_002-01,Unica,Gris,657,558,63
+var_003,prd_003,PRD_003-01,XG,Gris,171,145,36
+var_004,prd_004,PRD_004-01,XG,Guinda,295,251,44
+var_005,prd_005,PRD_005-01,CH,Verde,487,414,2
+var_006,prd_006,PRD_006-01,CH,Negro,440,374,60
+var_007,prd_006,PRD_006-02,G,Verde,401,341,10
+var_008,prd_007,PRD_007-01,G,Verde,174,148,64
+var_009,prd_008,PRD_008-01,G,Guinda,552,469,115
+var_010,prd_008,PRD_008-02,Unica,Azul marino,599,509,104
+var_011,prd_009,PRD_009-01,G,Gris,352,299,112
+var_012,prd_009,PRD_009-02,M,Gris,321,273,61
+var_013,prd_010,PRD_010-01,G,Azul marino,625,531,108
+var_014,prd_010,PRD_010-02,G,Azul marino,652,554,3
+var_015,prd_010,PRD_010-03,CH,Negro,581,494,51
+var_016,prd_011,PRD_011-01,Unica,Blanco,211,179,119
+var_017,prd_011,PRD_011-02,XG,Verde,202,172,108
+var_018,prd_012,PRD_012-01,Unica,Blanco,456,388,113
+var_019,prd_012,PRD_012-02,Unica,Guinda,488,415,109
+var_020,prd_012,PRD_012-03,XG,Verde,469,399,113
+var_021,prd_013,PRD_013-01,Unica,Blanco,350,298,84
+var_022,prd_014,PRD_014-01,CH,Blanco,642,546,12
+var_023,prd_014,PRD_014-02,Unica,Verde,703,598,13
+var_024,prd_014,PRD_014-03,Unica,Guinda,718,610,55
+var_025,prd_015,PRD_015-01,CH,Blanco,341,290,2
+var_026,prd_016,PRD_016-01,M,Gris,83,71,114
+var_027,prd_016,PRD_016-02,CH,Guinda,139,118,16
+var_028,prd_017,PRD_017-01,XG,Negro,94,80,30
+var_029,prd_017,PRD_017-02,XG,Negro,85,72,37
+var_030,prd_018,PRD_018-01,G,Guinda,257,218,24
+var_031,prd_018,PRD_018-02,CH,Gris,321,273,7
+var_032,prd_019,PRD_019-01,G,Guinda,691,587,83
+var_033,prd_019,PRD_019-02,G,Azul marino,704,598,34
+var_034,prd_019,PRD_019-03,M,Gris,697,592,37
+var_035,prd_020,PRD_020-01,Unica,Negro,362,308,25
+var_036,prd_021,PRD_021-01,XG,Verde,639,543,54
+var_037,prd_021,PRD_021-02,Unica,Negro,675,574,11
+var_038,prd_021,PRD_021-03,Unica,Blanco,711,604,89
+var_039,prd_022,PRD_022-01,M,Gris,316,269,112
+var_040,prd_023,PRD_023-01,Unica,Guinda,140,119,6
+var_041,prd_024,PRD_024-01,M,Azul marino,595,506,116
+var_042,prd_025,PRD_025-01,XG,Blanco,654,556,29
+var_043,prd_025,PRD_025-02,M,Azul marino,710,604,76
+var_044,prd_025,PRD_025-03,XG,Verde,643,547,83
+var_045,prd_026,PRD_026-01,CH,Blanco,321,273,103
+var_046,prd_026,PRD_026-02,G,Negro,359,305,94
+var_047,prd_026,PRD_026-03,G,Gris,319,271,104
+var_048,prd_027,PRD_027-01,M,Gris,474,403,22
+var_049,prd_028,PRD_028-01,M,Negro,350,298,61
+var_050,prd_029,PRD_029-01,G,Blanco,487,414,63
+var_051,prd_029,PRD_029-02,XG,Negro,451,383,89
+var_052,prd_030,PRD_030-01,Unica,Verde,451,383,54
+var_053,prd_030,PRD_030-02,M,Gris,454,386,20
+var_054,prd_030,PRD_030-03,G,Negro,423,360,39
+var_055,prd_031,PRD_031-01,XG,Blanco,276,235,106
+var_056,prd_031,PRD_031-02,CH,Guinda,283,241,22
+var_057,prd_031,PRD_031-03,XG,Verde,341,290,103
+var_058,prd_032,PRD_032-01,M,Guinda,402,342,43
+var_059,prd_032,PRD_032-02,Unica,Negro,470,400,113
+var_060,prd_033,PRD_033-01,XG,Verde,298,253,30
+var_061,prd_033,PRD_033-02,CH,Guinda,257,218,40
+var_062,prd_033,PRD_033-03,XG,Azul marino,354,301,27
+var_063,prd_034,PRD_034-01,CH,Blanco,183,156,52
+var_064,prd_034,PRD_034-02,G,Verde,189,161,64
+var_065,prd_034,PRD_034-03,CH,Negro,136,116,117
+var_066,prd_035,PRD_035-01,G,Verde,490,417,79
+var_067,prd_035,PRD_035-02,Unica,Guinda,535,455,84
+var_068,prd_036,PRD_036-01,XG,Negro,273,232,100
+var_069,prd_036,PRD_036-02,Unica,Blanco,280,238,81
+var_070,prd_037,PRD_037-01,Unica,Azul marino,410,349,109
+var_071,prd_037,PRD_037-02,XG,Blanco,397,337,93
+var_072,prd_037,PRD_037-03,G,Guinda,414,352,48

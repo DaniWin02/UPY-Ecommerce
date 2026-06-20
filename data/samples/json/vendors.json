@@ -1,0 +1,74 @@
+[
+  {
+    "id": "ven_01",
+    "slug": "club-de-robotica-upy",
+    "nombre": "Club de Robótica UPY",
+    "tipo": "club",
+    "clabe": "021810189411629029",
+    "estado": "pendiente",
+    "aula_default": "Aula Magna"
+  },
+  {
+    "id": "ven_02",
+    "slug": "sociedad-de-alumnos-de-datos",
+    "nombre": "Sociedad de Alumnos de Datos",
+    "tipo": "club",
+    "clabe": "021871409719184319",
+    "estado": "activo",
+    "aula_default": "B-110"
+  },
+  {
+    "id": "ven_03",
+    "slug": "facultad-de-ingenieria-en-datos",
+    "nombre": "Facultad de Ingeniería en Datos",
+    "tipo": "facultad",
+    "clabe": "021880347630320095",
+    "estado": "activo",
+    "aula_default": "Lab-Mecatronica"
+  },
+  {
+    "id": "ven_04",
+    "slug": "cafe-upy",
+    "nombre": "Café UPY",
+    "tipo": "emprendimiento",
+    "clabe": "021887658022558649",
+    "estado": "activo",
+    "aula_default": "Lab-Mecatronica"
+  },
+  {
+    "id": "ven_05",
+    "slug": "club-de-videojuegos",
+    "nombre": "Club de Videojuegos",
+    "tipo": "club",
+    "clabe": "021845296156705710",
+    "estado": "activo",
+    "aula_default": "C-201"
+  },
+  {
+    "id": "ven_06",
+    "slug": "mecatronica-store",
+    "nombre": "Mecatrónica Store",
+    "tipo": "emprendimiento",
+    "clabe": "021870647014053053",
+    "estado": "pendiente",
+    "aula_default": "Lab-IDAT"
+  },
+  {
+    "id": "ven_07",
+    "slug": "grupo-cultural-upy",
+    "nombre": "Grupo Cultural UPY",
+    "tipo": "club",
+    "clabe": "021855845424651099",
+    "estado": "activo",
+    "aula_default": "Lab-Mecatronica"
+  },
+  {
+    "id": "ven_08",
+    "slug": "club-deportivo-jaguares",
+    "nombre": "Club Deportivo Jaguares",
+    "tipo": "club",
+    "clabe": "021866006059070543",
+    "estado": "activo",
+    "aula_default": "A-203"
+  }
+]

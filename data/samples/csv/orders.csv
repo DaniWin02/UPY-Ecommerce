@@ -1,0 +1,51 @@
+id,comprador_id,vendor_id,estado,total,referencia_pago,metodo_entrega,aula_entrega,created_at
+ord_001,usr_044,ven_06,preparando,2169,AGORA-ORD_001-3365,aula,Punto Cafeteria,2026-03-22 00:00:00
+ord_002,usr_047,ven_05,pendiente_pago,543,AGORA-ORD_002-4963,aula,B-110,2026-04-30 00:00:00
+ord_003,usr_030,ven_03,preparando,2229,AGORA-ORD_003-8252,aula,Lab-IDAT,2026-04-27 00:00:00
+ord_004,usr_029,ven_04,cancelado,213,AGORA-ORD_004-8795,aula,Punto Cafeteria,2026-03-28 00:00:00
+ord_005,usr_003,ven_04,cancelado,1037,AGORA-ORD_005-4537,punto,A-203,2026-04-19 00:00:00
+ord_006,usr_057,ven_01,entregado,1551,AGORA-ORD_006-6314,aula,Lab-IDAT,2026-03-28 00:00:00
+ord_007,usr_056,ven_06,pendiente_pago,2416,AGORA-ORD_007-6414,punto,A-203,2026-05-05 00:00:00
+ord_008,usr_057,ven_08,pendiente_pago,156,AGORA-ORD_008-1750,aula,A-203,2026-05-04 00:00:00
+ord_009,usr_051,ven_02,pago_verificado,3952,AGORA-ORD_009-2536,aula,Punto Cafeteria,2026-05-12 00:00:00
+ord_010,usr_043,ven_01,entregado,2117,AGORA-ORD_010-8641,aula,A-203,2026-05-18 00:00:00
+ord_011,usr_044,ven_07,comprobante_enviado,298,AGORA-ORD_011-3841,punto,Lab-IDAT,2026-04-19 00:00:00
+ord_012,usr_053,ven_03,pendiente_pago,388,AGORA-ORD_012-9150,aula,A-203,2026-05-04 00:00:00
+ord_013,usr_043,ven_04,preparando,2054,AGORA-ORD_013-8420,punto,B-110,2026-04-24 00:00:00
+ord_014,usr_009,ven_01,preparando,1967,AGORA-ORD_014-9488,aula,Lab-IDAT,2026-05-09 00:00:00
+ord_015,usr_058,ven_04,pendiente_pago,832,AGORA-ORD_015-4151,punto,A-203,2026-03-28 00:00:00
+ord_016,usr_013,ven_07,pago_verificado,2367,AGORA-ORD_016-5780,aula,A-203,2026-05-06 00:00:00
+ord_017,usr_034,ven_07,listo_entrega,2563,AGORA-ORD_017-5984,aula,A-203,2026-04-29 00:00:00
+ord_018,usr_034,ven_02,preparando,845,AGORA-ORD_018-9727,aula,A-203,2026-05-13 00:00:00
+ord_019,usr_050,ven_07,cancelado,1962,AGORA-ORD_019-5801,aula,B-110,2026-05-16 00:00:00
+ord_020,usr_023,ven_05,pago_verificado,2234,AGORA-ORD_020-6121,punto,Lab-IDAT,2026-03-22 00:00:00
+ord_021,usr_042,ven_01,cancelado,1676,AGORA-ORD_021-6785,punto,B-110,2026-05-11 00:00:00
+ord_022,usr_056,ven_04,pago_verificado,1184,AGORA-ORD_022-8334,aula,B-110,2026-05-08 00:00:00
+ord_023,usr_022,ven_08,comprobante_enviado,1015,AGORA-ORD_023-6787,aula,B-110,2026-05-11 00:00:00
+ord_024,usr_008,ven_08,comprobante_enviado,654,AGORA-ORD_024-2323,punto,A-203,2026-05-03 00:00:00
+ord_025,usr_035,ven_06,comprobante_enviado,1622,AGORA-ORD_025-8504,aula,Lab-IDAT,2026-03-29 00:00:00
+ord_026,usr_060,ven_04,pendiente_pago,654,AGORA-ORD_026-7102,aula,B-110,2026-04-20 00:00:00
+ord_027,usr_025,ven_07,entregado,1175,AGORA-ORD_027-7712,aula,B-110,2026-03-31 00:00:00
+ord_028,usr_005,ven_06,entregado,1641,AGORA-ORD_028-4323,aula,Lab-IDAT,2026-04-10 00:00:00
+ord_029,usr_047,ven_08,entregado,566,AGORA-ORD_029-7621,punto,A-203,2026-05-01 00:00:00
+ord_030,usr_049,ven_03,pendiente_pago,1638,AGORA-ORD_030-9464,aula,Punto Cafeteria,2026-05-06 00:00:00
+ord_031,usr_030,ven_06,comprobante_enviado,1451,AGORA-ORD_031-7129,punto,A-203,2026-03-28 00:00:00
+ord_032,usr_026,ven_02,comprobante_enviado,2529,AGORA-ORD_032-2155,aula,B-110,2026-04-13 00:00:00
+ord_033,usr_021,ven_06,comprobante_enviado,1722,AGORA-ORD_033-1376,aula,Punto Cafeteria,2026-04-02 00:00:00
+ord_034,usr_013,ven_07,entregado,1473,AGORA-ORD_034-6080,aula,Punto Cafeteria,2026-05-15 00:00:00
+ord_035,usr_058,ven_04,cancelado,828,AGORA-ORD_035-7565,aula,B-110,2026-04-18 00:00:00
+ord_036,usr_018,ven_03,cancelado,1092,AGORA-ORD_036-1748,punto,Punto Cafeteria,2026-05-17 00:00:00
+ord_037,usr_005,ven_07,listo_entrega,894,AGORA-ORD_037-1792,aula,Lab-IDAT,2026-05-12 00:00:00
+ord_038,usr_056,ven_01,listo_entrega,290,AGORA-ORD_038-1815,punto,B-110,2026-04-09 00:00:00
+ord_039,usr_039,ven_07,comprobante_enviado,2022,AGORA-ORD_039-9326,punto,B-110,2026-03-29 00:00:00
+ord_040,usr_033,ven_08,preparando,704,AGORA-ORD_040-3418,punto,Lab-IDAT,2026-04-01 00:00:00
+ord_041,usr_035,ven_07,comprobante_enviado,1701,AGORA-ORD_041-6303,aula,A-203,2026-04-15 00:00:00
+ord_042,usr_031,ven_03,cancelado,2950,AGORA-ORD_042-4042,aula,B-110,2026-04-05 00:00:00
+ord_043,usr_048,ven_03,preparando,1313,AGORA-ORD_043-2764,punto,A-203,2026-04-05 00:00:00
+ord_044,usr_006,ven_08,listo_entrega,1286,AGORA-ORD_044-1901,aula,A-203,2026-04-20 00:00:00
+ord_045,usr_045,ven_07,cancelado,235,AGORA-ORD_045-4482,punto,A-203,2026-04-24 00:00:00
+ord_046,usr_048,ven_02,cancelado,1527,AGORA-ORD_046-9118,punto,Punto Cafeteria,2026-05-09 00:00:00
+ord_047,usr_040,ven_04,entregado,436,AGORA-ORD_047-4262,aula,B-110,2026-05-20 00:00:00
+ord_048,usr_029,ven_06,cancelado,544,AGORA-ORD_048-1677,punto,A-203,2026-04-18 00:00:00
+ord_049,usr_021,ven_02,cancelado,2654,AGORA-ORD_049-6547,aula,Lab-IDAT,2026-04-19 00:00:00
+ord_050,usr_042,ven_04,listo_entrega,431,AGORA-ORD_050-8891,aula,A-203,2026-05-02 00:00:00

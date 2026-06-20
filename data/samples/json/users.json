@@ -1,0 +1,542 @@
+[
+  {
+    "id": "usr_001",
+    "nombre": "Camila Pat Cetina",
+    "email": "camila.pat25@alumno.upy.edu.mx",
+    "rol_global": "superadmin",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-25 00:00:00"
+  },
+  {
+    "id": "usr_002",
+    "nombre": "Luis Ek Chan",
+    "email": "luis.ek77@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-05 00:00:00"
+  },
+  {
+    "id": "usr_003",
+    "nombre": "Iker Uc Noh",
+    "email": "iker.uc59@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-04-02 00:00:00"
+  },
+  {
+    "id": "usr_004",
+    "nombre": "Mateo Pool Cocom",
+    "email": "mateo.pool35@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-01 00:00:00"
+  },
+  {
+    "id": "usr_005",
+    "nombre": "Carlos May Mena",
+    "email": "carlos.may94@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-04-07 00:00:00"
+  },
+  {
+    "id": "usr_006",
+    "nombre": "Iker Chan Caamal",
+    "email": "iker.chan82@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "false",
+    "created_at": "2026-03-22 00:00:00"
+  },
+  {
+    "id": "usr_007",
+    "nombre": "Regina Pat May",
+    "email": "regina.pat20@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-04-04 00:00:00"
+  },
+  {
+    "id": "usr_008",
+    "nombre": "Raúl Kuyoc Couoh",
+    "email": "raul.kuyoc93@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "false",
+    "created_at": "2026-03-29 00:00:00"
+  },
+  {
+    "id": "usr_009",
+    "nombre": "Mariana Ucán Cocom",
+    "email": "mariana.ucan15@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "false",
+    "created_at": "2026-04-03 00:00:00"
+  },
+  {
+    "id": "usr_010",
+    "nombre": "Sofía Uc Kuyoc",
+    "email": "sofia.uc49@alumno.upy.edu.mx",
+    "rol_global": "vendor",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-04-02 00:00:00"
+  },
+  {
+    "id": "usr_011",
+    "nombre": "Gael Poot Mena",
+    "email": "gael.poot16@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-08 00:00:00"
+  },
+  {
+    "id": "usr_012",
+    "nombre": "Gael Chan Poot",
+    "email": "gael.chan33@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-31 00:00:00"
+  },
+  {
+    "id": "usr_013",
+    "nombre": "Valeria Uc Caamal",
+    "email": "valeria.uc50@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "false",
+    "created_at": "2026-03-29 00:00:00"
+  },
+  {
+    "id": "usr_014",
+    "nombre": "Leonardo Kuyoc Balam",
+    "email": "leonardo.kuyoc84@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-31 00:00:00"
+  },
+  {
+    "id": "usr_015",
+    "nombre": "Emiliano Kuyoc Couoh",
+    "email": "emiliano.kuyoc13@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-17 00:00:00"
+  },
+  {
+    "id": "usr_016",
+    "nombre": "Renata Cocom Noh",
+    "email": "renata.cocom33@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "false",
+    "created_at": "2026-03-26 00:00:00"
+  },
+  {
+    "id": "usr_017",
+    "nombre": "Leonardo Mena Uc",
+    "email": "leonardo.mena49@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-04 00:00:00"
+  },
+  {
+    "id": "usr_018",
+    "nombre": "Valeria Ucán Chan",
+    "email": "valeria.ucan91@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "false",
+    "created_at": "2026-03-28 00:00:00"
+  },
+  {
+    "id": "usr_019",
+    "nombre": "Mariana Noh Dzul",
+    "email": "mariana.noh52@alumno.upy.edu.mx",
+    "rol_global": "vendor",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-31 00:00:00"
+  },
+  {
+    "id": "usr_020",
+    "nombre": "Diego Dzul Pool",
+    "email": "diego.dzul98@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-26 00:00:00"
+  },
+  {
+    "id": "usr_021",
+    "nombre": "Regina Kuyoc Caamal",
+    "email": "regina.kuyoc59@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "false",
+    "created_at": "2026-03-10 00:00:00"
+  },
+  {
+    "id": "usr_022",
+    "nombre": "Gael Noh Cetina",
+    "email": "gael.noh75@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "false",
+    "created_at": "2026-03-16 00:00:00"
+  },
+  {
+    "id": "usr_023",
+    "nombre": "Renata Caamal Cetina",
+    "email": "renata.caamal23@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "false",
+    "created_at": "2026-03-31 00:00:00"
+  },
+  {
+    "id": "usr_024",
+    "nombre": "Ximena Tuz Chan",
+    "email": "ximena.tuz59@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-25 00:00:00"
+  },
+  {
+    "id": "usr_025",
+    "nombre": "Ximena Tuz Pat",
+    "email": "ximena.tuz24@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "false",
+    "created_at": "2026-03-05 00:00:00"
+  },
+  {
+    "id": "usr_026",
+    "nombre": "Carlos Mena Canul",
+    "email": "carlos.mena88@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-27 00:00:00"
+  },
+  {
+    "id": "usr_027",
+    "nombre": "Daniel Noh Canul",
+    "email": "daniel.noh32@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-30 00:00:00"
+  },
+  {
+    "id": "usr_028",
+    "nombre": "Raúl May Dzul",
+    "email": "raul.may74@alumno.upy.edu.mx",
+    "rol_global": "vendor",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-04-08 00:00:00"
+  },
+  {
+    "id": "usr_029",
+    "nombre": "Frida Cetina Tuz",
+    "email": "frida.cetina36@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-04-04 00:00:00"
+  },
+  {
+    "id": "usr_030",
+    "nombre": "Mariana Uc Canul",
+    "email": "mariana.uc65@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-04-07 00:00:00"
+  },
+  {
+    "id": "usr_031",
+    "nombre": "Gael Canul Mena",
+    "email": "gael.canul81@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "false",
+    "created_at": "2026-03-11 00:00:00"
+  },
+  {
+    "id": "usr_032",
+    "nombre": "Raúl Kuyoc Ek",
+    "email": "raul.kuyoc87@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-29 00:00:00"
+  },
+  {
+    "id": "usr_033",
+    "nombre": "Frida May Noh",
+    "email": "frida.may67@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-20 00:00:00"
+  },
+  {
+    "id": "usr_034",
+    "nombre": "Andrés Chan Dzul",
+    "email": "andres.chan35@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "false",
+    "created_at": "2026-03-05 00:00:00"
+  },
+  {
+    "id": "usr_035",
+    "nombre": "Iker Cetina Dzul",
+    "email": "iker.cetina60@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "false",
+    "created_at": "2026-03-11 00:00:00"
+  },
+  {
+    "id": "usr_036",
+    "nombre": "Raúl May Cocom",
+    "email": "raul.may40@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "false",
+    "created_at": "2026-03-10 00:00:00"
+  },
+  {
+    "id": "usr_037",
+    "nombre": "Santiago Mena Kuyoc",
+    "email": "santiago.mena64@alumno.upy.edu.mx",
+    "rol_global": "vendor",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-07 00:00:00"
+  },
+  {
+    "id": "usr_038",
+    "nombre": "Leonardo Cetina Pool",
+    "email": "leonardo.cetina85@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "false",
+    "created_at": "2026-03-26 00:00:00"
+  },
+  {
+    "id": "usr_039",
+    "nombre": "Ximena Pat Uc",
+    "email": "ximena.pat63@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-24 00:00:00"
+  },
+  {
+    "id": "usr_040",
+    "nombre": "Daniela Ek Cetina",
+    "email": "daniela.ek66@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "false",
+    "created_at": "2026-03-21 00:00:00"
+  },
+  {
+    "id": "usr_041",
+    "nombre": "Santiago Balam Noh",
+    "email": "santiago.balam10@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-04-04 00:00:00"
+  },
+  {
+    "id": "usr_042",
+    "nombre": "Frida Ek Cetina",
+    "email": "frida.ek71@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-21 00:00:00"
+  },
+  {
+    "id": "usr_043",
+    "nombre": "Valeria Uc Chan",
+    "email": "valeria.uc17@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-30 00:00:00"
+  },
+  {
+    "id": "usr_044",
+    "nombre": "Diego Tuz May",
+    "email": "diego.tuz89@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-14 00:00:00"
+  },
+  {
+    "id": "usr_045",
+    "nombre": "Valentina Ek Cocom",
+    "email": "valentina.ek82@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-05 00:00:00"
+  },
+  {
+    "id": "usr_046",
+    "nombre": "Luis Mena Pool",
+    "email": "luis.mena39@alumno.upy.edu.mx",
+    "rol_global": "vendor",
+    "institution_id": "inst_01",
+    "verificado": "false",
+    "created_at": "2026-03-09 00:00:00"
+  },
+  {
+    "id": "usr_047",
+    "nombre": "Valentina Mena Kuyoc",
+    "email": "valentina.mena15@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-04-10 00:00:00"
+  },
+  {
+    "id": "usr_048",
+    "nombre": "Regina Chan Pat",
+    "email": "regina.chan95@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-30 00:00:00"
+  },
+  {
+    "id": "usr_049",
+    "nombre": "Andrés Tuz Chan",
+    "email": "andres.tuz94@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-05 00:00:00"
+  },
+  {
+    "id": "usr_050",
+    "nombre": "Fernanda Cetina Cocom",
+    "email": "fernanda.cetina35@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-11 00:00:00"
+  },
+  {
+    "id": "usr_051",
+    "nombre": "Valeria Balam Couoh",
+    "email": "valeria.balam15@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-27 00:00:00"
+  },
+  {
+    "id": "usr_052",
+    "nombre": "Sofía Euán Noh",
+    "email": "sofia.euan19@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-30 00:00:00"
+  },
+  {
+    "id": "usr_053",
+    "nombre": "Diego Cocom Mena",
+    "email": "diego.cocom64@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-31 00:00:00"
+  },
+  {
+    "id": "usr_054",
+    "nombre": "Valeria Poot Chan",
+    "email": "valeria.poot15@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-17 00:00:00"
+  },
+  {
+    "id": "usr_055",
+    "nombre": "Diego Tuz Dzul",
+    "email": "diego.tuz89@alumno.upy.edu.mx",
+    "rol_global": "vendor",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-17 00:00:00"
+  },
+  {
+    "id": "usr_056",
+    "nombre": "Valentina Mena Kuyoc",
+    "email": "valentina.mena48@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "false",
+    "created_at": "2026-03-04 00:00:00"
+  },
+  {
+    "id": "usr_057",
+    "nombre": "Camila Dzul May",
+    "email": "camila.dzul18@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "false",
+    "created_at": "2026-03-29 00:00:00"
+  },
+  {
+    "id": "usr_058",
+    "nombre": "Gael Poot Chan",
+    "email": "gael.poot94@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-04-04 00:00:00"
+  },
+  {
+    "id": "usr_059",
+    "nombre": "Leonardo Ek Pool",
+    "email": "leonardo.ek42@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-23 00:00:00"
+  },
+  {
+    "id": "usr_060",
+    "nombre": "Emiliano Uc May",
+    "email": "emiliano.uc84@alumno.upy.edu.mx",
+    "rol_global": "comprador",
+    "institution_id": "inst_01",
+    "verificado": "true",
+    "created_at": "2026-03-09 00:00:00"
+  }
+]

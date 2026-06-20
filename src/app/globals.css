@@ -1,0 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* TODO: definir variables de tema (colores de marca Ágora, radios, tipografía),
+   modo claro/oscuro y tokens de shadcn/ui (--background, --foreground, etc.). */
