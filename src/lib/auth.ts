@@ -1,100 +1,86 @@
-// auth.ts — configuración central de Auth.js v5 para Ágora (STUB).
-// Providers: Google OAuth + Email (OTP por correo). Adaptador: Drizzle.
-// Restringe el acceso a los dominios de correo permitidos de la comunidad.
+// auth.ts — configuración central de Auth.js v5 para Ágora Campus.
+// Providers: Google OAuth + Resend (magic link). Adaptador: Drizzle sobre PostgreSQL.
+// La ÚNICA puerta de entrada es el dominio de correo institucional (comunidad cerrada).
+import NextAuth from "next-auth";
+import Google from "next-auth/providers/google";
+import Resend from "next-auth/providers/resend";
+import { DrizzleAdapter } from "@auth/drizzle-adapter";
+import { eq } from "drizzle-orm";
+import { db } from "@/db";
+import { users, accounts, sessions, verificationTokens } from "@/db/schema";
+import { isEmailDomainAllowed } from "./auth-domains";
 
-// TODO (Fase 2): descomentar estos imports al activar NextAuth.
-// import NextAuth from "next-auth";
-// import Google from "next-auth/providers/google";
-// import Resend from "next-auth/providers/resend"; // magic link (usa RESEND_API_KEY)
-// import { DrizzleAdapter } from "@auth/drizzle-adapter";
-// import { db } from "@/db";
-// import { users, accounts, sessions, verificationTokens } from "@/db/schema";
+// Re-export para compatibilidad: otros módulos/tests pueden seguir importando
+// la validación de dominios desde "@/lib/auth".
+export { isEmailDomainAllowed, allowedEmailDomains } from "./auth-domains";
 
-/**
- * Dominios de correo permitidos para la comunidad cerrada.
- * Se leen de ALLOWED_EMAIL_DOMAINS (lista separada por comas).
- * Normalización: trim + lowercase + se QUITA el prefijo "@" si viene
- * (el .env puede traer "@uni.mx" o "uni.mx"; la comparación se hace
- * contra email.split("@")[1], que nunca incluye la arroba).
- */
-export const ALLOWED_EMAIL_DOMAINS: string[] = (
-  process.env.ALLOWED_EMAIL_DOMAINS ?? "alumno.upy.edu.mx,upy.edu.mx"
-)
-  .split(",")
-  .map((d) => d.trim().toLowerCase().replace(/^@/, ""))
-  .filter(Boolean);
+// Rol global tal como vive en la fila de users (enum rol_global de la BD).
+type RolGlobal = "comprador" | "vendor" | "superadmin";
 
-/**
- * isEmailDomainAllowed — valida que el dominio del correo pertenezca a la comunidad.
- * Devuelve false si el email es null/undefined, vacío o no contiene "@".
- * La comparación es EXACTA contra los dominios ya normalizados (sin subdominios).
- */
-export function isEmailDomainAllowed(email?: string | null): boolean {
-  if (!email) return false;
-  // lastIndexOf y no split: "a@upy.edu.mx@evil.com" debe validar contra
-  // "evil.com" (el dominio real), no contra el segmento intermedio.
-  const arroba = email.lastIndexOf("@");
-  if (arroba < 0) return false;
-  const dominio = email.slice(arroba + 1).trim().toLowerCase();
-  return !!dominio && ALLOWED_EMAIL_DOMAINS.includes(dominio);
-}
-
-/**
- * Configuración de NextAuth v5 (STUB).
- * TODO: completar providers, adaptador, páginas, sesión y secret.
- */
-// export const { handlers, auth, signIn, signOut } = NextAuth({
-//   // OJO: el mapeo de tablas es OBLIGATORIO — nuestros nombres (users, accounts,
-//   // sessions, verificationTokens) difieren de los defaults del adaptador.
-//   adapter: DrizzleAdapter(db, {
-//     usersTable: users,
-//     accountsTable: accounts,
-//     sessionsTable: sessions,
-//     verificationTokensTable: verificationTokens,
-//   }),
-//   session: { strategy: "database" }, // revocable — comunidad cerrada
-//   providers: [
-//     // Sin argumentos: Auth.js v5 autodetecta AUTH_GOOGLE_ID / AUTH_GOOGLE_SECRET.
-//     Google,
-//     Email({
-//       // TODO: configurar envío de OTP por correo usando Resend (sendEmail).
-//       maxAge: 10 * 60, // 10 min de validez del código
-//       sendVerificationRequest: async ({ identifier, url }) => {
-//         // TODO: enviar código/enlace OTP al correo `identifier`.
-//       },
-//     }),
-//   ],
-//   pages: {
-//     signIn: "/auth", // TODO: ruta real de inicio de sesión
-//   },
-//   callbacks: {
-//     // signIn — restringe el acceso a los dominios de la comunidad.
-//     async signIn({ user }) {
-//       // TODO: registrar intento y motivo de rechazo.
-//       return isEmailDomainAllowed(user?.email);
-//     },
-//   },
-// });
-
-// --- Exports temporales (STUB) para que el esqueleto compile sin el paquete real ---
-// TODO: ELIMINAR este bloque cuando se active el NextAuth() de arriba.
-export const handlers = {
-  // TODO: reemplazar por los handlers reales (GET/POST) de Auth.js v5.
-  GET: async () => new Response("auth handler stub", { status: 501 }),
-  POST: async () => new Response("auth handler stub", { status: 501 }),
-};
-
-export async function auth(): Promise<unknown> {
-  // TODO: devolver la sesión real del usuario autenticado.
-  return null;
-}
-
-export async function signIn(..._args: unknown[]): Promise<void> {
-  // TODO: delegar al signIn real de Auth.js v5.
-}
-
-export async function signOut(..._args: unknown[]): Promise<void> {
-  // TODO: delegar al signOut real de Auth.js v5.
-}
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  // OJO: el mapeo de tablas es OBLIGATORIO — nuestros nombres (users, accounts,
+  // sessions, verificationTokens) difieren de los defaults del adaptador.
+  adapter: DrizzleAdapter(db, {
+    usersTable: users,
+    accountsTable: accounts,
+    sessionsTable: sessions,
+    verificationTokensTable: verificationTokens,
+  }),
+  // Sesiones en base de datos: revocables al instante — imprescindible en una
+  // comunidad cerrada (expulsar a alguien = borrar sus filas de sessions).
+  session: { strategy: "database" },
+  // trustHost: necesario en self-host/VPS y CI, donde Auth.js no puede
+  // inferir el host confiable de la plataforma (como sí hace en Vercel).
+  trustHost: true,
+  providers: [
+    // Google verifica el email por nosotros; allowDangerousEmailAccountLinking
+    // permite que quien entró primero por magic link luego use Google con el
+    // MISMO correo sin chocar con "OAuthAccountNotLinked". Es seguro aquí
+    // porque Google garantiza la propiedad del correo institucional.
+    Google({ allowDangerousEmailAccountLinking: true }),
+    // Magic link por correo vía Resend (usa RESEND_API_KEY del entorno).
+    // Con la API key de prueba de Resend, el remitente debe ser onboarding@resend.dev.
+    Resend({
+      from: process.env.EMAIL_FROM ?? "Ágora Campus <onboarding@resend.dev>",
+    }),
+  ],
+  pages: {
+    signIn: "/auth/login",
+    // Tras pedir el magic link, se vuelve al login con aviso de "correo enviado".
+    verifyRequest: "/auth/login?enviado=1",
+    // Errores (dominio rechazado, OAuth fallido…) también aterrizan en el login.
+    error: "/auth/login",
+  },
+  callbacks: {
+    // signIn — ÚNICA puerta: solo correos de dominios institucionales permitidos.
+    // Aplica igual a Google (profile.email) y a Resend/magic link (user.email).
+    async signIn({ user, profile }) {
+      const email = user?.email ?? profile?.email;
+      return isEmailDomainAllowed(email);
+    },
+    // session — expone id y rolGlobal al cliente/servidor vía useSession()/auth().
+    // Con strategy "database", `user` es la fila COMPLETA de users que devuelve
+    // el adaptador (incluye rolGlobal), aunque el tipo AdapterUser no lo sepa.
+    async session({ session, user }) {
+      session.user.id = user.id;
+      session.user.rolGlobal =
+        (user as typeof user & { rolGlobal?: RolGlobal }).rolGlobal ??
+        "comprador";
+      return session;
+    },
+  },
+  events: {
+    // createUser — al crearse el usuario ya pasó el filtro de dominio del
+    // callback signIn, así que lo marcamos como verificado de COMUNIDAD.
+    // (verificadoEn es NUESTRO campo; emailVerified lo escribe el adaptador.)
+    async createUser({ user }) {
+      if (!user.id) return;
+      await db
+        .update(users)
+        .set({ verificadoEn: new Date() })
+        .where(eq(users.id, user.id));
+    },
+  },
+});
 
 // Fin de auth.ts
