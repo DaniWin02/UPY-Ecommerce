@@ -1,5 +1,10 @@
 // auth.ts — configuración central de Auth.js v5 para Ágora Campus.
-// Providers: Google OAuth + Resend (magic link). Adaptador: Drizzle sobre PostgreSQL.
+// Login PRIMARIO: auth propio (email institucional + contraseña) en
+// src/lib/auth-actions.ts, que crea filas en `sessions` + cookie — auth() las
+// honra igual que un login de provider (strategy "database").
+// Google y Resend son OPCIONALES: solo se registran si su env está presente
+// (providers puede quedar [] — Auth.js lo acepta y auth()/signOut siguen
+// funcionando con las sesiones de BD).
 // La ÚNICA puerta de entrada es el dominio de correo institucional (comunidad cerrada).
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
@@ -33,11 +38,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   // inferir el host confiable de la plataforma (como sí hace en Vercel).
   trustHost: true,
   providers: [
-    // Google verifica el email por nosotros; allowDangerousEmailAccountLinking
-    // permite que quien entró primero por magic link luego use Google con el
-    // MISMO correo sin chocar con "OAuthAccountNotLinked". Es seguro aquí
-    // porque Google garantiza la propiedad del correo institucional.
-    Google({ allowDangerousEmailAccountLinking: true }),
+    // Google — OPCIONAL: solo se registra si hay AUTH_GOOGLE_ID en el entorno
+    // (la página de login oculta el botón en ese caso). Google verifica el
+    // email por nosotros; allowDangerousEmailAccountLinking permite que quien
+    // entró primero por otro método luego use Google con el MISMO correo sin
+    // chocar con "OAuthAccountNotLinked". Es seguro aquí porque Google
+    // garantiza la propiedad del correo institucional.
+    ...(process.env.AUTH_GOOGLE_ID
+      ? [Google({ allowDangerousEmailAccountLinking: true })]
+      : []),
     // Magic link por correo vía Resend — OPCIONAL: solo se registra si hay
     // RESEND_API_KEY en el entorno. Sin la key, el login queda solo-Google
     // (la página de login oculta el formulario de correo en ese caso).
@@ -84,6 +93,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       await db
         .update(users)
         .set({ verificadoEn: new Date() })
+        .where(eq(users.id, user.id));
+    },
+    // linkAccount — al vincularse una cuenta OAuth verificada (Google), se
+    // ANULA la contraseña local del usuario. Evita account-takeover: con
+    // allowDangerousEmailAccountLinking, un atacante pudo registrar el correo
+    // de la víctima con contraseña ANTES de que ella entrara con Google; si esa
+    // contraseña siguiera viva, el atacante conservaría acceso a la cuenta ya
+    // legítima. Google garantiza la propiedad del correo, así que el dueño real
+    // es quien acaba de vincular — la contraseña previa deja de ser confiable.
+    async linkAccount({ user }) {
+      if (!user.id) return;
+      await db
+        .update(users)
+        .set({ passwordHash: null })
         .where(eq(users.id, user.id));
     },
   },

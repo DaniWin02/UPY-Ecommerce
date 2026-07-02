@@ -81,7 +81,10 @@ export async function requireVendorMember(): Promise<{
     })
     .from(vendorMembers)
     .innerJoin(vendors, eq(vendorMembers.vendorId, vendors.id))
-    .where(eq(vendorMembers.userId, user.id));
+    .where(eq(vendorMembers.userId, user.id))
+    // Orden estable: sin ORDER BY, Postgres no garantiza el orden y
+    // memberships[0] (la "tienda actual" del panel MVP) podría bailar.
+    .orderBy(vendorMembers.vendorId);
 
   // Sin membresías: solo el superadmin puede entrar igualmente (auditoría/soporte).
   if (rows.length === 0 && user.rolGlobal !== "superadmin") redirect("/");

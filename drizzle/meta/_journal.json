@@ -15,6 +15,13 @@
       "when": 1783011827939,
       "tag": "0001_extensiones_e_indices",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1783016334128,
+      "tag": "0002_auth_propio_e_imagenes",
+      "breakpoints": true
     }
   ]
 }

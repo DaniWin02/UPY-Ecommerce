@@ -1,12 +1,17 @@
-// Pantalla de acceso (Ágora Campus) — login con Google institucional y enlace mágico por correo.
-// Server Component sin JS de cliente: los dos formularios usan Server Actions inline.
+// Pantalla de acceso (Ágora Campus) — login PRIMARIO con correo institucional
+// + contraseña (auth propio). Google y magic link son opcionales por env.
+// Server Component sin JS de cliente: todos los formularios usan Server Actions.
+import Link from "next/link";
 import { signIn } from "@/lib/auth";
+import { loginConCredenciales } from "@/lib/auth-actions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
-// Mapa de códigos de error de Auth.js → mensajes en español
+// Mapa de códigos de error (Auth.js + auth propio) → mensajes en español
 const MENSAJES_ERROR: Record<string, string> = {
+  CredencialesInvalidas: "Correo o contraseña incorrectos.",
+  DemasiadosIntentos: "Demasiados intentos. Espera 15 minutos e inténtalo de nuevo.",
   AccessDenied: "Solo puede entrar la comunidad universitaria (correo institucional).",
   Verification: "El enlace expiró o ya fue usado. Pide uno nuevo.",
   OAuthAccountNotLinked: "Ese correo ya está vinculado con otro método de acceso.",
@@ -48,8 +53,9 @@ export default async function AuthLoginPage({
     ? MENSAJES_ERROR[error] ?? MENSAJE_ERROR_DEFAULT
     : null;
 
-  // El magic link solo se ofrece si Resend está configurado (misma condición
-  // con la que auth.ts registra el provider). Sin la key: login solo-Google.
+  // Métodos secundarios, condicionales por env (misma condición con la que
+  // auth.ts registra cada provider): sin la env, el bloque no se muestra.
+  const googleDisponible = Boolean(process.env.AUTH_GOOGLE_ID);
   const magicLinkDisponible = Boolean(process.env.RESEND_API_KEY);
 
   // Server Action: inicio de sesión con Google (dominio institucional se valida en Auth.js)
@@ -100,46 +106,102 @@ export default async function AuthLoginPage({
             </div>
           )}
 
-          {/* Acceso con Google */}
-          <form action={entrarConGoogle}>
+          {/* Método PRIMARIO: correo institucional + contraseña (auth propio) */}
+          <form action={loginConCredenciales} className="space-y-3">
+            <div className="space-y-1.5">
+              <label htmlFor="email" className="text-sm font-medium">
+                Correo institucional
+              </label>
+              <Input
+                id="email"
+                type="email"
+                name="email"
+                required
+                autoComplete="email"
+                inputMode="email"
+                placeholder="tu.nombre@alumno.upy.edu.mx"
+                className="h-11"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <label htmlFor="password" className="text-sm font-medium">
+                Contraseña
+              </label>
+              <Input
+                id="password"
+                type="password"
+                name="password"
+                required
+                autoComplete="current-password"
+                placeholder="Tu contraseña"
+                className="h-11"
+              />
+            </div>
             <Button type="submit" size="lg" className="w-full">
-              <GoogleLogo />
-              Continuar con Google
+              Entrar
             </Button>
           </form>
 
+          {/* Enlace al registro */}
+          <p className="text-center text-sm text-muted-foreground">
+            ¿No tienes cuenta?{" "}
+            <Link
+              href="/auth/registro"
+              className="font-medium text-foreground underline underline-offset-4"
+            >
+              Crea una
+            </Link>
+          </p>
+
+          {/* Separador de métodos alternativos (solo si hay alguno configurado) */}
+          {(googleDisponible || magicLinkDisponible) && (
+            <div className="flex items-center gap-3" aria-hidden="true">
+              <span className="h-px flex-1 bg-border" />
+              <span className="text-xs text-muted-foreground">o también</span>
+              <span className="h-px flex-1 bg-border" />
+            </div>
+          )}
+
+          {/* Acceso con Google: solo si el OAuth está configurado */}
+          {googleDisponible && (
+            <form action={entrarConGoogle}>
+              <Button
+                type="submit"
+                variant="secondary"
+                size="lg"
+                className="w-full"
+              >
+                <GoogleLogo />
+                Continuar con Google
+              </Button>
+            </form>
+          )}
+
           {/* Magic link por correo: solo si Resend está configurado */}
           {magicLinkDisponible && (
-            <>
-              {/* Separador */}
-              <div className="flex items-center gap-3" aria-hidden="true">
-                <span className="h-px flex-1 bg-border" />
-                <span className="text-xs text-muted-foreground">
-                  o con tu correo institucional
-                </span>
-                <span className="h-px flex-1 bg-border" />
-              </div>
-
-              {/* Acceso con enlace mágico por correo */}
-              <form action={enviarEnlace} className="space-y-3">
-                <label htmlFor="email" className="sr-only">
-                  Correo institucional
-                </label>
-                <Input
-                  id="email"
-                  type="email"
-                  name="email"
-                  required
-                  autoComplete="email"
-                  inputMode="email"
-                  placeholder="tu.nombre@alumno.upy.edu.mx"
-                  className="h-11"
-                />
-                <Button type="submit" variant="secondary" size="lg" className="w-full">
-                  Enviarme un enlace de acceso
-                </Button>
-              </form>
-            </>
+            <form action={enviarEnlace} className="space-y-3">
+              <label htmlFor="email-enlace" className="sr-only">
+                Correo institucional para el enlace de acceso
+              </label>
+              <Input
+                id="email-enlace"
+                type="email"
+                name="email"
+                required
+                autoComplete="email"
+                inputMode="email"
+                placeholder="tu.nombre@alumno.upy.edu.mx"
+                className="h-11"
+              />
+              <Button
+                type="submit"
+                variant="secondary"
+                size="lg"
+                className="w-full"
+              >
+                Enviarme un enlace de acceso
+              </Button>
+            </form>
           )}
         </CardContent>
 

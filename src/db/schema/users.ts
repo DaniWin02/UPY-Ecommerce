@@ -41,6 +41,9 @@ export const users = pgTable("users", {
   // Verificación de COMUNIDAD (dominio institucional aprobado); null = no verificado.
   // No confundir con emailVerified: son independientes y los escribe distinta capa.
   verificadoEn: timestamp("verificado_en", { withTimezone: true }),
+  // Login propio con scrypt (formato "scrypt$<saltHex>$<hashHex>").
+  // null para usuarios que entren por OAuth (Google) o magic link.
+  passwordHash: text("password_hash"),
   // Campos del adaptador de Auth.js (createUser/updateUser insertan/actualizan por estas propiedades).
   // emailVerified lo escribe SOLO el adaptador (magic link); nuestra lógica usa verificadoEn.
   emailVerified: timestamp("email_verified", { withTimezone: true }),

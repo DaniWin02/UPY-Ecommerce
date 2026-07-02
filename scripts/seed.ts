@@ -11,6 +11,7 @@ import { sql } from "drizzle-orm";
 import { Pool } from "pg";
 // Imports RELATIVOS a propósito: tsx no resuelve el alias "@/" del tsconfig.
 import * as schema from "../src/db/schema";
+import { hashPassword } from "../src/lib/password";
 
 // ---------------------------------------------------------------------------
 // Guardas de seguridad
@@ -233,6 +234,9 @@ async function main(): Promise<void> {
   // verificado "true"/"false" (string) → verificadoEn = createdAt o null.
   // El sample trae emails duplicados (users.email es UNIQUE): se deduplican
   // de forma determinista con el sufijo +<sampleId> en la parte local.
+  // Login propio: se hashea UNA sola vez la password de desarrollo "agora123"
+  // (scrypt es costoso a propósito) y se asigna a TODOS los usuarios del seed.
+  const passwordHashSeed = await hashPassword("agora123");
   const emailsUsados = new Set<string>();
   const userRows: UserInsert[] = data.users.map((u) => {
     const id = randomUUID();
@@ -252,6 +256,7 @@ async function main(): Promise<void> {
       rolGlobal: u.rol_global as UserInsert["rolGlobal"],
       institutionId: resolveId(institutionIds, u.institution_id, "institution"),
       verificadoEn: u.verificado === "true" ? createdAt : null,
+      passwordHash: passwordHashSeed,
       createdAt,
     };
   });
@@ -417,6 +422,7 @@ async function main(): Promise<void> {
   for (const [tabla, filas] of resumen) {
     console.log(`  ${tabla.padEnd(18)} ${filas}`);
   }
+  console.log("\n[seed] Password de todos los usuarios seed: agora123");
 }
 
 // try/catch global: cualquier fallo cierra el pool y sale con código 1.

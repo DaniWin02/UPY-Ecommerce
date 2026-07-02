@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import { AppShell } from "@/components/layout/AppShell";
 
 // Fuente principal de la app, expuesta como variable CSS para Tailwind (font-sans).
 const inter = Inter({
@@ -23,7 +24,7 @@ export const viewport: Viewport = {
 };
 
 // RootLayout: contenedor raíz de la aplicación Ágora (marketplace universitario).
-// TODO: agregar header/nav global (logo, buscador, carrito, menú de cuenta).
+// El shell de navegación (header + tab bar móvil) vive en AppShell.
 export default function RootLayout({
   children,
 }: {
@@ -32,7 +33,9 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning className={inter.variable}>
       <body className="min-h-dvh bg-background font-sans">
-        <Providers>{children}</Providers>
+        <Providers>
+          <AppShell>{children}</AppShell>
+        </Providers>
       </body>
     </html>
   );

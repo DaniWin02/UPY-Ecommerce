@@ -1,16 +1,113 @@
-// Escaparate de un vendedor de la comunidad.
+// Escaparate de un vendedor de la comunidad (mobile-first, Server Component).
 // En Next.js 15 los params de rutas dinámicas son una Promise (hay que await).
-export default async function VendorStorePage({
-  params,
-}: {
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { obtenerTienda } from "@/lib/producto";
+import { VendorBadge } from "@/components/VendorBadge";
+import { Button } from "@/components/ui/button";
+
+type Props = {
   params: Promise<{ vendorSlug: string }>;
-}) {
+};
+
+// Formato de moneda MXN (precioDesde llega como numeric-string de Postgres).
+const formatoMXN = new Intl.NumberFormat("es-MX", {
+  style: "currency",
+  currency: "MXN",
+});
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { vendorSlug } = await params;
+  // obtenerTienda está envuelto en React cache: no duplica la consulta de la page.
+  const tienda = await obtenerTienda(vendorSlug);
+  return { title: tienda ? tienda.vendor.nombre : "Tienda no encontrada" };
+}
+
+export default async function VendorStorePage({ params }: Props) {
+  const { vendorSlug } = await params;
+  const t = await obtenerTienda(vendorSlug);
+  if (!t) notFound();
+
+  const inicial = t.vendor.nombre.charAt(0).toUpperCase();
+
   return (
-    <main>
-      <h1>Tienda del vendedor: {vendorSlug}</h1>
-      {/* TODO: cabecera del vendedor (nombre, aula de entrega por defecto, reputación). */}
-      {/* TODO: listado de productos, drops y preventas del vendedor. */}
+    <main className="pb-20">
+      {/* Cabecera de la tienda. */}
+      <header className="bg-primary/10 p-6">
+        <div className="flex items-start gap-4">
+          <div
+            className="flex h-16 w-16 flex-none items-center justify-center rounded-full bg-primary text-2xl font-bold text-primary-foreground"
+            aria-hidden="true"
+          >
+            {inicial}
+          </div>
+          <div className="min-w-0 flex-1 space-y-1">
+            <h1 className="text-xl font-semibold">{t.vendor.nombre}</h1>
+            <VendorBadge tipo={t.vendor.tipo} />
+            <p className="text-sm text-muted-foreground">
+              📍 Entrega: {t.vendor.aulaDefault ?? "por definir"}
+            </p>
+          </div>
+          {/* TODO: seguir tiendas llegará con la capa social. */}
+          <Button size="sm" variant="outline" disabled title="Próximamente">
+            Seguir
+          </Button>
+        </div>
+      </header>
+
+      {/* Grid de productos (markup propio y sencillo, sin ProductCard). */}
+      {t.productos.length === 0 ? (
+        <div className="p-10 text-center">
+          <p className="text-4xl" aria-hidden="true">
+            🛍️
+          </p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Esta tienda aún no tiene productos publicados. Vuelve pronto.
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-3 p-4 md:grid-cols-3">
+          {t.productos.map((producto) => {
+            const agotado = producto.stockDisponible === 0;
+            return (
+              <Link
+                key={producto.id}
+                href={`/producto/${producto.id}`}
+                className="group overflow-hidden rounded-lg border bg-card transition-colors hover:border-primary"
+              >
+                {producto.imagenUrl ? (
+                  <img
+                    src={producto.imagenUrl}
+                    alt={producto.nombre}
+                    className="aspect-square w-full object-cover"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="flex aspect-square w-full items-center justify-center bg-muted">
+                    <span className="text-4xl" aria-hidden="true">
+                      🛍️
+                    </span>
+                  </div>
+                )}
+                <div className="space-y-1 p-2">
+                  <p className="line-clamp-2 text-sm font-medium">
+                    {producto.nombre}
+                  </p>
+                  <p className="text-sm font-semibold">
+                    Desde {formatoMXN.format(Number(producto.precioDesde))}
+                  </p>
+                  {agotado && (
+                    <p className="text-xs font-medium text-destructive">
+                      Agotado
+                    </p>
+                  )}
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      )}
     </main>
   );
 }

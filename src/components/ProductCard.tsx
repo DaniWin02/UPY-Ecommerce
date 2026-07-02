@@ -1,25 +1,24 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-// Estado de disponibilidad del producto
-type EstadoProducto = "disponible" | "agotado" | "drop" | "proximamente";
-
+// ProductCard — tarjeta del catálogo. Sin onClick: se envuelve en <Link> desde fuera.
 export interface ProductCardProps {
+  id: string;
   nombre: string;
   vendedor: string;
-  precio: number;
-  precioComunidad?: number;
-  imagenUrl?: string;
-  estado?: EstadoProducto;
-  /** Cantidad disponible en inventario */
-  stock?: number;
-  onClick?: () => void;
+  vendorSlug?: string;
+  /** Precio mínimo del producto (numeric de Postgres como string) */
+  precio: string;
+  precioComunidad?: string | null;
+  stockDisponible?: number;
+  tipo?: string;
+  imagenUrl?: string | null;
 }
 
-// Formatea un monto en pesos mexicanos
-function formatearPrecio(monto: number): string {
-  // TODO: usar Intl.NumberFormat con configuración centralizada
-  return `$${monto.toFixed(2)} MXN`;
+// Formatea un monto (string numeric) en pesos mexicanos.
+function formatearPrecio(monto: string): string {
+  const n = Number(monto);
+  return `$${(Number.isFinite(n) ? n : 0).toFixed(2)} MXN`;
 }
 
 export function ProductCard({
@@ -27,46 +26,51 @@ export function ProductCard({
   vendedor,
   precio,
   precioComunidad,
+  stockDisponible,
+  tipo,
   imagenUrl,
-  estado = "disponible",
-  stock,
 }: ProductCardProps) {
-  // TODO: enlazar a la página de detalle del producto y manejar imagen optimizada
+  const agotado = stockDisponible === 0;
+  const pocasUnidades =
+    typeof stockDisponible === "number" && stockDisponible > 0 && stockDisponible <= 5;
+
   return (
     <Card className="overflow-hidden">
       <div className="relative aspect-square w-full bg-muted">
         {imagenUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={imagenUrl} alt={nombre} className="h-full w-full object-cover" />
+          <img
+            src={imagenUrl}
+            alt={nombre}
+            loading="lazy"
+            className="h-full w-full object-cover"
+          />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-xs text-muted-foreground">
-            {/* TODO: placeholder de imagen */}
-            Sin imagen
+          // Placeholder mientras no haya imagen subida
+          <div className="flex h-full w-full items-center justify-center text-4xl" aria-hidden>
+            🛍️
           </div>
         )}
-        {estado === "drop" && (
-          <Badge variant="destructive" className="absolute left-2 top-2">
-            Drop
-          </Badge>
-        )}
-        {estado === "agotado" && (
-          <Badge variant="secondary" className="absolute left-2 top-2">
-            Agotado
-          </Badge>
-        )}
+
+        {/* Badges de tipo y disponibilidad superpuestos a la imagen */}
+        <div className="absolute left-2 top-2 flex flex-wrap gap-1">
+          {tipo === "drop" && <Badge className="bg-primary">Drop</Badge>}
+          {tipo === "preventa" && <Badge variant="secondary">Preventa</Badge>}
+          {agotado && <Badge variant="destructive">Agotado</Badge>}
+        </div>
       </div>
 
       <CardContent className="space-y-1 pt-4">
         <h3 className="line-clamp-2 text-sm font-medium">{nombre}</h3>
         <p className="text-xs text-muted-foreground">{vendedor}</p>
-        {typeof stock === "number" && stock <= 5 && stock > 0 && (
-          <p className="text-xs text-warning">{`Quedan ${stock}`}</p>
+        {pocasUnidades && (
+          <p className="text-xs text-warning">{`Quedan ${stockDisponible}`}</p>
         )}
       </CardContent>
 
       <CardFooter className="flex flex-col items-start gap-0.5">
         <span className="text-base font-semibold">{formatearPrecio(precio)}</span>
-        {typeof precioComunidad === "number" && (
+        {precioComunidad != null && (
           <span className="text-xs text-success">
             {`Precio comunidad: ${formatearPrecio(precioComunidad)}`}
           </span>

@@ -10,6 +10,7 @@ import {
   numeric,
   timestamp,
   check,
+  index,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 import { vendors } from "./vendors";
@@ -30,18 +31,27 @@ export const productEstadoEnum = pgEnum("product_estado", [
 ]);
 
 // Productos: pertenecen a un vendor (multivendedor por vendor_id).
-export const products = pgTable("products", {
-  id: uuid("id").defaultRandom().primaryKey(),
-  vendorId: uuid("vendor_id")
-    .notNull()
-    .references(() => vendors.id, { onDelete: "cascade" }),
-  nombre: text("nombre").notNull(),
-  descripcion: text("descripcion"),
-  estado: productEstadoEnum("estado").notNull().default("borrador"),
-  tipo: productTipoEnum("tipo").notNull().default("fisico"),
-  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  // TODO: slug por vendor, imágenes (text[]), categoría, índice por (vendor_id, estado).
-});
+export const products = pgTable(
+  "products",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    vendorId: uuid("vendor_id")
+      .notNull()
+      .references(() => vendors.id, { onDelete: "cascade" }),
+    nombre: text("nombre").notNull(),
+    descripcion: text("descripcion"),
+    estado: productEstadoEnum("estado").notNull().default("borrador"),
+    tipo: productTipoEnum("tipo").notNull().default("fisico"),
+    // URLs de imágenes del producto (por ahora URLs externas o vacío; S3/R2 llegará después).
+    imagenes: text("imagenes").array().notNull().default(sql`'{}'::text[]`),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    // TODO: slug por vendor, categoría.
+  },
+  (table) => ({
+    // Índice para listar el catálogo activo de cada tienda sin scan completo.
+    vendorEstadoIdx: index("products_vendor_id_estado_idx").on(table.vendorId, table.estado),
+  })
+);
 
 // Variantes (SKU): cada combinación vendible (talla/color) con precios.
 export const productVariants = pgTable("product_variants", {
