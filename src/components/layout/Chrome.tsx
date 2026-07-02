@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 
 interface ChromeProps {
   user: { name: string | null; rolGlobal: string } | null;
+  cartCount: number;
 }
 
 // Pestañas del tab bar móvil (y enlaces de texto del header en ≥md).
@@ -27,7 +28,7 @@ function isActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(href + "/");
 }
 
-export function Chrome({ user }: ChromeProps) {
+export function Chrome({ user, cartCount }: ChromeProps) {
   const pathname = usePathname();
 
   // En auth y bloqueado no se muestra ningún cromo (pantallas a página completa).
@@ -72,13 +73,23 @@ export function Chrome({ user }: ChromeProps) {
                 ))}
             </nav>
 
-            {/* Carrito siempre visible */}
+            {/* Carrito siempre visible, con badge de artículos */}
             <Link
               href="/carrito"
               className="touch-target flex items-center justify-center rounded-md text-foreground transition-colors hover:bg-accent"
-              aria-label="Carrito"
+              aria-label={`Carrito, ${cartCount} artículos`}
             >
-              <ShoppingBag size={22} aria-hidden="true" />
+              <span className="relative">
+                <ShoppingBag size={22} aria-hidden="true" />
+                {cartCount > 0 && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute -right-1 -top-1 grid h-[18px] min-w-[18px] place-items-center rounded-full bg-primary px-1 text-[10px] text-primary-foreground"
+                  >
+                    {cartCount > 9 ? "9+" : cartCount}
+                  </span>
+                )}
+              </span>
             </Link>
 
             {/* Nombre del usuario o acceso, solo en ≥md (en móvil vive en la pestaña Perfil) */}

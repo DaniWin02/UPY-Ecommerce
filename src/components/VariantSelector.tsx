@@ -2,8 +2,10 @@
 
 // Selector de variante (talla/color) con precio, stock y barra CTA fija.
 // Importa SOLO el tipo desde el módulo de servidor (se borra al compilar).
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { agregarAlCarrito } from "@/app/(store)/carrito/actions";
 import type { VarianteConStock } from "@/lib/producto";
 
 export interface VariantSelectorProps {
@@ -27,6 +29,14 @@ function etiquetaVariante(v: VarianteConStock): string {
 }
 
 export function VariantSelector({ variantes }: VariantSelectorProps) {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  // Resultado del último intento de agregar (se autolimpia a los 2.5 s).
+  const [feedback, setFeedback] = useState<null | {
+    ok: boolean;
+    mensaje: string;
+  }>(null);
+
   // Default: primera variante con stock; si todas están agotadas, la primera.
   const [seleccionadaId, setSeleccionadaId] = useState<string | null>(
     () =>
@@ -45,6 +55,17 @@ export function VariantSelector({ variantes }: VariantSelectorProps) {
   }
 
   const agotada = seleccionada.disponible === 0;
+
+  // Agrega 1 unidad de la variante seleccionada y refresca datos del servidor
+  // (badge del carrito) si salió bien; el feedback se limpia solo.
+  function handleAgregar() {
+    startTransition(async () => {
+      const r = await agregarAlCarrito(seleccionada.id, 1);
+      setFeedback(r);
+      if (r.ok) router.refresh();
+      setTimeout(() => setFeedback(null), 2500);
+    });
+  }
 
   return (
     <div className="space-y-4">
@@ -97,11 +118,36 @@ export function VariantSelector({ variantes }: VariantSelectorProps) {
       <div className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-30 border-t bg-background/95 p-3 backdrop-blur md:bottom-0 md:pb-safe">
         <div className="mx-auto flex max-w-lg items-center gap-3">
           <p className="text-lg font-bold">{formatearMXN(seleccionada.precio)}</p>
-          {/* TODO Fase 4: conectar con el carrito (por ahora el click no hace nada). */}
-          <Button type="button" size="lg" disabled={agotada} className="flex-1">
-            {agotada ? "Agotado" : "Agregar al carrito"}
+          <Button
+            type="button"
+            size="lg"
+            disabled={agotada || isPending}
+            onClick={handleAgregar}
+            className={[
+              "flex-1",
+              feedback?.ok
+                ? "bg-success text-success-foreground hover:bg-success/90"
+                : "",
+            ].join(" ")}
+          >
+            {agotada
+              ? "Agotado"
+              : isPending
+                ? "Agregando…"
+                : feedback?.ok
+                  ? "✓ Agregado"
+                  : "Agregar al carrito"}
           </Button>
         </div>
+        {/* Mensaje de error del servidor (stock insuficiente, sesión, etc.). */}
+        {feedback && !feedback.ok && (
+          <p
+            role="alert"
+            className="mx-auto mt-1 max-w-lg text-xs text-destructive"
+          >
+            {feedback.mensaje}
+          </p>
+        )}
       </div>
     </div>
   );
