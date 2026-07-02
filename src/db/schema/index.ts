@@ -9,5 +9,7 @@ export * from "./payments";
 export * from "./drops";
 export * from "./social";
 export * from "./ip-rules";
+export * from "./analytics";
+export * from "./messaging";
 
 // Fin del barrel del esquema.

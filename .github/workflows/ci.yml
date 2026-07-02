@@ -1,6 +1,5 @@
-# CI de Ágora Campus — Fase 0
-# Nota: el job de integración con Postgres (testcontainers / service container)
-# llega en Fase 1, cuando existan tests de repositorios contra BD real.
+# CI de Ágora Campus — Fase 1
+# Jobs: lint-types, unit, build + integration (Postgres real vía service container).
 name: CI
 
 # El CI solo necesita leer el repo (hardening: sin permisos de escritura).
@@ -62,3 +61,40 @@ jobs:
         run: npm ci
       - name: Build Next.js
         run: npm run build
+
+  integration:
+    name: Tests de integración (Postgres)
+    needs: lint-types
+    runs-on: ubuntu-latest
+    # Postgres real como service container; los tests NO usan mocks de BD.
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: agora_test
+        ports:
+          - 5432:5432
+        # Espera a que Postgres acepte conexiones antes de arrancar los steps.
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      # Misma URL para migraciones, seed y tests.
+      DATABASE_URL: postgres://postgres:test@localhost:5432/agora_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Instalar dependencias
+        run: npm ci
+      - name: Aplicar migraciones
+        run: npm run db:migrate
+      - name: Poblar datos de prueba (seed)
+        run: npm run db:seed
+      - name: Vitest (integración)
+        run: npm run test:integration

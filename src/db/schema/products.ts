@@ -9,7 +9,9 @@ import {
   integer,
   numeric,
   timestamp,
+  check,
 } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
 import { vendors } from "./vendors";
 
 // Tipo de producto: físico normal, preventa (umbral) o exclusivo de drop.
@@ -57,15 +59,26 @@ export const productVariants = pgTable("product_variants", {
 });
 
 // Inventario por variante (stock disponible y reservado por holds activos).
-export const inventory = pgTable("inventory", {
-  variantId: uuid("variant_id")
-    .primaryKey()
-    .references(() => productVariants.id, { onDelete: "cascade" }),
-  stock: integer("stock").notNull().default(0),
-  reservado: integer("reservado").notNull().default(0),
-  // Disponible = stock - reservado (calculado en consulta/transacción).
-  // TODO: CHECK (reservado <= stock); updated_at para auditoría de movimientos.
-});
+export const inventory = pgTable(
+  "inventory",
+  {
+    variantId: uuid("variant_id")
+      .primaryKey()
+      .references(() => productVariants.id, { onDelete: "cascade" }),
+    stock: integer("stock").notNull().default(0),
+    reservado: integer("reservado").notNull().default(0),
+    // Disponible = stock - reservado (calculado en consulta/transacción).
+    // TODO: updated_at para auditoría de movimientos.
+  },
+  (table) => ({
+    // Red de seguridad contra oversell de la reserva atómica de la Fase 5:
+    // reservado nunca puede ser negativo ni superar el stock disponible.
+    reservadoValidoCheck: check(
+      "inventory_reservado_valido",
+      sql`${table.reservado} >= 0 AND ${table.reservado} <= ${table.stock}`
+    ),
+  })
+);
 
 // Nota: las reservas temporales de stock (stockHolds) viven en orders.ts,
 // donde pueden tener FK real a orders.id sin ciclo de imports.

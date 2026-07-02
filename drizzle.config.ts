@@ -1,3 +1,4 @@
+import "dotenv/config"; // drizzle-kit no carga .env por sí solo
 import { defineConfig } from "drizzle-kit";
 
 // Configuración de Drizzle Kit para Ágora Campus.
