@@ -1,0 +1,64 @@
+# CI de Ágora Campus — Fase 0
+# Nota: el job de integración con Postgres (testcontainers / service container)
+# llega en Fase 1, cuando existan tests de repositorios contra BD real.
+name: CI
+
+# El CI solo necesita leer el repo (hardening: sin permisos de escritura).
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Cancela ejecuciones anteriores de la misma rama/PR para no gastar minutos.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-types:
+    name: Lint y typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Instalar dependencias
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Typecheck
+        run: npm run typecheck
+
+  unit:
+    name: Tests unitarios
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Instalar dependencias
+        run: npm ci
+      - name: Vitest (unit)
+        run: npm run test:unit
+
+  build:
+    name: Build de producción
+    needs: lint-types
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Instalar dependencias
+        run: npm ci
+      - name: Build Next.js
+        run: npm run build

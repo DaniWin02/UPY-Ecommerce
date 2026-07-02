@@ -2,5 +2,109 @@
 @tailwind components;
 @tailwind utilities;
 
-/* TODO: definir variables de tema (colores de marca Ágora, radios, tipografía),
-   modo claro/oscuro y tokens de shadcn/ui (--background, --foreground, etc.). */
+/* Sistema de tema de Ágora Campus (tokens shadcn/ui en formato HSL sin hsl()).
+   Identidad: guinda/bordó universitario como color primario, neutros cálidos.
+   Extras del dominio: success (pago verificado) y warning (pendiente/por expirar). */
+
+@layer base {
+  :root {
+    /* Neutros cálidos (tinte ligero hacia el rojo/tierra) */
+    --background: 20 20% 98%;
+    --foreground: 345 10% 12%;
+
+    --card: 20 20% 99%;
+    --card-foreground: 345 10% 12%;
+
+    --popover: 20 20% 99%;
+    --popover-foreground: 345 10% 12%;
+
+    /* Guinda/bordó universitario */
+    --primary: 345 75% 32%;
+    --primary-foreground: 20 20% 98%;
+
+    --secondary: 20 15% 93%;
+    --secondary-foreground: 345 30% 22%;
+
+    --muted: 20 15% 94%;
+    --muted-foreground: 345 6% 42%;
+
+    --accent: 345 30% 92%;
+    --accent-foreground: 345 60% 26%;
+
+    --destructive: 0 84% 45%;
+    --destructive-foreground: 20 20% 98%;
+
+    /* Estados de pago (corazón de la plataforma) */
+    --success: 150 65% 30%; /* verde: pago verificado */
+    --success-foreground: 150 40% 97%;
+    --warning: 40 92% 42%; /* ámbar: pendiente / por expirar */
+    --warning-foreground: 40 90% 97%;
+
+    --border: 20 12% 88%;
+    --input: 20 12% 85%;
+    --ring: 345 75% 32%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    /* Fondo oscuro cálido (no negro puro) */
+    --background: 345 12% 8%;
+    --foreground: 20 15% 94%;
+
+    --card: 345 10% 11%;
+    --card-foreground: 20 15% 94%;
+
+    --popover: 345 10% 11%;
+    --popover-foreground: 20 15% 94%;
+
+    /* Guinda aclarado para contraste AA sobre fondo oscuro */
+    --primary: 345 70% 58%;
+    --primary-foreground: 345 30% 10%;
+
+    --secondary: 345 8% 17%;
+    --secondary-foreground: 20 15% 90%;
+
+    --muted: 345 8% 16%;
+    --muted-foreground: 20 8% 65%;
+
+    --accent: 345 25% 20%;
+    --accent-foreground: 345 40% 88%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 20 20% 98%;
+
+    /* Estados de pago en modo oscuro */
+    --success: 150 55% 45%;
+    --success-foreground: 150 60% 8%;
+    --warning: 40 90% 55%;
+    --warning-foreground: 40 80% 10%;
+
+    --border: 345 8% 20%;
+    --input: 345 8% 22%;
+    --ring: 345 70% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+@layer utilities {
+  /* Utilidades para el notch/safe-area de iOS (requiere viewport-fit: cover) */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+  /* Área táctil mínima de 44x44 px (recomendación móvil) */
+  .touch-target {
+    @apply min-h-11 min-w-11;
+  }
+}

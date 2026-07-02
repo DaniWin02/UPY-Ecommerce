@@ -60,14 +60,14 @@ export function ProductCard({
         <h3 className="line-clamp-2 text-sm font-medium">{nombre}</h3>
         <p className="text-xs text-muted-foreground">{vendedor}</p>
         {typeof stock === "number" && stock <= 5 && stock > 0 && (
-          <p className="text-xs text-amber-600">{`Quedan ${stock}`}</p>
+          <p className="text-xs text-warning">{`Quedan ${stock}`}</p>
         )}
       </CardContent>
 
       <CardFooter className="flex flex-col items-start gap-0.5">
         <span className="text-base font-semibold">{formatearPrecio(precio)}</span>
         {typeof precioComunidad === "number" && (
-          <span className="text-xs text-emerald-600">
+          <span className="text-xs text-success">
             {`Precio comunidad: ${formatearPrecio(precioComunidad)}`}
           </span>
         )}

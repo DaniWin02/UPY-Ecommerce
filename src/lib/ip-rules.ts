@@ -1,5 +1,10 @@
-// ip-rules.ts — reglas de filtrado por IP para el GATE GLOBAL de la comunidad cerrada (STUB).
+// ip-rules.ts — reglas de filtrado por IP para el GATE GLOBAL de la comunidad cerrada.
 // El gate sólo deja entrar IPs del campus cuando IP_GATE_ENABLED está activo.
+// IMPORTANTE: este módulo corre en edge runtime — sólo cómputo puro y process.env
+// (nada de imports de Node como "net"/"fs" ni acceso a la BD).
+// NOTA: NO exportamos constantes evaluadas a nivel de módulo desde env
+// (p. ej. `export const IP_GATE_ENABLED = ...`) porque congelan el valor al
+// importar y rompen la testeabilidad con vi.stubEnv. Se lee env en cada llamada.
 
 /** Ámbito al que aplica una regla de IP. */
 export type IpScope = "global" | "admin" | "vendor";
@@ -22,41 +27,110 @@ export type IpRule = {
   prioridad: number;
 };
 
-/** Flag global del gate por IP (feature flag). */
-export const IP_GATE_ENABLED: boolean = process.env.IP_GATE_ENABLED === "true";
+/**
+ * parseIpv4 — convierte una IPv4 "a.b.c.d" a uint32, o null si es inválida.
+ * Acepta IPv6-mapeadas "::ffff:a.b.c.d" quitando el prefijo (case-insensitive).
+ * Rechaza octetos fuera de 0..255, cantidad de octetos distinta de 4,
+ * octetos vacíos/no numéricos e IPv6 real. Nunca lanza excepciones.
+ */
+function parseIpv4(ip: string): number | null {
+  if (typeof ip !== "string") return null;
+
+  let limpia = ip.trim();
+
+  // IPv6-mapeada: "::ffff:a.b.c.d" → nos quedamos con la parte IPv4.
+  const prefijoMapeada = /^::ffff:/i;
+  if (prefijoMapeada.test(limpia)) {
+    limpia = limpia.replace(prefijoMapeada, "");
+  }
+
+  // Si aún contiene ":" es IPv6 real (u otra basura) → inválida.
+  if (limpia.includes(":")) return null;
+
+  const octetos = limpia.split(".");
+  if (octetos.length !== 4) return null;
+
+  let valor = 0;
+  for (const octeto of octetos) {
+    // Sólo dígitos SIN ceros a la izquierda (rechaza vacíos, signos, hex y
+    // "010": en notación inet_aton clásica sería octal y aquí sería ambiguo).
+    if (!/^(0|[1-9]\d{0,2})$/.test(octeto)) return null;
+    const n = Number(octeto);
+    if (n > 255) return null;
+    // Desplazamos con >>> 0 para mantener el resultado como uint32
+    // (el << de JS opera en int32 con signo y podría dar negativos).
+    valor = ((valor << 8) >>> 0) + n;
+  }
+  return valor >>> 0;
+}
 
 /**
- * CIDRs del campus permitidos por defecto cuando el gate está activo.
- * TODO: leer de configuración/BD; admitir IPv6.
+ * ipInCidr — indica si una IPv4 pertenece a un rango CIDR (IPv4 puro).
+ * Soporta "a.b.c.d/n" con n en 0..32 y también una IP suelta sin "/n"
+ * (equivale a /32). Acepta IPv6-mapeadas "::ffff:a.b.c.d" en ambos lados.
+ * Devuelve false ante CUALQUIER entrada inválida (octetos >255, máscara
+ * fuera de rango, basura, IPv6 real). Nunca lanza excepciones.
  */
-export const CAMPUS_CIDRS: string[] = (process.env.CAMPUS_CIDRS ?? "")
-  .split(",")
-  .map((c) => c.trim())
-  .filter(Boolean);
+export function ipInCidr(ip: string, cidr: string): boolean {
+  if (typeof cidr !== "string") return false;
 
-/**
- * ipInCidr — indica si una IP pertenece a un rango CIDR.
- * TODO: implementar el cálculo real (IPv4 e IPv6) comparando bits de red.
- */
-export function ipInCidr(_ip: string, _cidr: string): boolean {
-  // TODO: parsear IP y CIDR, aplicar máscara y comparar la parte de red.
-  return false;
+  const ipNum = parseIpv4(ip);
+  if (ipNum === null) return false;
+
+  const partes = cidr.trim().split("/");
+  // Más de un "/" (p. ej. "10.0.0.0/8/8") → inválido.
+  if (partes.length > 2) return false;
+
+  const baseNum = parseIpv4(partes[0]);
+  if (baseNum === null) return false;
+
+  let bits = 32; // IP suelta sin "/n" equivale a /32.
+  if (partes.length === 2) {
+    // Sólo dígitos SIN cero a la izquierda (rechaza "/-1", "/8.5", "/abc",
+    // "/" vacío y "/00": un typo "/00" se interpretaría como /0 = permitir TODO).
+    if (!/^(0|[1-9]\d?)$/.test(partes[1])) return false;
+    bits = Number(partes[1]);
+    if (bits > 32) return false;
+  }
+
+  // Máscara /0 = todo pasa. Ojo: (x << 32) en JS NO es 0 (el shift es módulo
+  // 32), por eso el caso 0 se maneja aparte antes de construir la máscara.
+  if (bits === 0) return true;
+
+  // Máscara de red como uint32: n bits altos en 1.
+  const mascara = (0xffffffff << (32 - bits)) >>> 0;
+
+  return ((ipNum & mascara) >>> 0) === ((baseNum & mascara) >>> 0);
 }
 
 /**
  * isIpAllowed — decide si una IP puede acceder a un ámbito dado.
- * Considera IP_GATE_ENABLED y CAMPUS_CIDRS (y reglas específicas a futuro).
- * TODO: cargar reglas IpRule de BD, ordenarlas por prioridad y resolver allow/deny.
+ * Lee process.env EN CADA LLAMADA (testeable con vi.stubEnv):
+ *  - Si process.env.IP_GATE_ENABLED !== "true" → true (gate apagado, todo pasa).
+ *  - Si está activo → true sólo si la IP cae en ALGÚN CIDR de
+ *    process.env.CAMPUS_CIDRS (lista separada por comas; se hace trim y se
+ *    ignoran las entradas vacías).
+ *
+ * El parámetro `scope` queda RESERVADO para las reglas IpRule persistidas en
+ * BD (V1): permitirá aplicar allow/deny específicos por ámbito ("admin",
+ * "vendor") con prioridades, antes del default del campus. Hoy no altera el
+ * resultado. La función es async para no romper la firma cuando esa consulta
+ * a BD exista.
  */
 export async function isIpAllowed(ip: string, scope: IpScope): Promise<boolean> {
-  // TODO: si el gate está apagado, permitir todo.
-  if (!IP_GATE_ENABLED) return true;
+  // Gate apagado → todo pasa. Se lee env aquí (no a nivel de módulo).
+  if (process.env.IP_GATE_ENABLED !== "true") return true;
 
-  // TODO: evaluar reglas IpRule específicas del `scope` antes que el default del campus.
+  // Reservado para V1: evaluar reglas IpRule del `scope` antes del default.
   void scope;
 
-  // TODO: por defecto, permitir sólo si la IP cae en algún CIDR del campus.
-  return CAMPUS_CIDRS.some((cidr) => ipInCidr(ip, cidr));
+  // Lista de CIDRs del campus: separada por comas, trim, ignora vacíos.
+  const campusCidrs = (process.env.CAMPUS_CIDRS ?? "")
+    .split(",")
+    .map((c) => c.trim())
+    .filter(Boolean);
+
+  return campusCidrs.some((cidr) => ipInCidr(ip, cidr));
 }
 
 // Fin de ip-rules.ts

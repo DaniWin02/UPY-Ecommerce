@@ -34,13 +34,18 @@ export const institutions = pgTable("institutions", {
 export const users = pgTable("users", {
   id: uuid("id").defaultRandom().primaryKey(),
   email: text("email").notNull().unique(),
-  nombre: text("nombre"),
+  // Nombre del usuario; propiedad "name" requerida por @auth/drizzle-adapter (createUser/updateUser).
+  name: text("name"),
   rolGlobal: rolGlobalEnum("rol_global").notNull().default("comprador"),
   institutionId: uuid("institution_id").references(() => institutions.id),
-  // Marca de verificación de comunidad (SSO institucional u OTP); null = no verificado.
+  // Verificación de COMUNIDAD (dominio institucional aprobado); null = no verificado.
+  // No confundir con emailVerified: son independientes y los escribe distinta capa.
   verificadoEn: timestamp("verificado_en", { withTimezone: true }),
+  // Campos del adaptador de Auth.js (createUser/updateUser insertan/actualizan por estas propiedades).
+  // emailVerified lo escribe SOLO el adaptador (magic link); nuestra lógica usa verificadoEn.
+  emailVerified: timestamp("email_verified", { withTimezone: true }),
+  image: text("image"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  // TODO: campos Auth.js (image, emailVerified) si se usa el adaptador estándar.
   // TODO: índice por institution_id para listados de comunidad.
 });
 
@@ -57,7 +62,14 @@ export const accounts = pgTable(
     type: text("type").notNull(),
     provider: text("provider").notNull(),
     providerAccountId: text("provider_account_id").notNull(),
-    // TODO: tokens y metadatos OAuth (access_token, refresh_token, expires_at, scope, id_token...).
+    // Tokens y metadatos OAuth; nombres de propiedad exactos esperados por @auth/drizzle-adapter.
+    refresh_token: text("refresh_token"),
+    access_token: text("access_token"),
+    expires_at: integer("expires_at"),
+    token_type: text("token_type"),
+    scope: text("scope"),
+    id_token: text("id_token"),
+    session_state: text("session_state"),
   },
   (account) => ({
     pk: primaryKey({ columns: [account.provider, account.providerAccountId] }),
@@ -82,7 +94,6 @@ export const verificationTokens = pgTable(
     token: text("token").notNull(),
     expires: timestamp("expires", { withTimezone: true }).notNull(),
     // TODO: campo extra "intentos" si se limita el OTP.
-    _placeholder: integer("_placeholder"), // TODO: eliminar; placeholder para mantener el stub válido.
   },
   (vt) => ({
     pk: primaryKey({ columns: [vt.identifier, vt.token] }),

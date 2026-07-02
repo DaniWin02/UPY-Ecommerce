@@ -2,33 +2,40 @@
 // Providers: Google OAuth + Email (OTP por correo). Adaptador: Drizzle.
 // Restringe el acceso a los dominios de correo permitidos de la comunidad.
 
-// TODO: descomentar estos imports cuando existan los paquetes/módulos reales.
+// TODO (Fase 2): descomentar estos imports al activar NextAuth.
 // import NextAuth from "next-auth";
 // import Google from "next-auth/providers/google";
-// import Email from "next-auth/providers/nodemailer"; // OTP por correo
+// import Resend from "next-auth/providers/resend"; // magic link (usa RESEND_API_KEY)
 // import { DrizzleAdapter } from "@auth/drizzle-adapter";
-// import { db } from "@/server/db";
-// import { sendEmail } from "@/lib/notifications";
+// import { db } from "@/db";
+// import { users, accounts, sessions, verificationTokens } from "@/db/schema";
 
 /**
  * Dominios de correo permitidos para la comunidad cerrada.
- * TODO: mover a variable de entorno ALLOWED_EMAIL_DOMAINS (lista separada por comas).
+ * Se leen de ALLOWED_EMAIL_DOMAINS (lista separada por comas).
+ * Normalización: trim + lowercase + se QUITA el prefijo "@" si viene
+ * (el .env puede traer "@uni.mx" o "uni.mx"; la comparación se hace
+ * contra email.split("@")[1], que nunca incluye la arroba).
  */
 export const ALLOWED_EMAIL_DOMAINS: string[] = (
-  process.env.ALLOWED_EMAIL_DOMAINS ?? "alumnos.universidad.mx,universidad.mx"
+  process.env.ALLOWED_EMAIL_DOMAINS ?? "alumno.upy.edu.mx,upy.edu.mx"
 )
   .split(",")
-  .map((d) => d.trim().toLowerCase())
+  .map((d) => d.trim().toLowerCase().replace(/^@/, ""))
   .filter(Boolean);
 
 /**
  * isEmailDomainAllowed — valida que el dominio del correo pertenezca a la comunidad.
- * TODO: contemplar subdominios y normalización de alias (+).
+ * Devuelve false si el email es null/undefined, vacío o no contiene "@".
+ * La comparación es EXACTA contra los dominios ya normalizados (sin subdominios).
  */
 export function isEmailDomainAllowed(email?: string | null): boolean {
-  // TODO: implementar validación real del dominio contra ALLOWED_EMAIL_DOMAINS.
   if (!email) return false;
-  const dominio = email.split("@")[1]?.toLowerCase();
+  // lastIndexOf y no split: "a@upy.edu.mx@evil.com" debe validar contra
+  // "evil.com" (el dominio real), no contra el segmento intermedio.
+  const arroba = email.lastIndexOf("@");
+  if (arroba < 0) return false;
+  const dominio = email.slice(arroba + 1).trim().toLowerCase();
   return !!dominio && ALLOWED_EMAIL_DOMAINS.includes(dominio);
 }
 
@@ -37,13 +44,18 @@ export function isEmailDomainAllowed(email?: string | null): boolean {
  * TODO: completar providers, adaptador, páginas, sesión y secret.
  */
 // export const { handlers, auth, signIn, signOut } = NextAuth({
-//   adapter: DrizzleAdapter(db),
-//   session: { strategy: "database" }, // TODO: definir estrategia definitiva
+//   // OJO: el mapeo de tablas es OBLIGATORIO — nuestros nombres (users, accounts,
+//   // sessions, verificationTokens) difieren de los defaults del adaptador.
+//   adapter: DrizzleAdapter(db, {
+//     usersTable: users,
+//     accountsTable: accounts,
+//     sessionsTable: sessions,
+//     verificationTokensTable: verificationTokens,
+//   }),
+//   session: { strategy: "database" }, // revocable — comunidad cerrada
 //   providers: [
-//     Google({
-//       clientId: process.env.GOOGLE_CLIENT_ID,
-//       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-//     }),
+//     // Sin argumentos: Auth.js v5 autodetecta AUTH_GOOGLE_ID / AUTH_GOOGLE_SECRET.
+//     Google,
 //     Email({
 //       // TODO: configurar envío de OTP por correo usando Resend (sendEmail).
 //       maxAge: 10 * 60, // 10 min de validez del código

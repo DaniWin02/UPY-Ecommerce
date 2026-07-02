@@ -1,58 +1,66 @@
-// src/middleware.ts — GATE GLOBAL por IP de Ágora (STUB).
+// src/middleware.ts — GATE GLOBAL por IP de Ágora.
 // Si IP_GATE_ENABLED está activo, sólo deja pasar IPs permitidas (campus);
-// el resto se redirige a una página de bloqueo, salvo rutas exentas.
+// el resto se redirige a /bloqueado (o 403 JSON si es una ruta /api),
+// salvo rutas exentas.
 // NOTA: con directorio src/, Next.js exige el middleware en src/middleware.ts.
+// Corre en edge runtime: sin imports de Node ni acceso a la BD.
 
-// TODO: descomentar cuando se use el tipado real de Next.js.
-// import { NextResponse, type NextRequest } from "next/server";
-import { IP_GATE_ENABLED, isIpAllowed } from "@/lib/ip-rules";
-
-/** Rutas siempre exentas del gate (login y verificación de IP). */
-const RUTAS_EXENTAS = ["/auth", "/api/ip-check", "/bloqueado"];
+import { NextResponse, type NextRequest } from "next/server";
+import { isIpAllowed } from "@/lib/ip-rules";
 
 /**
- * getClientIp — extrae la IP real del cliente desde las cabeceras del proxy.
- * TODO: validar cabeceras de confianza (x-forwarded-for / x-real-ip).
+ * Rutas siempre exentas del gate:
+ * - /auth y /api/auth: el flujo de login de Auth.js debe poder resolverse.
+ * - /api/ip-check: endpoint de diagnóstico de IP.
+ * - /bloqueado: la propia página de bloqueo (evita bucles de redirección).
  */
-function getClientIp(req: { headers: { get(name: string): string | null } }): string {
-  // TODO: tomar la primera IP de x-forwarded-for de forma segura.
+const RUTAS_EXENTAS = ["/auth", "/api/auth", "/api/ip-check", "/bloqueado"];
+
+/**
+ * getClientIp — extrae la IP del cliente desde las cabeceras del proxy.
+ * Toma la primera IP de x-forwarded-for (con trim); fallback "0.0.0.0".
+ * NOTA: la primera IP de XFF es falsificable por el cliente. El anti-spoof
+ * serio (tomar la última IP confiable según el número de proxies conocidos
+ * delante de la app) llega en Fase 8.
+ */
+function getClientIp(req: NextRequest): string {
   const xff = req.headers.get("x-forwarded-for") ?? "";
   return xff.split(",")[0]?.trim() || "0.0.0.0";
 }
 
 /**
  * middleware — punto de entrada del gate por IP.
- * TODO: tipar como (req: NextRequest) => Promise<NextResponse> con Next.js real.
+ * Permitida → continúa. No permitida → 403 JSON en /api, redirect al resto.
  */
-export async function middleware(req: any): Promise<any> {
-  // Si el gate está apagado, continuar sin verificar.
-  if (!IP_GATE_ENABLED) {
-    // return NextResponse.next();
-    return undefined;
-  }
-
-  const { pathname } = req.nextUrl ?? { pathname: "/" };
+export async function middleware(req: NextRequest): Promise<NextResponse> {
+  const { pathname } = req.nextUrl;
 
   // Dejar pasar las rutas exentas (login / chequeo de IP / bloqueo).
-  if (RUTAS_EXENTAS.some((ruta) => pathname.startsWith(ruta))) {
-    // return NextResponse.next();
-    return undefined;
+  // Frontera de segmento: "/auth" exenta "/auth" y "/auth/...", pero NO "/authors".
+  if (
+    RUTAS_EXENTAS.some(
+      (ruta) => pathname === ruta || pathname.startsWith(ruta + "/")
+    )
+  ) {
+    return NextResponse.next();
   }
 
   const ip = getClientIp(req);
-  const permitido = await isIpAllowed(ip, "global");
 
-  if (!permitido) {
-    // TODO: redirigir a la página de bloqueo.
-    // const url = req.nextUrl.clone();
-    // url.pathname = "/bloqueado";
-    // return NextResponse.redirect(url);
-    return undefined;
+  // isIpAllowed ya contempla el flag IP_GATE_ENABLED (apagado → todo pasa).
+  if (await isIpAllowed(ip, "global")) {
+    return NextResponse.next();
   }
 
-  // TODO: continuar la petición.
-  // return NextResponse.next();
-  return undefined;
+  // IP fuera del campus: las APIs reciben 403 JSON; el resto, redirect.
+  if (pathname.startsWith("/api")) {
+    return NextResponse.json(
+      { error: "Acceso restringido a la red del campus" },
+      { status: 403 }
+    );
+  }
+
+  return NextResponse.redirect(new URL("/bloqueado", req.url));
 }
 
 /**
@@ -61,7 +69,6 @@ export async function middleware(req: any): Promise<any> {
  */
 export const config = {
   matcher: [
-    // TODO: ajustar el matcher según rutas públicas/privadas reales.
     "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:png|jpg|jpeg|svg|webp|ico)).*)",
   ],
 };

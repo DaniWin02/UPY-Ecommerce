@@ -1,74 +1,104 @@
-// state-machine.ts — máquina de estados para pagos MANUALES y ciclo de vida de la orden (STUB).
-// Define los estados válidos y las transiciones permitidas entre ellos.
+// state-machine.ts — máquina de estados para pagos MANUALES (SPEI/efectivo)
+// y ciclo de vida de la orden.
+//
+// IMPORTANTE: este módulo es PURO (sin dependencias). NO importa nada de
+// src/db a propósito: los valores deben coincidir 1:1 con los pgEnum de la
+// base de datos y existe un test de contrato aparte que valida esa igualdad.
+//
+// Nota: se ELIMINÓ el estado "carrito" — el carrito vive en una cookie del
+// cliente; la orden nace directamente en "pendiente_pago" al hacer checkout.
 
 /**
  * ORDER_STATES — estados del ciclo de vida de una orden.
- * Flujo típico: carrito -> pendiente_pago -> comprobante_enviado ->
+ * Flujo típico (SPEI): pendiente_pago -> comprobante_enviado ->
  *   pago_verificado -> preparando -> listo_entrega -> entregado.
+ * Flujo efectivo: pendiente_pago -> pago_verificado (el vendedor marca el
+ *   pago como recibido al entregar en mano).
  */
-export const ORDER_STATES = {
-  CARRITO: "carrito",
-  PENDIENTE_PAGO: "pendiente_pago",
-  COMPROBANTE_ENVIADO: "comprobante_enviado",
-  PAGO_VERIFICADO: "pago_verificado",
-  RECHAZADO: "rechazado",
-  PREPARANDO: "preparando",
-  LISTO_ENTREGA: "listo_entrega",
-  ENTREGADO: "entregado",
-  EXPIRADO: "expirado",
-  CANCELADO: "cancelado",
-} as const;
+export const ORDER_STATES = [
+  "pendiente_pago",
+  "comprobante_enviado",
+  "pago_verificado",
+  "rechazado",
+  "preparando",
+  "listo_entrega",
+  "entregado",
+  "expirado",
+  "cancelado",
+] as const;
 
 /** Tipo unión de los estados de orden. */
-export type OrderState = (typeof ORDER_STATES)[keyof typeof ORDER_STATES];
+export type OrderState = (typeof ORDER_STATES)[number];
 
 /**
  * PAYMENT_STATES — estados del pago manual asociado a una orden.
  */
-export const PAYMENT_STATES = {
-  PENDIENTE: "pendiente",
-  COMPROBANTE_SUBIDO: "comprobante_subido",
-  EN_REVISION: "en_revision",
-  VERIFICADO: "verificado",
-  RECHAZADO: "rechazado",
-} as const;
+export const PAYMENT_STATES = [
+  "pendiente",
+  "enviado",
+  "verificado",
+  "rechazado",
+] as const;
 
 /** Tipo unión de los estados de pago. */
-export type PaymentState = (typeof PAYMENT_STATES)[keyof typeof PAYMENT_STATES];
+export type PaymentState = (typeof PAYMENT_STATES)[number];
 
 /**
  * ORDER_TRANSITIONS — transiciones permitidas: estado -> estados destino válidos.
- * TODO: validar contra reglas de negocio (timeouts, permisos de vendor/admin).
  */
-export const ORDER_TRANSITIONS: Record<OrderState, OrderState[]> = {
-  [ORDER_STATES.CARRITO]: [ORDER_STATES.PENDIENTE_PAGO, ORDER_STATES.CANCELADO],
-  [ORDER_STATES.PENDIENTE_PAGO]: [
-    ORDER_STATES.COMPROBANTE_ENVIADO,
-    ORDER_STATES.EXPIRADO,
-    ORDER_STATES.CANCELADO,
-  ],
-  [ORDER_STATES.COMPROBANTE_ENVIADO]: [
-    ORDER_STATES.PAGO_VERIFICADO,
-    ORDER_STATES.RECHAZADO,
-    ORDER_STATES.EXPIRADO,
-  ],
-  [ORDER_STATES.PAGO_VERIFICADO]: [ORDER_STATES.PREPARANDO, ORDER_STATES.CANCELADO],
-  [ORDER_STATES.RECHAZADO]: [ORDER_STATES.PENDIENTE_PAGO, ORDER_STATES.CANCELADO],
-  [ORDER_STATES.PREPARANDO]: [ORDER_STATES.LISTO_ENTREGA, ORDER_STATES.CANCELADO],
-  [ORDER_STATES.LISTO_ENTREGA]: [ORDER_STATES.ENTREGADO, ORDER_STATES.CANCELADO],
+export const ORDER_TRANSITIONS: Record<OrderState, readonly OrderState[]> = {
+  // pago_verificado directo (sin comprobante) = pago en EFECTIVO al entregar:
+  // el vendedor confirma el cobro en mano y no hay comprobante que revisar.
+  pendiente_pago: ["comprobante_enviado", "pago_verificado", "expirado", "cancelado"],
+  comprobante_enviado: ["pago_verificado", "rechazado", "cancelado"],
+  // Desde "rechazado" el comprador puede RE-SUBIR un comprobante corregido
+  // (vuelve a "comprobante_enviado"); si no lo hace a tiempo, expira.
+  rechazado: ["comprobante_enviado", "expirado", "cancelado"],
+  pago_verificado: ["preparando", "cancelado"],
+  preparando: ["listo_entrega", "cancelado"],
+  // Una vez listo para entrega ya no se cancela: el vendedor ya invirtió en
+  // preparar el pedido; solo queda entregarlo.
+  listo_entrega: ["entregado"],
   // Estados terminales: sin transiciones de salida.
-  [ORDER_STATES.ENTREGADO]: [],
-  [ORDER_STATES.EXPIRADO]: [],
-  [ORDER_STATES.CANCELADO]: [],
+  entregado: [],
+  expirado: [],
+  cancelado: [],
 };
 
 /**
  * canTransition — indica si se permite pasar de `from` a `to`.
- * TODO: añadir validaciones de actor/rol y condiciones de negocio.
  */
 export function canTransition(from: OrderState, to: OrderState): boolean {
-  // TODO: registrar intentos de transición inválidos para auditoría.
   return ORDER_TRANSITIONS[from]?.includes(to) ?? false;
 }
+
+/**
+ * PAYMENT_TRANSITIONS — transiciones permitidas del pago manual.
+ */
+export const PAYMENT_TRANSITIONS: Record<PaymentState, readonly PaymentState[]> = {
+  // "verificado" directo (sin pasar por "enviado") = pago en EFECTIVO:
+  // no existe comprobante, el vendedor lo marca verificado al cobrar.
+  pendiente: ["enviado", "verificado"],
+  enviado: ["verificado", "rechazado"],
+  // Tras un rechazo el comprador puede RE-SUBIR el comprobante.
+  rechazado: ["enviado"],
+  // Estado terminal: un pago verificado no se revierte desde la máquina.
+  verificado: [],
+};
+
+/**
+ * canPaymentTransition — indica si se permite pasar de `from` a `to` en el pago.
+ */
+export function canPaymentTransition(from: PaymentState, to: PaymentState): boolean {
+  return PAYMENT_TRANSITIONS[from]?.includes(to) ?? false;
+}
+
+/**
+ * TERMINAL_ORDER_STATES — estados terminales de la orden.
+ * Derivado automáticamente: todo estado sin transiciones de salida.
+ */
+export const TERMINAL_ORDER_STATES: readonly OrderState[] = ORDER_STATES.filter(
+  (estado) => ORDER_TRANSITIONS[estado].length === 0,
+);
 
 // Fin de state-machine.ts

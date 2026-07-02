@@ -1,23 +1,95 @@
 import type { Config } from "tailwindcss";
+import defaultTheme from "tailwindcss/defaultTheme";
+import animate from "tailwindcss-animate";
 
 // Configuración de TailwindCSS para Ágora Campus.
-// Los tokens de color/radio/tipografía los gestiona shadcn/ui (new-york)
-// mediante variables CSS definidas en el archivo de estilos global.
+// Los tokens de color/radio/tipografía viven como variables CSS en globals.css
+// (patrón shadcn/ui) y aquí se mapean a utilidades de Tailwind.
 const config: Config = {
-  darkMode: ["class"], // Modo oscuro por clase (shadcn): español primero + dark.
+  darkMode: ["class"], // Modo oscuro por clase (gestionado por next-themes).
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
+    // Contenedor centrado con padding para layouts mobile-first.
+    container: {
+      center: true,
+      padding: "1rem",
+    },
     extend: {
-      // TODO: Extender colores/espaciado/fuentes de la marca Ágora.
-      // TODO: shadcn agrega aquí keyframes y animaciones (accordion, etc.).
       colors: {
-        // TODO: mapear a las variables CSS de shadcn (background, primary, ...).
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+        // Estados de pago del dominio (verificado / pendiente).
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          foreground: "hsl(var(--success-foreground))",
+        },
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          foreground: "hsl(var(--warning-foreground))",
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      fontFamily: {
+        sans: ["var(--font-sans)", ...defaultTheme.fontFamily.sans],
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        // Entrada desde abajo (bottom sheet móvil).
+        "slide-in-from-bottom": {
+          from: { transform: "translateY(100%)" },
+          to: { transform: "translateY(0)" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+        "slide-in-from-bottom": "slide-in-from-bottom 0.3s ease-out",
       },
     },
   },
-  plugins: [
-    // TODO: agregar tailwindcss-animate (requerido por shadcn/ui).
-  ],
+  plugins: [animate],
 };
 
 export default config;

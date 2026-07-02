@@ -67,20 +67,7 @@ export const inventory = pgTable("inventory", {
   // TODO: CHECK (reservado <= stock); updated_at para auditoría de movimientos.
 });
 
-// Reservas temporales de stock mientras se paga (TTL por expira_en).
-// order_id referencia orders.id (FK omitida aquí para evitar ciclo de imports products↔orders).
-export const stockHolds = pgTable("stock_holds", {
-  id: uuid("id").defaultRandom().primaryKey(),
-  variantId: uuid("variant_id")
-    .notNull()
-    .references(() => productVariants.id, { onDelete: "cascade" }),
-  // TODO: FK a orders.id (definir vía relación/migración para no crear import circular).
-  orderId: uuid("order_id").notNull(),
-  cantidad: integer("cantidad").notNull(),
-  // Cuándo expira la reserva; un job (pg-boss) libera el stock al vencer.
-  expiraEn: timestamp("expira_en", { withTimezone: true }).notNull(),
-  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-  // TODO: índice por expira_en (barrido de expiración) y por order_id.
-});
+// Nota: las reservas temporales de stock (stockHolds) viven en orders.ts,
+// donde pueden tener FK real a orders.id sin ciclo de imports.
 
 // Fin del dominio de catálogo e inventario.

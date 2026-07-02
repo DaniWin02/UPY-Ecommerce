@@ -8,14 +8,15 @@ import {
   integer,
   numeric,
   timestamp,
+  index,
 } from "drizzle-orm/pg-core";
 import { users } from "./users";
 import { vendors } from "./vendors";
 import { productVariants } from "./products";
 
 // Máquina de estados del pedido (ver PLAN.md §5). Orden = un solo vendor.
+// El carrito vive en cookie (no en orders); la orden nace en "pendiente_pago".
 export const orderEstadoEnum = pgEnum("order_estado", [
-  "carrito",
   "pendiente_pago",
   "comprobante_enviado",
   "pago_verificado",
@@ -39,7 +40,7 @@ export const orders = pgTable("orders", {
   vendorId: uuid("vendor_id")
     .notNull()
     .references(() => vendors.id),
-  estado: orderEstadoEnum("estado").notNull().default("carrito"),
+  estado: orderEstadoEnum("estado").notNull().default("pendiente_pago"),
   // Total del pedido en MXN (numeric para precisión monetaria).
   total: numeric("total", { precision: 12, scale: 2 }).notNull().default("0"),
   // Referencia/concepto único usado en el SPEI para conciliar el pago.
@@ -69,5 +70,31 @@ export const orderItems = pgTable("order_items", {
   precioUnit: numeric("precio_unit", { precision: 12, scale: 2 }).notNull(),
   // TODO: índice por order_id; UNIQUE (order_id, variant_id) para evitar duplicados.
 });
+
+// Reservas temporales de stock mientras se paga (TTL por expira_en).
+// Vive aquí (no en products.ts) para poder tener FK real a orders.id sin ciclo de imports.
+// DECISIÓN PENDIENTE (Fase 5): una orden en `comprobante_enviado` NO expira, pero el
+// hold sí vencería por TTL → riesgo de oversell si el vendor tarda en verificar.
+// Al subir el comprobante hay que CONGELAR o extender el hold hasta el veredicto.
+export const stockHolds = pgTable(
+  "stock_holds",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    orderId: uuid("order_id")
+      .notNull()
+      .references(() => orders.id, { onDelete: "cascade" }),
+    variantId: uuid("variant_id")
+      .notNull()
+      .references(() => productVariants.id, { onDelete: "cascade" }),
+    cantidad: integer("cantidad").notNull(),
+    // Cuándo expira la reserva; un job (pg-boss) libera el stock al vencer.
+    expiraEn: timestamp("expira_en", { withTimezone: true }).notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    // TODO: índice por order_id.
+  },
+  (table) => ({
+    expiraEnIdx: index("stock_holds_expira_en_idx").on(table.expiraEn),
+  })
+);
 
 // Fin del dominio de pedidos.
