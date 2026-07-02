@@ -38,11 +38,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     // MISMO correo sin chocar con "OAuthAccountNotLinked". Es seguro aquí
     // porque Google garantiza la propiedad del correo institucional.
     Google({ allowDangerousEmailAccountLinking: true }),
-    // Magic link por correo vía Resend (usa RESEND_API_KEY del entorno).
+    // Magic link por correo vía Resend — OPCIONAL: solo se registra si hay
+    // RESEND_API_KEY en el entorno. Sin la key, el login queda solo-Google
+    // (la página de login oculta el formulario de correo en ese caso).
     // Con la API key de prueba de Resend, el remitente debe ser onboarding@resend.dev.
-    Resend({
-      from: process.env.EMAIL_FROM ?? "Ágora Campus <onboarding@resend.dev>",
-    }),
+    ...(process.env.RESEND_API_KEY
+      ? [
+          Resend({
+            from: process.env.EMAIL_FROM ?? "Ágora Campus <onboarding@resend.dev>",
+          }),
+        ]
+      : []),
   ],
   pages: {
     signIn: "/auth/login",

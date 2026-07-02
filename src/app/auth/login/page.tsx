@@ -48,6 +48,10 @@ export default async function AuthLoginPage({
     ? MENSAJES_ERROR[error] ?? MENSAJE_ERROR_DEFAULT
     : null;
 
+  // El magic link solo se ofrece si Resend está configurado (misma condición
+  // con la que auth.ts registra el provider). Sin la key: login solo-Google.
+  const magicLinkDisponible = Boolean(process.env.RESEND_API_KEY);
+
   // Server Action: inicio de sesión con Google (dominio institucional se valida en Auth.js)
   async function entrarConGoogle() {
     "use server";
@@ -104,34 +108,39 @@ export default async function AuthLoginPage({
             </Button>
           </form>
 
-          {/* Separador */}
-          <div className="flex items-center gap-3" aria-hidden="true">
-            <span className="h-px flex-1 bg-border" />
-            <span className="text-xs text-muted-foreground">
-              o con tu correo institucional
-            </span>
-            <span className="h-px flex-1 bg-border" />
-          </div>
+          {/* Magic link por correo: solo si Resend está configurado */}
+          {magicLinkDisponible && (
+            <>
+              {/* Separador */}
+              <div className="flex items-center gap-3" aria-hidden="true">
+                <span className="h-px flex-1 bg-border" />
+                <span className="text-xs text-muted-foreground">
+                  o con tu correo institucional
+                </span>
+                <span className="h-px flex-1 bg-border" />
+              </div>
 
-          {/* Acceso con enlace mágico por correo */}
-          <form action={enviarEnlace} className="space-y-3">
-            <label htmlFor="email" className="sr-only">
-              Correo institucional
-            </label>
-            <Input
-              id="email"
-              type="email"
-              name="email"
-              required
-              autoComplete="email"
-              inputMode="email"
-              placeholder="tu.nombre@alumno.upy.edu.mx"
-              className="h-11"
-            />
-            <Button type="submit" variant="secondary" size="lg" className="w-full">
-              Enviarme un enlace de acceso
-            </Button>
-          </form>
+              {/* Acceso con enlace mágico por correo */}
+              <form action={enviarEnlace} className="space-y-3">
+                <label htmlFor="email" className="sr-only">
+                  Correo institucional
+                </label>
+                <Input
+                  id="email"
+                  type="email"
+                  name="email"
+                  required
+                  autoComplete="email"
+                  inputMode="email"
+                  placeholder="tu.nombre@alumno.upy.edu.mx"
+                  className="h-11"
+                />
+                <Button type="submit" variant="secondary" size="lg" className="w-full">
+                  Enviarme un enlace de acceso
+                </Button>
+              </form>
+            </>
+          )}
         </CardContent>
 
         <CardFooter>
