@@ -104,6 +104,70 @@ export function ipInCidr(ip: string, cidr: string): boolean {
 }
 
 /**
+ * extraerIpCliente — extrae la IP real del cliente de una cadena x-forwarded-for.
+ * PURA salvo por sus argumentos: no lee env (el llamador pasa `confianza`).
+ *
+ * `confianza` = nº de proxies PROPIOS delante de la app (env TRUSTED_PROXIES).
+ * XFF = "cliente, proxy1, proxy2, ...": cada salto añade a la DERECHA la IP de
+ * su peer, así que los últimos `confianza` valores los pusieron NUESTROS
+ * proxies y son fiables. La IP del cliente se toma desde la derecha saltando
+ * `confianza` entradas (índice longitud - confianza - 1).
+ *
+ * Con confianza = 0 se toma la ÚLTIMA: la puso el peer TCP directo y no es
+ * falsificable por el cliente cuando el server está expuesto directo o la
+ * plataforma SOBRESCRIBE la cabecera (Vercel lo hace).
+ *
+ * Comportamiento elegido en los bordes (documentado y testeado):
+ *  - Entradas vacías / espacios se limpian antes de indexar.
+ *  - Si `confianza` >= nº de entradas (índice negativo: el cliente no envió
+ *    XFF y toda la cadena la pusieron nuestros proxies) → se devuelve la más
+ *    a la IZQUIERDA disponible, que es la más cercana al cliente real.
+ *  - Si `confianza` es negativa o no numérica (NaN) → se sanea a 0, es decir,
+ *    cae a la más a la DERECHA (la opción no falsificable).
+ *  - Cadena vacía, null/undefined o solo separadores → null.
+ */
+export function extraerIpCliente(
+  xff: string | null | undefined,
+  confianza: number
+): string | null {
+  if (!xff) return null;
+
+  // Limpieza: separar por comas, trim y descartar entradas vacías.
+  const saltos = xff
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (saltos.length === 0) return null;
+
+  // Sanear confianza: NaN / negativos / decimales → entero >= 0.
+  const n =
+    Number.isFinite(confianza) && confianza > 0 ? Math.floor(confianza) : 0;
+
+  // Desde la derecha, saltando las `n` entradas puestas por nuestros proxies.
+  // Índice negativo (confianza >= longitud) → clamp a 0 (la más a la izquierda).
+  const idx = saltos.length - 1 - n;
+  return saltos[Math.max(idx, 0)];
+}
+
+/**
+ * ipEnCampus — indica si una IP cae en algún CIDR de CAMPUS_CIDRS,
+ * SIN considerar el flag IP_GATE_ENABLED (a diferencia de isIpAllowed, que
+ * con el gate APAGADO devuelve true para todo). Útil para checks que deben
+ * exigir la red del campus aunque el gate global esté apagado, p. ej. el
+ * candado ADMIN_SOLO_IP_CAMPUS del panel admin.
+ * Lee process.env.CAMPUS_CIDRS EN CADA LLAMADA (testeable con vi.stubEnv).
+ */
+export function ipEnCampus(ip: string): boolean {
+  // Lista de CIDRs del campus: separada por comas, trim, ignora vacíos.
+  const campusCidrs = (process.env.CAMPUS_CIDRS ?? "")
+    .split(",")
+    .map((c) => c.trim())
+    .filter(Boolean);
+
+  return campusCidrs.some((cidr) => ipInCidr(ip, cidr));
+}
+
+/**
  * isIpAllowed — decide si una IP puede acceder a un ámbito dado.
  * Lee process.env EN CADA LLAMADA (testeable con vi.stubEnv):
  *  - Si process.env.IP_GATE_ENABLED !== "true" → true (gate apagado, todo pasa).
@@ -124,13 +188,8 @@ export async function isIpAllowed(ip: string, scope: IpScope): Promise<boolean> 
   // Reservado para V1: evaluar reglas IpRule del `scope` antes del default.
   void scope;
 
-  // Lista de CIDRs del campus: separada por comas, trim, ignora vacíos.
-  const campusCidrs = (process.env.CAMPUS_CIDRS ?? "")
-    .split(",")
-    .map((c) => c.trim())
-    .filter(Boolean);
-
-  return campusCidrs.some((cidr) => ipInCidr(ip, cidr));
+  // Default del gate encendido: pertenecer a la red del campus.
+  return ipEnCampus(ip);
 }
 
 // Fin de ip-rules.ts

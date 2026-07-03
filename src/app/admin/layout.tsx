@@ -1,8 +1,12 @@
 // Layout del panel de universidad (Ágora — SuperAdmin)
-// Protegido por rol superadmin. La exigencia adicional de IP interna
-// (gate por red universitaria) llega en Fase 8.
+// Protegido por rol superadmin. Con ADMIN_SOLO_IP_CAMPUS="true" exige además
+// que la IP del request pertenezca a la red del campus (CAMPUS_CIDRS),
+// independientemente de que el gate global IP_GATE_ENABLED esté apagado.
 import Link from "next/link";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import { Flag, Network, Settings, Store } from "lucide-react";
+import { extraerIpCliente, ipEnCampus } from "@/lib/ip-rules";
 import { requireRole } from "@/lib/session";
 
 // Enlaces del panel de administración (nav horizontal, scrolleable en móvil).
@@ -20,6 +24,20 @@ export default async function AdminLayout({
 }) {
   // Solo superadmin: anónimo → login; otro rol → home.
   await requireRole("superadmin");
+
+  // Candado opcional por red del campus para el panel admin.
+  // Se usa ipEnCampus (CAMPUS_CIDRS directo) y NO isIpAllowed, porque esta
+  // última devuelve true para todo cuando el gate global está APAGADO y este
+  // check debe funcionar de forma independiente al gate.
+  if (process.env.ADMIN_SOLO_IP_CAMPUS === "true") {
+    const cabeceras = await headers();
+    const ip =
+      extraerIpCliente(
+        cabeceras.get("x-forwarded-for"),
+        Number(process.env.TRUSTED_PROXIES ?? "0")
+      ) ?? "0.0.0.0";
+    if (!ipEnCampus(ip)) redirect("/bloqueado");
+  }
 
   return (
     <div className="min-h-screen bg-background">

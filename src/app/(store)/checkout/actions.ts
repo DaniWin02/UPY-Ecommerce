@@ -9,6 +9,7 @@ import { redirect } from "next/navigation";
 import { requireUser } from "@/lib/session";
 import { leerCarrito, escribirCarrito, resolverCarrito } from "@/lib/cart";
 import { crearOrden } from "@/lib/orders";
+import { permitirIntento } from "@/lib/rate-limit";
 
 // Uniones válidas del formulario: cualquier otro valor es manipulación o bug.
 const METODOS_PAGO = ["spei", "efectivo"] as const;
@@ -24,8 +25,9 @@ export async function confirmarPedido(formData: FormData): Promise<void> {
 
   const metodoPagoRaw = String(formData.get("metodoPago") ?? "");
   const metodoEntregaRaw = String(formData.get("metodoEntrega") ?? "");
-  const punto = String(formData.get("punto") ?? "").trim();
-  const aulaCampo = String(formData.get("aula") ?? "").trim();
+  // Texto libre acotado: acaba en orders.aula (columna text sin límite).
+  const punto = String(formData.get("punto") ?? "").trim().slice(0, 120);
+  const aulaCampo = String(formData.get("aula") ?? "").trim().slice(0, 120);
 
   // Validación contra las uniones (los radios podrían venir alterados).
   if (
@@ -54,6 +56,15 @@ export async function confirmarPedido(formData: FormData): Promise<void> {
     metodoEntrega === "punto"
       ? punto || "Punto de entrega del campus"
       : aulaCampo || grupo.vendor.aulaDefault || undefined;
+
+  // Rate limit: 10 órdenes / 10 min por usuario (nadie compra más rápido de
+  // forma legítima; frena scripts que inflen stock reservado). Se comprueba
+  // JUSTO antes de crearOrden para no contar validaciones fallidas. Se reusa
+  // el código "NoSePudo" (mensaje genérico ya renderizado por la page de
+  // checkout, que no forma parte de este cambio).
+  if (!permitirIntento(`orden:${user.id}`, 10, 10 * 60_000)) {
+    redirect(`/checkout?tienda=${encodeURIComponent(slug)}&error=NoSePudo`);
+  }
 
   // crearOrden dentro de try/catch (fallos de red/DB); los redirect, fuera.
   let resultado: Awaited<ReturnType<typeof crearOrden>>;

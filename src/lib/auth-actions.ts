@@ -10,51 +10,22 @@
 // NOTA: sin verificación de correo por ahora (sin Resend) — cualquiera con un
 // correo del dominio permitido puede registrarse; la verificación REAL de
 // propiedad del correo llegará cuando se active el magic link.
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { users, sessions } from "@/db/schema";
 import { hashPassword, verifyPassword } from "@/lib/password";
 import { isEmailDomainAllowed } from "@/lib/auth-domains";
+import { permitirIntento, claveConIp } from "@/lib/rate-limit";
 
 // Duración de la sesión: 30 días (igual que el default de Auth.js).
 const SESION_MS = 30 * 24 * 60 * 60 * 1000;
 
-// ---------------------------------------------------------------------------
-// Rate limiting EN MEMORIA (por proceso). Suficiente para el MVP self-host de
-// un solo proceso; en V1 migrar a Redis o a una tabla si hay varias réplicas.
-// Map de clave → timestamps (ms) de intentos dentro de la ventana.
-// ---------------------------------------------------------------------------
-const intentos = new Map<string, number[]>();
-
-/**
- * permitirIntento — true si la clave aún tiene cupo dentro de la ventana.
- * Poda los timestamps viejos en cada consulta para que el Map no crezca.
- */
-function permitirIntento(
-  clave: string,
-  max = 5,
-  ventanaMs = 15 * 60_000
-): boolean {
-  const ahora = Date.now();
-  const recientes = (intentos.get(clave) ?? []).filter(
-    (t) => ahora - t < ventanaMs
-  );
-  if (recientes.length >= max) {
-    intentos.set(clave, recientes);
-    return false;
-  }
-  recientes.push(ahora);
-  intentos.set(clave, recientes);
-  return true;
-}
-
-/** IP del cliente (primera de x-forwarded-for) o "" si no está disponible. */
-async function ipCliente(): Promise<string> {
-  const hdrs = await headers();
-  return hdrs.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "";
-}
+// Rate limiting: 5 intentos / 15 min por email+IP (módulo compartido
+// @/lib/rate-limit — el limitador que vivía aquí se extrajo en Fase 8).
+const AUTH_MAX_INTENTOS = 5;
+const AUTH_VENTANA_MS = 15 * 60_000;
 
 // Longitud máxima de contraseña aceptada: evita costear scrypt sobre entradas
 // gigantes (DoS) y acota el trabajo por request.
@@ -115,8 +86,8 @@ export async function loginConCredenciales(formData: FormData): Promise<void> {
   const password = String(formData.get("password") ?? "");
 
   // Rate limit por email+IP: frena fuerza bruta sobre una cuenta concreta.
-  const ip = await ipCliente();
-  if (!permitirIntento(`login:${email}:${ip}`)) {
+  const clave = await claveConIp(`login:${email}`);
+  if (!permitirIntento(clave, AUTH_MAX_INTENTOS, AUTH_VENTANA_MS)) {
     redirect("/auth/login?error=DemasiadosIntentos");
   }
 
@@ -159,8 +130,8 @@ export async function registrarse(formData: FormData): Promise<void> {
   const confirmar = String(formData.get("confirmar") ?? "");
 
   // 0) Rate limit por email+IP: frena altas masivas / fuerza bruta de registro.
-  const ip = await ipCliente();
-  if (!permitirIntento(`registro:${email}:${ip}`)) {
+  const clave = await claveConIp(`registro:${email}`);
+  if (!permitirIntento(clave, AUTH_MAX_INTENTOS, AUTH_VENTANA_MS)) {
     redirect("/auth/registro?error=DemasiadosIntentos");
   }
 

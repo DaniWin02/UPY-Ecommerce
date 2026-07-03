@@ -17,10 +17,18 @@ const poppins = Poppins({
   variable: "--font-heading",
 });
 
+// PWA mínima instalable: manifest + iconos, SIN service worker a propósito.
+// El modo offline no aporta en un marketplace en vivo y una caché mal invalidada
+// durante un drop (stock/estados de pedido obsoletos) es un footgun.
 export const metadata: Metadata = {
   title: "Ágora Campus",
   description:
     "Marketplace universitario: compra y vende dentro de tu campus con pagos SPEI verificados.",
+  manifest: "/manifest.webmanifest",
+  // Comunidad cerrada: fuera de buscadores.
+  robots: { index: false, follow: false },
+  appleWebApp: { capable: true, title: "Ágora", statusBarStyle: "default" },
+  icons: { icon: "/icons/icon.svg" },
 };
 
 // viewportFit: "cover" es necesario para las utilidades de safe-area en iOS.
@@ -28,6 +36,11 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  // Color de la barra del navegador/SO: guinda de marca en claro, fondo oscuro en dark.
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#8f1433" },
+    { media: "(prefers-color-scheme: dark)", color: "#171213" },
+  ],
 };
 
 // RootLayout: contenedor raíz de la aplicación Ágora (marketplace universitario).

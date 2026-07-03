@@ -41,6 +41,10 @@ lerna-debug.log*
 /coverage
 *.lcov
 
+# Playwright (reportes y artefactos de E2E)
+playwright-report/
+test-results/
+
 # Certificados / claves
 *.pem
 

@@ -8,6 +8,7 @@ import { orders } from "@/db/schema/orders";
 import { getSessionUser } from "@/lib/session";
 import { guardarComprobante } from "@/lib/comprobantes";
 import { registrarComprobante } from "@/lib/orders";
+import { permitirIntento } from "@/lib/rate-limit";
 
 // Formato decimal simple: "350", "350.5" o "350.50" (MXN, hasta 2 decimales).
 const RE_MONTO = /^\d+(\.\d{1,2})?$/;
@@ -28,6 +29,17 @@ export async function POST(
 
   if (!RE_UUID.test(orderId)) {
     return NextResponse.json({ error: "Pedido no válido." }, { status: 403 });
+  }
+
+  // Rate limit: 10 subidas / 10 min por usuario. Un comprador legítimo sube
+  // 1-2 comprobantes por pedido; esto frena floods de archivos a disco sin
+  // estorbar reintentos normales. Se comprueba ANTES de leer el multipart
+  // para no pagar el parseo del archivo en peticiones ya bloqueadas.
+  if (!permitirIntento(`comprobante:${user.id}`, 10, 10 * 60_000)) {
+    return NextResponse.json(
+      { error: "Demasiados intentos, espera unos minutos." },
+      { status: 429 }
+    );
   }
 
   // multipart/form-data: file (obligatorio) + montoDeclarado (opcional).

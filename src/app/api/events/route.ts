@@ -10,6 +10,7 @@ import { z } from "zod";
 import { db } from "@/db";
 import { analyticsEvents } from "@/db/schema/analytics";
 import { getSessionUser } from "@/lib/session";
+import { permitirIntento } from "@/lib/rate-limit";
 
 const COOKIE_SESION = "agora_sid";
 const MAX_EVENTOS = 20;
@@ -70,6 +71,17 @@ function clasificarDevice(ua: string | null): "mobile" | "tablet" | "desktop" | 
 
 export async function POST(req: NextRequest) {
   try {
+    // Rate limit ANTI-FLOOD: 30 lotes / min por sessionId (o IP si aún no hay
+    // cookie). Con el flush normal del cliente (lotes de hasta 20 eventos)
+    // nadie legítimo se acerca; protege la ingesta ANTES de parsear el body.
+    // La IP se lee solo para diferenciar clientes — jamás se persiste.
+    const sidCookie = req.cookies.get(COOKIE_SESION)?.value ?? "";
+    const ipCliente =
+      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "";
+    if (!permitirIntento(`events:${sidCookie || ipCliente}`, 30, 60_000)) {
+      return NextResponse.json({ error: "Demasiadas peticiones." }, { status: 429 });
+    }
+
     // sendBeacon con Blob llega como application/json, pero algunos browsers
     // degradan a text/plain: leemos texto crudo y parseamos JSON a mano en
     // vez de fiarnos del content-type.

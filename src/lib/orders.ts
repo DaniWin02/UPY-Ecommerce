@@ -220,17 +220,26 @@ async function transicionarOrden(
   if (filas.length === 0) throw new ErrorDominio("ESTADO_INVALIDO");
 }
 
-/** Igual que transicionarOrden pero para payments (guard por estado actual). */
+/** Igual que transicionarOrden pero para payments (guard por estado actual).
+ *  `comprobanteEsperado` (opcional) añade un guard anti-ABA: la transición solo
+ *  aplica si el comprobante sigue siendo EL MISMO que el actor revisó — evita
+ *  que un verificarPago en vuelo apruebe un comprobante re-subido tras un
+ *  rechazo (que el vendor nunca vio). */
 async function transicionarPago(
   tx: Tx,
   paymentId: string,
   desde: (typeof payments.$inferSelect)["estado"],
   cambios: Partial<typeof payments.$inferInsert>,
+  comprobanteEsperado?: string | null,
 ): Promise<void> {
+  const condiciones = [eq(payments.id, paymentId), eq(payments.estado, desde)];
+  if (comprobanteEsperado !== undefined && comprobanteEsperado !== null) {
+    condiciones.push(eq(payments.comprobanteUrl, comprobanteEsperado));
+  }
   const filas = await tx
     .update(payments)
     .set(cambios)
-    .where(and(eq(payments.id, paymentId), eq(payments.estado, desde)))
+    .where(and(...condiciones))
     .returning({ id: payments.id });
   if (filas.length === 0) throw new ErrorDominio("ESTADO_INVALIDO");
 }
@@ -291,6 +300,10 @@ export async function crearOrden(params: {
       precioUnit: variante.precioComunidad ?? variante.precio,
     });
   }
+
+  // Orden de lock DETERMINISTA: dos checkouts concurrentes con las mismas
+  // variantes en distinto orden tomarían row-locks cruzados (deadlock 40P01).
+  lineas.sort((a, b) => a.variantId.localeCompare(b.variantId));
 
   // Total en CENTAVOS enteros (patrón de src/lib/cart.ts): sin flotantes.
   const totalCentavos = lineas.reduce(
@@ -497,11 +510,18 @@ export async function verificarPago(
   try {
     // Pago + orden + COMMIT de stock: TODO en una sola transacción.
     await db.transaction(async (tx) => {
-      await transicionarPago(tx, pago.id, pago.estado, {
-        estado: "verificado",
-        verificadoPor: actorUserId,
-        verificadoEn: new Date(),
-      });
+      // Guard anti-ABA: verifica SOLO el comprobante que se leyó arriba.
+      await transicionarPago(
+        tx,
+        pago.id,
+        pago.estado,
+        {
+          estado: "verificado",
+          verificadoPor: actorUserId,
+          verificadoEn: new Date(),
+        },
+        pago.comprobanteUrl,
+      );
       await transicionarOrden(tx, orden.id, orden.estado, {
         estado: "pago_verificado",
       });

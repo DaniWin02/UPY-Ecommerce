@@ -1,5 +1,10 @@
 import { describe, it, expect, afterEach, vi } from "vitest";
-import { ipInCidr, isIpAllowed } from "@/lib/ip-rules";
+import {
+  extraerIpCliente,
+  ipEnCampus,
+  ipInCidr,
+  isIpAllowed,
+} from "@/lib/ip-rules";
 
 describe("ipInCidr", () => {
   describe("máscaras /24 y /16", () => {
@@ -136,5 +141,78 @@ describe("isIpAllowed", () => {
       vi.stubEnv("CAMPUS_CIDRS", "");
       await expect(isIpAllowed("10.10.0.1", "global")).resolves.toBe(false);
     });
+  });
+});
+
+describe("extraerIpCliente", () => {
+  // XFF = "cliente, proxy1, proxy2, ...": los últimos `confianza` saltos los
+  // pusieron NUESTROS proxies; la IP del cliente se toma desde la derecha
+  // saltando `confianza` entradas.
+
+  it("confianza 0 → toma la ÚLTIMA (la puso el peer TCP directo)", () => {
+    expect(extraerIpCliente("1.1.1.1, 2.2.2.2, 3.3.3.3", 0)).toBe("3.3.3.3");
+  });
+
+  it('confianza 1 con "cliente, proxy" → toma la del cliente', () => {
+    expect(extraerIpCliente("203.0.113.9, 10.0.0.1", 1)).toBe("203.0.113.9");
+  });
+
+  it("confianza 2 con 3 saltos → toma la primera", () => {
+    expect(extraerIpCliente("203.0.113.9, 10.0.0.1, 10.0.0.2", 2)).toBe(
+      "203.0.113.9"
+    );
+  });
+
+  it("confianza mayor que la lista → la más a la IZQUIERDA disponible", () => {
+    // Comportamiento elegido (documentado en ip-rules.ts): con más proxies
+    // confiables que entradas, el cliente no envió XFF y toda la cadena la
+    // pusieron nuestros proxies → la más a la izquierda es la más cercana
+    // al cliente real (clamp del índice negativo a 0).
+    expect(extraerIpCliente("10.0.0.1, 10.0.0.2", 5)).toBe("10.0.0.1");
+    expect(extraerIpCliente("198.51.100.7", 3)).toBe("198.51.100.7");
+  });
+
+  it("limpia espacios y entradas vacías antes de indexar", () => {
+    expect(extraerIpCliente("  203.0.113.9 , , 10.0.0.1 ,", 1)).toBe(
+      "203.0.113.9"
+    );
+    expect(extraerIpCliente("1.1.1.1,,2.2.2.2,", 0)).toBe("2.2.2.2");
+  });
+
+  it("null, undefined y cadena vacía → null", () => {
+    expect(extraerIpCliente(null, 0)).toBeNull();
+    expect(extraerIpCliente(undefined, 1)).toBeNull();
+    expect(extraerIpCliente("", 0)).toBeNull();
+  });
+
+  it("cadena de solo separadores/espacios → null", () => {
+    expect(extraerIpCliente(" , ,, ", 0)).toBeNull();
+  });
+
+  it("confianza negativa o NaN se sanea a 0 → la más a la DERECHA", () => {
+    expect(extraerIpCliente("1.1.1.1, 2.2.2.2", -3)).toBe("2.2.2.2");
+    expect(extraerIpCliente("1.1.1.1, 2.2.2.2", Number.NaN)).toBe("2.2.2.2");
+  });
+});
+
+describe("ipEnCampus", () => {
+  // ipEnCampus lee CAMPUS_CIDRS en cada llamada e IGNORA IP_GATE_ENABLED.
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it("true si la IP cae en algún CIDR, aun con el gate global APAGADO", () => {
+    vi.stubEnv("IP_GATE_ENABLED", "false");
+    vi.stubEnv("CAMPUS_CIDRS", "10.10.0.0/16, 192.168.1.0/24");
+    expect(ipEnCampus("10.10.42.7")).toBe(true);
+    expect(ipEnCampus("192.168.1.200")).toBe(true);
+  });
+
+  it("false si la IP queda fuera o no hay CIDRs configurados", () => {
+    vi.stubEnv("CAMPUS_CIDRS", "10.10.0.0/16");
+    expect(ipEnCampus("8.8.8.8")).toBe(false);
+
+    vi.stubEnv("CAMPUS_CIDRS", "");
+    expect(ipEnCampus("10.10.0.1")).toBe(false); // fail-closed
   });
 });

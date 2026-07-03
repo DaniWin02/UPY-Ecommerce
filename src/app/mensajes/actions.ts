@@ -12,6 +12,7 @@ import { db } from "@/db";
 import { products } from "@/db/schema/products";
 import { orders } from "@/db/schema/orders";
 import { requireUser, getSessionUser } from "@/lib/session";
+import { permitirIntento } from "@/lib/rate-limit";
 import {
   abrirConversacion,
   enviarMensaje,
@@ -113,6 +114,13 @@ export async function accionEnviarMensaje(formData: FormData) {
   const cuerpo = cuerpoSchema.safeParse(formData.get("cuerpo"));
   if (!cuerpo.success) {
     redirect(`/mensajes/${conversationId.data}?error=Validacion`);
+  }
+
+  // Rate limit: 20 mensajes / min por usuario (cadencia humana holgada; frena
+  // spam entre miembros del campus). La page del hilo ya renderiza CUALQUIER
+  // código ?error= en su banner genérico, así que no hay que tocarla.
+  if (!permitirIntento(`msj:${user.id}`, 20, 60_000)) {
+    redirect(`/mensajes/${conversationId.data}?error=DemasiadosMensajes`);
   }
 
   let resultado: Awaited<ReturnType<typeof enviarMensaje>> | { ok: false; error: string };

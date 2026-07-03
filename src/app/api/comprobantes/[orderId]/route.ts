@@ -83,6 +83,10 @@ export async function GET(
       "Content-Type": archivo.contentType,
       // Datos financieros personales: nada de caches compartidas ni locales.
       "Cache-Control": "private, no-store",
+      // El MIME lo declaró el cliente al subir: que el navegador NO lo
+      // re-adivine (nosniff) y lo trate como archivo visualizable con nombre.
+      "X-Content-Type-Options": "nosniff",
+      "Content-Disposition": `inline; filename="comprobante.${archivo.contentType.split("/")[1] ?? "bin"}"`,
     },
   });
 }

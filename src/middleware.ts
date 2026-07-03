@@ -6,7 +6,7 @@
 // Corre en edge runtime: sin imports de Node ni acceso a la BD.
 
 import { NextResponse, type NextRequest } from "next/server";
-import { isIpAllowed } from "@/lib/ip-rules";
+import { extraerIpCliente, isIpAllowed } from "@/lib/ip-rules";
 
 /**
  * Rutas siempre exentas del gate:
@@ -17,15 +17,20 @@ import { isIpAllowed } from "@/lib/ip-rules";
 const RUTAS_EXENTAS = ["/auth", "/api/auth", "/api/ip-check", "/bloqueado"];
 
 /**
- * getClientIp — extrae la IP del cliente desde las cabeceras del proxy.
- * Toma la primera IP de x-forwarded-for (con trim); fallback "0.0.0.0".
- * NOTA: la primera IP de XFF es falsificable por el cliente. El anti-spoof
- * serio (tomar la última IP confiable según el número de proxies conocidos
- * delante de la app) llega en Fase 8.
+ * getClientIp — extrae la IP del cliente desde x-forwarded-for con la lógica
+ * anti-spoof de extraerIpCliente: se toma desde la DERECHA saltando tantas
+ * entradas como proxies PROPIOS haya delante de la app (env TRUSTED_PROXIES).
+ * Con TRUSTED_PROXIES=0 (server directo o plataforma que SOBRESCRIBE XFF,
+ * como Vercel) se usa la última entrada, que no es falsificable por el
+ * cliente. Fallback "0.0.0.0" si no hay cabecera (fail-closed con gate on).
  */
 function getClientIp(req: NextRequest): string {
-  const xff = req.headers.get("x-forwarded-for") ?? "";
-  return xff.split(",")[0]?.trim() || "0.0.0.0";
+  return (
+    extraerIpCliente(
+      req.headers.get("x-forwarded-for"),
+      Number(process.env.TRUSTED_PROXIES ?? "0")
+    ) ?? "0.0.0.0"
+  );
 }
 
 /**

@@ -12,7 +12,7 @@
 //    la conversación (preview, fecha, contador del lado receptor) juntos.
 //  - Las notificaciones se emiten FUERA de la transacción y nunca lanzan
 //    (contrato de notificar): un aviso fallido no revierte el envío.
-import { and, asc, eq, isNull, or, sql } from "drizzle-orm";
+import { and, asc, desc, eq, isNull, or, sql } from "drizzle-orm";
 import { db } from "@/db";
 import {
   conversations,
@@ -502,17 +502,21 @@ export async function obtenerConversacion(
     rolUsuario = "vendor";
   }
 
-  const mensajes = await db
-    .select({
-      id: messages.id,
-      cuerpo: messages.cuerpo,
-      autorRol: messages.autorRol,
-      createdAt: messages.createdAt,
-    })
-    .from(messages)
-    .where(eq(messages.conversationId, conversationId))
-    .orderBy(asc(messages.createdAt))
-    .limit(MENSAJES_LIMITE);
+  const mensajes = (
+    await db
+      .select({
+        id: messages.id,
+        cuerpo: messages.cuerpo,
+        autorRol: messages.autorRol,
+        createdAt: messages.createdAt,
+      })
+      .from(messages)
+      .where(eq(messages.conversationId, conversationId))
+      // Los ÚLTIMOS N (desc + reverse): con asc+limit una conversación larga
+      // se quedaría congelada mostrando los 200 más viejos para siempre.
+      .orderBy(desc(messages.createdAt))
+      .limit(MENSAJES_LIMITE)
+  ).reverse();
 
   // Contexto tipado: producto manda si ambos existieran.
   let contexto: ConversacionDetalle["contexto"] = null;
