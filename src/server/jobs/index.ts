@@ -45,6 +45,13 @@ export async function startJobs(): Promise<void> {
     return;
   }
 
+  // Vercel (serverless): no hay proceso persistente donde vivir — el
+  // mantenimiento corre vía Vercel Cron → /api/cron/mantenimiento.
+  if (process.env.VERCEL) {
+    console.log("[jobs] serverless detectado: mantenimiento vía Vercel Cron");
+    return;
+  }
+
   // Reutiliza la instancia superviviente del hot-reload (ver comentario arriba).
   if (globalConBoss.__agoraBoss) {
     boss = globalConBoss.__agoraBoss;
