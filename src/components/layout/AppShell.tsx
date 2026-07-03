@@ -2,17 +2,21 @@
 // cromo de navegación + contenedor de contenido con ancho máximo.
 import { getSessionUser } from "@/lib/session";
 import { leerCarrito, contarItems } from "@/lib/cart";
+import { conteoNoLeidos } from "@/lib/messaging";
 import { Chrome } from "./Chrome";
 
 export async function AppShell({ children }: { children: React.ReactNode }) {
   const user = await getSessionUser();
   const carrito = await leerCarrito();
+  // Mensajes sin leer para los badges del cromo (0 sin sesión).
+  const mensajesNoLeidos = user ? await conteoNoLeidos(user.id) : 0;
 
   return (
     <>
       <Chrome
         user={user ? { name: user.name, rolGlobal: user.rolGlobal } : null}
         cartCount={contarItems(carrito)}
+        mensajesNoLeidos={mensajesNoLeidos}
       />
       <div className="mx-auto w-full max-w-6xl md:px-4">{children}</div>
       {/* Espaciador para que el contenido no quede oculto tras el tab bar móvil.

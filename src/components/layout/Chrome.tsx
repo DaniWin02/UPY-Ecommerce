@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 interface ChromeProps {
   user: { name: string | null; rolGlobal: string } | null;
   cartCount: number;
+  mensajesNoLeidos: number;
 }
 
 // Pestañas del tab bar móvil (y enlaces de texto del header en ≥md).
@@ -35,7 +36,7 @@ function isActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(href + "/");
 }
 
-export function Chrome({ user, cartCount }: ChromeProps) {
+export function Chrome({ user, cartCount, mensajesNoLeidos }: ChromeProps) {
   const pathname = usePathname();
 
   // En auth y bloqueado no se muestra ningún cromo (pantallas a página completa).
@@ -112,9 +113,17 @@ export function Chrome({ user, cartCount }: ChromeProps) {
             {user ? (
               <Link
                 href="/perfil"
-                className="hidden max-w-40 cursor-pointer truncate text-sm font-medium transition-colors duration-200 hover:text-primary md:inline"
+                className="hidden max-w-40 cursor-pointer items-center gap-1.5 text-sm font-medium transition-colors duration-200 hover:text-primary md:inline-flex"
               >
-                {user.name ?? "Mi cuenta"}
+                <span className="truncate">{user.name ?? "Mi cuenta"}</span>
+                {mensajesNoLeidos > 0 && (
+                  <span
+                    aria-label={`${mensajesNoLeidos} mensajes sin leer`}
+                    className="grid h-5 min-w-5 shrink-0 place-items-center rounded-full bg-primary px-1.5 text-xs text-primary-foreground"
+                  >
+                    {mensajesNoLeidos}
+                  </span>
+                )}
               </Link>
             ) : (
               <Link
@@ -156,7 +165,18 @@ export function Chrome({ user, cartCount }: ChromeProps) {
                     className="absolute left-1/2 top-0 h-0.5 w-8 -translate-x-1/2 rounded-full bg-primary"
                   />
                 )}
-                <Icon className="h-5 w-5" aria-hidden="true" />
+                {/* Punto de no-leídos sobre el icono de Perfil */}
+                {tab.href === "/perfil" && mensajesNoLeidos > 0 ? (
+                  <span className="relative">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                    <span
+                      aria-hidden="true"
+                      className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-primary ring-2 ring-background"
+                    />
+                  </span>
+                ) : (
+                  <Icon className="h-5 w-5" aria-hidden="true" />
+                )}
                 <span className="text-[11px] font-medium leading-none">
                   {tab.label}
                 </span>

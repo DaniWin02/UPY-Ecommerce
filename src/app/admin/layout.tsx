@@ -2,12 +2,13 @@
 // Protegido por rol superadmin. La exigencia adicional de IP interna
 // (gate por red universitaria) llega en Fase 8.
 import Link from "next/link";
-import { Network, Settings, Store } from "lucide-react";
+import { Flag, Network, Settings, Store } from "lucide-react";
 import { requireRole } from "@/lib/session";
 
 // Enlaces del panel de administración (nav horizontal, scrolleable en móvil).
 const NAV_LINKS = [
   { href: "/admin/vendors", label: "Vendors", icon: Store },
+  { href: "/admin/reportes", label: "Reportes", icon: Flag },
   { href: "/admin/reglas-ip", label: "Reglas IP", icon: Network },
   { href: "/admin/config", label: "Config", icon: Settings },
 ] as const;

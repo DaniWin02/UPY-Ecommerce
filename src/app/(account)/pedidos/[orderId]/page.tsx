@@ -2,7 +2,7 @@
 // comprobante, resumen de artículos y entrega. Se auto-refresca (PollingRefresh)
 // mientras el pedido siga vivo, para reflejar verificaciones del vendor.
 import { notFound } from "next/navigation";
-import { Clock, MapPin, ReceiptText, XCircle } from "lucide-react";
+import { Clock, MapPin, MessageSquare, ReceiptText, XCircle } from "lucide-react";
 import { and, desc, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { orders, orderItems } from "@/db/schema/orders";
@@ -10,7 +10,9 @@ import { payments } from "@/db/schema/payments";
 import { vendors } from "@/db/schema/vendors";
 import { products, productVariants } from "@/db/schema/products";
 import { requireUser } from "@/lib/session";
+import { accionAbrirDesdeOrden } from "@/app/mensajes/actions";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { OrderTimeline } from "@/components/OrderTimeline";
 import { PaymentInstructions } from "@/components/PaymentInstructions";
@@ -257,6 +259,15 @@ export default async function OrderDetailPage({
           </div>
         </CardContent>
       </Card>
+
+      {/* Ayuda: abre (o retoma) la conversación con la tienda sobre este pedido */}
+      <form action={accionAbrirDesdeOrden}>
+        <input type="hidden" name="orderId" value={orden.id} />
+        <Button type="submit" variant="outline" className="w-full">
+          <MessageSquare className="h-4 w-4" aria-hidden="true" />
+          Escribir a la tienda sobre este pedido
+        </Button>
+      </form>
 
       {/* Entrega */}
       <Card>

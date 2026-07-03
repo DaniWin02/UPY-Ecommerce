@@ -1,7 +1,7 @@
 // Layout del panel del vendedor (Ágora)
 // Protegido: solo miembros de algún vendor (owner/staff) o superadmin.
 import Link from "next/link";
-import { BarChart3, ClipboardList, Flame, Package, ReceiptText } from "lucide-react";
+import { BarChart3, ClipboardList, Flame, MessageSquare, Package, ReceiptText } from "lucide-react";
 import { requireVendorMember } from "@/lib/session";
 
 // Enlaces del panel del vendedor (nav horizontal, scrolleable en móvil).
@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { href: "/vendor/pedidos", label: "Pedidos", icon: ClipboardList },
   { href: "/vendor/comprobantes", label: "Comprobantes", icon: ReceiptText },
   { href: "/vendor/drops", label: "Drops", icon: Flame },
+  { href: "/mensajes", label: "Mensajes", icon: MessageSquare },
   { href: "/vendor/analytics", label: "Analytics", icon: BarChart3 },
 ] as const;
 

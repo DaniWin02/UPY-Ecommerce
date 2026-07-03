@@ -13,6 +13,7 @@ import {
 import { db } from "@/db";
 import { vendorMembers, vendors } from "@/db/schema";
 import { requireUser } from "@/lib/session";
+import { conteoNoLeidos } from "@/lib/messaging";
 import { cerrarSesion } from "@/lib/auth-actions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -28,12 +29,15 @@ const rolLabels: Record<string, string> = {
 export default async function PerfilPage() {
   const user = await requireUser();
 
-  // Tiendas donde el usuario es miembro (owner o staff).
-  const misTiendas = await db
-    .select({ id: vendors.id, nombre: vendors.nombre })
-    .from(vendorMembers)
-    .innerJoin(vendors, eq(vendorMembers.vendorId, vendors.id))
-    .where(eq(vendorMembers.userId, user.id));
+  // Tiendas donde el usuario es miembro (owner o staff) + mensajes sin leer.
+  const [misTiendas, noLeidos] = await Promise.all([
+    db
+      .select({ id: vendors.id, nombre: vendors.nombre })
+      .from(vendorMembers)
+      .innerJoin(vendors, eq(vendorMembers.vendorId, vendors.id))
+      .where(eq(vendorMembers.userId, user.id)),
+    conteoNoLeidos(user.id),
+  ]);
 
   const inicial = (user.name?.trim().charAt(0) || user.email.charAt(0)).toUpperCase();
 
@@ -68,14 +72,22 @@ export default async function PerfilPage() {
               <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
             </Link>
 
-            <div
-              aria-disabled="true"
-              className="flex h-12 items-center gap-3 px-4 text-sm font-medium text-muted-foreground"
+            <Link
+              href="/mensajes"
+              className="flex h-12 cursor-pointer items-center gap-3 px-4 text-sm font-medium transition-colors hover:bg-muted/50"
             >
-              <MessageSquare className="h-4 w-4 opacity-60" aria-hidden="true" />
-              <span className="flex-1 truncate">Mensajes (próximamente)</span>
-              <ChevronRight className="h-4 w-4 shrink-0 opacity-40" aria-hidden="true" />
-            </div>
+              <MessageSquare className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+              <span className="flex-1 truncate">Mensajes</span>
+              {noLeidos > 0 && (
+                <span
+                  aria-label={`${noLeidos} mensajes sin leer`}
+                  className="grid h-5 min-w-5 place-items-center rounded-full bg-primary px-1.5 text-xs text-primary-foreground"
+                >
+                  {noLeidos}
+                </span>
+              )}
+              <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+            </Link>
 
             {misTiendas.map((tienda) => (
               <Link

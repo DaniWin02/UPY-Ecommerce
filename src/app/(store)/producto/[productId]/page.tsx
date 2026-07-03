@@ -3,13 +3,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MapPin, Store } from "lucide-react";
+import { MapPin, MessageSquare, Store } from "lucide-react";
 import { obtenerProducto } from "@/lib/producto";
+import { accionAbrirDesdeProducto } from "@/app/mensajes/actions";
 import { TrackVistaProducto } from "@/components/analytics/Trackers";
 import { ProductGallery } from "@/components/ProductGallery";
 import { VariantSelector } from "@/components/VariantSelector";
 import { VendorBadge } from "@/components/VendorBadge";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   params: Promise<{ productId: string }>;
@@ -72,6 +74,16 @@ export default async function ProductPage({ params }: Props) {
           <MapPin className="mt-0.5 h-4 w-4 flex-none text-primary" aria-hidden />
           <span>Entrega en {p.vendor.aulaDefault ?? "punto de entrega del campus"}</span>
         </div>
+
+        {/* Mensajería: abre (o retoma) la conversación con la tienda.
+            El server action redirige a login si no hay sesión. */}
+        <form action={accionAbrirDesdeProducto}>
+          <input type="hidden" name="productId" value={p.id} />
+          <Button type="submit" variant="outline" className="w-full">
+            <MessageSquare className="h-4 w-4" aria-hidden="true" />
+            Preguntar a la tienda
+          </Button>
+        </form>
       </section>
     </main>
   );
