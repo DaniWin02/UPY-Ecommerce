@@ -4,7 +4,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MapPin, PackageOpen, ShoppingBag, UserPlus } from "lucide-react";
+import { eq } from "drizzle-orm";
+import { db } from "@/db";
+import { vendors } from "@/db/schema/vendors";
 import { obtenerTienda } from "@/lib/producto";
+import { TrackVistaTienda } from "@/components/analytics/Trackers";
 import { VendorBadge } from "@/components/VendorBadge";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -31,10 +35,19 @@ export default async function VendorStorePage({ params }: Props) {
   const t = await obtenerTienda(vendorSlug);
   if (!t) notFound();
 
+  // obtenerTienda no expone el id del vendor: mini-consulta local solo para analytics.
+  const [vendorFila] = await db
+    .select({ id: vendors.id })
+    .from(vendors)
+    .where(eq(vendors.slug, vendorSlug))
+    .limit(1);
+
   const inicial = t.vendor.nombre.charAt(0).toUpperCase();
 
   return (
     <main className="pb-20">
+      {/* Analytics: vista de tienda (render null). */}
+      {vendorFila && <TrackVistaTienda vendorId={vendorFila.id} />}
       {/* Cabecera de la tienda: banner sutil con avatar y datos del vendedor. */}
       <header className="border-b bg-gradient-to-br from-primary/15 to-primary/5 p-6">
         <div className="flex items-start gap-4">

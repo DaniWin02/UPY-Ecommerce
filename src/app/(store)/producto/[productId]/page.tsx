@@ -5,6 +5,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MapPin, Store } from "lucide-react";
 import { obtenerProducto } from "@/lib/producto";
+import { TrackVistaProducto } from "@/components/analytics/Trackers";
 import { ProductGallery } from "@/components/ProductGallery";
 import { VariantSelector } from "@/components/VariantSelector";
 import { VendorBadge } from "@/components/VendorBadge";
@@ -41,6 +42,8 @@ export default async function ProductPage({ params }: Props) {
   return (
     // pb-40: deja hueco para la barra CTA fija + la tabbar móvil.
     <main className="pb-40">
+      {/* Analytics: vista de producto (obtenerProducto no expone el id del vendor). */}
+      <TrackVistaProducto productId={p.id} />
       <ProductGallery imagenes={p.imagenes} nombre={p.nombre} />
 
       <section className="space-y-4 p-4">

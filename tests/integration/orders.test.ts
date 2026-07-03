@@ -501,7 +501,9 @@ describe("confirmarEfectivo", () => {
 // ---------------------------------------------------------------------------
 
 describe("barrerOrdenesExpiradas", () => {
-  it("expira exactamente las órdenes vencidas y respeta la vigente", async () => {
+  // Timeout amplio: el barrido previo puede expirar muchas órdenes residuales
+  // del seed y cada una es una transacción — contra Neon remoto supera los 5s.
+  it("expira exactamente las órdenes vencidas y respeta la vigente", { timeout: 60_000 }, async () => {
     // Barrido previo: limpia órdenes vencidas residuales (p. ej. del seed)
     // para poder afirmar el conteo EXACTO de este test.
     await barrerOrdenesExpiradas();

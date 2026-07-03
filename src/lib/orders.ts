@@ -37,6 +37,7 @@ import {
 } from "@/lib/payments/state-machine";
 import { generarReferencia } from "@/lib/referencia";
 import { notificar } from "@/lib/notifications";
+import { registrarEvento } from "@/lib/analytics-server";
 
 // ---------------------------------------------------------------------------
 // Tipos públicos del módulo (contrato con actions / API / tests).
@@ -375,6 +376,18 @@ export async function crearOrden(params: {
 
         return orden.id;
       });
+      // Analítica fire-and-forget FUERA de la transacción: nunca lanza y un
+      // fallo no revierte ni retrasa el checkout (contrato de registrarEvento).
+      void registrarEvento({
+        tipo: "orden_creada",
+        userId: params.compradorId,
+        vendorId: params.vendorId,
+        orderId,
+        metadata: {
+          metodoPago: params.metodoPago,
+          total: centavosAString(totalCentavos),
+        },
+      });
       return { ok: true, orderId };
     } catch (error) {
       // Choque de referencia única: reintenta con otra (máx 3 en total).
@@ -502,6 +515,14 @@ export async function verificarPago(
     orderId: orden.id,
     paymentId: pago.id,
   });
+  // Analítica fire-and-forget (fuera de la transacción; jamás lanza).
+  void registrarEvento({
+    tipo: "pago_verificado",
+    userId: orden.compradorId,
+    vendorId: orden.vendorId,
+    orderId: orden.id,
+    metadata: { montoVerificado: orden.total },
+  });
   return { ok: true };
 }
 
@@ -604,6 +625,14 @@ export async function confirmarEfectivo(
   await notificar(orden.compradorId, "pago_verificado", {
     orderId: orden.id,
     paymentId: pago.id,
+  });
+  // Analítica fire-and-forget (fuera de la transacción; jamás lanza).
+  void registrarEvento({
+    tipo: "pago_verificado",
+    userId: orden.compradorId,
+    vendorId: orden.vendorId,
+    orderId: orden.id,
+    metadata: { montoVerificado: orden.total, metodoPago: "efectivo" },
   });
   return { ok: true };
 }

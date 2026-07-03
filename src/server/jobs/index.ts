@@ -8,9 +8,19 @@
 // re-verifica expira_en < now en BD antes de liberar reservas).
 import PgBoss from "pg-boss";
 import { barrerOrdenesExpiradas } from "@/lib/orders";
+import { ejecutarRollup, purgarEventosAntiguos } from "@/lib/rollups";
 
 /** Nombre canónico de la cola/cron de expiración de órdenes. */
 const COLA_EXPIRAR_ORDENES = "expirar-ordenes";
+
+/** Cola/cron del rollup diario de analytics (ayer + hoy, idempotente). */
+const COLA_ROLLUP_ANALYTICS = "rollup-analytics";
+
+/** Cola/cron de retención: purga eventos crudos con más de 180 días. */
+const COLA_PURGAR_ANALYTICS = "purgar-analytics";
+
+/** Días de retención de analytics_events (política de PLAN.md). */
+const DIAS_RETENCION_ANALYTICS = 180;
 
 // Singleton GLOBAL: en dev, el hot-reload de Next re-evalúa este módulo y una
 // variable de módulo normal se perdería, arrancando un pg-boss (y sus workers)
@@ -68,8 +78,44 @@ export async function startJobs(): Promise<void> {
     if (n > 0) console.log(`[jobs] ${n} órdenes expiradas`);
   });
 
+  // --- Rollup diario de analytics (3:00) -----------------------------------
+  try {
+    await boss.createQueue?.(COLA_ROLLUP_ANALYTICS);
+  } catch {
+    // La cola ya existe: no pasa nada, seguimos.
+  }
+
+  // Cron diario a las 3:00: consolida ayer (día completo) y hoy (parcial).
+  // ejecutarRollup es idempotente, así que re-arranques o solapes son inocuos.
+  await boss.schedule(COLA_ROLLUP_ANALYTICS, "0 3 * * *");
+
+  await boss.work(COLA_ROLLUP_ANALYTICS, async () => {
+    const { dias } = await ejecutarRollup();
+    console.log(`[jobs] rollup de analytics completado (${dias} días)`);
+  });
+
+  // --- Retención de eventos crudos (domingos 4:00) --------------------------
+  try {
+    await boss.createQueue?.(COLA_PURGAR_ANALYTICS);
+  } catch {
+    // La cola ya existe: no pasa nada, seguimos.
+  }
+
+  // Cron semanal (domingo 4:00): borra analytics_events con más de 180 días;
+  // los rollups diarios conservan el histórico agregado.
+  await boss.schedule(COLA_PURGAR_ANALYTICS, "0 4 * * 0");
+
+  await boss.work(COLA_PURGAR_ANALYTICS, async () => {
+    const borrados = await purgarEventosAntiguos(DIAS_RETENCION_ANALYTICS);
+    if (borrados > 0) {
+      console.log(`[jobs] ${borrados} eventos de analytics purgados (>180 días)`);
+    }
+  });
+
   globalConBoss.__agoraBoss = boss;
-  console.log("[jobs] pg-boss arrancado (cron de expiración cada 5 min)");
+  console.log(
+    "[jobs] pg-boss arrancado (expiración cada 5 min, rollup 3:00, purga dom 4:00)"
+  );
 }
 
 /**

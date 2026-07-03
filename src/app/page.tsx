@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/ProductCard";
 import { SearchFilters } from "@/components/SearchFilters";
+import { TrackBusqueda, TrackedProductLink } from "@/components/analytics/Trackers";
 import {
   buscarProductos,
   listarVendorsActivos,
@@ -56,6 +57,9 @@ export default async function HomePage({
   return (
     <main className="pb-20">
       <div className="container space-y-4 pt-4">
+        {/* Analytics: registra la búsqueda y su número de resultados (render null) */}
+        {filtros.q && <TrackBusqueda query={filtros.q} resultados={productos.length} />}
+
         {/* Hero compacto de bienvenida: solo en la portada sin filtros */}
         {sinFiltros && (
           <section className="rounded-xl bg-gradient-to-br from-primary to-primary/80 p-5 text-primary-foreground">
@@ -118,8 +122,15 @@ export default async function HomePage({
         ) : (
           // Grid responsiva del catálogo: 2 columnas en móvil, hasta 4 en desktop
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
-            {productos.map((p) => (
-              <Link key={p.id} href={`/producto/${p.id}`}>
+            {productos.map((p, i) => (
+              // ProductoCatalogo no expone vendorId (solo slug/nombre): se omite del tracker.
+              <TrackedProductLink
+                key={p.id}
+                href={`/producto/${p.id}`}
+                productId={p.id}
+                posicion={i}
+                origen={filtros.q ? "busqueda" : "catalogo"}
+              >
                 <ProductCard
                   id={p.id}
                   nombre={p.nombre}
@@ -131,7 +142,7 @@ export default async function HomePage({
                   tipo={p.tipo}
                   imagenUrl={p.imagenUrl}
                 />
-              </Link>
+              </TrackedProductLink>
             ))}
           </div>
         )}

@@ -5,10 +5,13 @@
 // la ÚNICA vía de escritura. Toda entrada llega del cliente y se re-valida
 // aquí; el estado real de precios y stock siempre se consulta en BD.
 import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 import { and, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { inventory, products, productVariants, vendors } from "@/db/schema";
 import { escribirCarrito, leerCarrito } from "@/lib/cart";
+import { getSessionUser } from "@/lib/session";
+import { registrarEvento } from "@/lib/analytics-server";
 
 // Mismos límites que el códec (cart-codec.ts): cantidad 1..9 por variante.
 const QTY_MAX = 9;
@@ -42,6 +45,9 @@ export async function agregarAlCarrito(
     .select({
       stock: inventory.stock,
       reservado: inventory.reservado,
+      // Para el evento de analítica add_carrito (el JOIN ya trae el producto).
+      productId: products.id,
+      vendorId: products.vendorId,
     })
     .from(productVariants)
     .innerJoin(
@@ -81,6 +87,21 @@ export async function agregarAlCarrito(
 
   await escribirCarrito(nuevos);
   revalidatePath("/carrito");
+
+  // 4) Analítica server-side fire-and-forget: registrarEvento NUNCA lanza y
+  //    un fallo de analítica jamás rompe el alta en el carrito.
+  const usuario = await getSessionUser(); // puede ser null (visitante anónimo)
+  const jar = await cookies();
+  const sessionId = jar.get("agora_sid")?.value ?? null;
+  void registrarEvento({
+    tipo: "add_carrito",
+    userId: usuario?.id ?? null,
+    sessionId,
+    vendorId: fila.vendorId,
+    productId: fila.productId,
+    metadata: { variantId, qty },
+  });
+
   return { ok: true, mensaje: "Agregado al carrito" };
 }
 
