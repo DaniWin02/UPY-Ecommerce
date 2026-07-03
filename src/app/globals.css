@@ -3,88 +3,93 @@
 @tailwind utilities;
 
 /* Sistema de tema de Ágora Campus (tokens shadcn/ui en formato HSL sin hsl()).
-   Identidad: guinda/bordó universitario como color primario, neutros cálidos.
+   IDENTIDAD UPY (extraída del logotipo oficial): morado institucional
+   #4B2385 ≈ hsl(265 58% 33%) como primario (11.2:1 sobre blanco, validado) y
+   DORADO #D9A33C ≈ hsl(39 67% 54%) como acento/warning — como TEXTO se usa
+   oscurecido (38 75% 31% ≈ #8a6414, 5.4:1) porque el dorado puro no cumple AA.
    Extras del dominio: success (pago verificado) y warning (pendiente/por expirar). */
 
 @layer base {
   :root {
-    /* Neutros cálidos (tinte ligero hacia el rojo/tierra) */
-    --background: 20 20% 98%;
-    --foreground: 345 10% 12%;
+    /* Neutros fríos con tinte violeta sutil (armonizan con el morado UPY) */
+    --background: 260 20% 99%;
+    --foreground: 264 25% 12%;
 
-    --card: 20 20% 99%;
-    --card-foreground: 345 10% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 264 25% 12%;
 
-    --popover: 20 20% 99%;
-    --popover-foreground: 345 10% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 264 25% 12%;
 
-    /* Guinda/bordó universitario */
-    --primary: 345 75% 32%;
-    --primary-foreground: 20 20% 98%;
+    /* Morado institucional UPY (#4B2385) */
+    --primary: 265 58% 33%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 20 15% 93%;
-    --secondary-foreground: 345 30% 22%;
+    --secondary: 262 20% 94%;
+    --secondary-foreground: 264 35% 24%;
 
-    --muted: 20 15% 94%;
+    --muted: 260 16% 95%;
     /* Equivalente slate-600 (~6:1 sobre --background) para cumplir AA en texto secundario */
-    --muted-foreground: 345 7% 38%;
+    --muted-foreground: 262 10% 38%;
 
-    --accent: 345 30% 92%;
-    --accent-foreground: 345 60% 26%;
+    /* Acento dorado UPY suave (fondos de hover/realce) */
+    --accent: 40 55% 92%;
+    --accent-foreground: 38 70% 26%;
 
     --destructive: 0 84% 45%;
-    --destructive-foreground: 20 20% 98%;
+    --destructive-foreground: 0 0% 98%;
 
     /* Estados de pago (corazón de la plataforma) */
     --success: 150 65% 30%; /* verde: pago verificado */
     --success-foreground: 150 40% 97%;
-    --warning: 40 92% 42%; /* ámbar: pendiente / por expirar */
+    --warning: 38 75% 31%; /* dorado UPY oscurecido: legible como texto (5.4:1) */
     --warning-foreground: 40 90% 97%;
 
-    /* Borde ligeramente más oscuro que el estándar shadcn (91%) para ser visible en claro */
-    --border: 20 12% 86%;
-    --input: 20 12% 85%;
-    --ring: 345 75% 32%;
+    /* Borde visible en claro (tinte violeta) */
+    --border: 260 14% 86%;
+    --input: 260 14% 85%;
+    --ring: 265 58% 40%;
 
     --radius: 0.75rem;
   }
 
   .dark {
-    /* Fondo oscuro cálido (no negro puro) */
-    --background: 345 12% 8%;
-    --foreground: 20 15% 94%;
+    /* Fondo oscuro violeta profundo (no negro puro) */
+    --background: 264 22% 8%;
+    --foreground: 260 15% 95%;
 
-    --card: 345 10% 11%;
-    --card-foreground: 20 15% 94%;
+    --card: 264 18% 11%;
+    --card-foreground: 260 15% 95%;
 
-    --popover: 345 10% 11%;
-    --popover-foreground: 20 15% 94%;
+    --popover: 264 18% 11%;
+    --popover-foreground: 260 15% 95%;
 
-    /* Guinda aclarado para contraste AA sobre fondo oscuro */
-    --primary: 345 70% 58%;
-    --primary-foreground: 345 30% 10%;
+    /* Morado UPY aclarado (#9d6fe0 aprox): validado AA sobre fondo oscuro */
+    --primary: 265 65% 66%;
+    --primary-foreground: 265 55% 12%;
 
-    --secondary: 345 8% 17%;
-    --secondary-foreground: 20 15% 90%;
+    --secondary: 264 14% 18%;
+    --secondary-foreground: 260 15% 90%;
 
-    --muted: 345 8% 16%;
-    --muted-foreground: 20 8% 65%;
+    --muted: 264 14% 16%;
+    --muted-foreground: 260 10% 66%;
 
-    --accent: 345 25% 20%;
-    --accent-foreground: 345 40% 88%;
+    /* Dorado como acento nocturno (chips/realces) */
+    --accent: 40 35% 20%;
+    --accent-foreground: 42 75% 78%;
 
     --destructive: 0 72% 55%;
-    --destructive-foreground: 20 20% 98%;
+    --destructive-foreground: 0 0% 98%;
 
     /* Estados de pago en modo oscuro */
     --success: 150 55% 45%;
     --success-foreground: 150 60% 8%;
-    --warning: 40 90% 55%;
-    --warning-foreground: 40 80% 10%;
+    --warning: 41 78% 58%; /* dorado UPY brillante sobre oscuro */
+    --warning-foreground: 40 85% 10%;
 
-    --border: 345 8% 20%;
-    --input: 345 8% 22%;
-    --ring: 345 70% 58%;
+    --border: 264 12% 21%;
+    --input: 264 12% 23%;
+    --ring: 265 65% 66%;
   }
 }
 

@@ -2,7 +2,7 @@
 // Server Component sin JS de cliente: el formulario usa la server action registrarse.
 // Misma estética mobile-first que la pantalla de login.
 import Link from "next/link";
-import { AlertTriangle, GraduationCap } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 import { registrarse } from "@/lib/auth-actions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
@@ -35,12 +35,17 @@ export default async function AuthRegistroPage({
     <main className="grid min-h-dvh place-items-center bg-muted/30 p-4">
       <Card className="w-full max-w-sm shadow-sm">
         <CardHeader className="items-center text-center">
-          {/* Logotipo y nombre de la app */}
+          {/* Glifo del logotipo oficial UPY (chip blanco que recorta el círculo). */}
           <div
             aria-hidden="true"
-            className="grid h-12 w-12 place-items-center rounded-xl bg-primary text-primary-foreground"
+            className="h-14 w-14 overflow-hidden rounded-full border bg-white shadow-sm"
           >
-            <GraduationCap className="h-7 w-7" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/icons/upy-logo.png"
+              alt=""
+              className="h-full w-auto max-w-none object-cover object-left"
+            />
           </div>
           <h1 className="font-heading text-xl font-semibold tracking-tight">
             Crea tu cuenta

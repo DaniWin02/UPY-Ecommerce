@@ -11,7 +11,6 @@ import {
   Package,
   CircleUser,
   ShoppingBag,
-  GraduationCap,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -54,17 +53,25 @@ export function Chrome({ user, cartCount, mensajesNoLeidos }: ChromeProps) {
             className="touch-target flex cursor-pointer items-center gap-2"
             aria-label="Ágora, ir al inicio"
           >
+            {/* Logotipo oficial UPY: el PNG es un lockup horizontal sobre
+                blanco; el chip blanco redondeado recorta el GLIFO circular
+                (zona izquierda de la imagen) y se ve intencional en oscuro. */}
             <div
               aria-hidden="true"
-              className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground"
+              className="h-9 w-9 shrink-0 overflow-hidden rounded-full border bg-white"
             >
-              <GraduationCap className="h-5 w-5" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/icons/upy-logo.png"
+                alt=""
+                className="h-full w-auto max-w-none object-cover object-left"
+              />
             </div>
             <span className="font-heading text-lg font-semibold tracking-tight">
               Ágora
               <span className="hidden font-medium text-muted-foreground md:inline">
                 {" "}
-                Campus
+                UPY
               </span>
             </span>
           </Link>

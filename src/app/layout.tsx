@@ -38,8 +38,8 @@ export const viewport: Viewport = {
   viewportFit: "cover",
   // Color de la barra del navegador/SO: guinda de marca en claro, fondo oscuro en dark.
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#8f1433" },
-    { media: "(prefers-color-scheme: dark)", color: "#171213" },
+    { media: "(prefers-color-scheme: light)", color: "#4B2385" },
+    { media: "(prefers-color-scheme: dark)", color: "#12091f" },
   ],
 };
 

@@ -4,7 +4,7 @@
 
 ## Identidad
 
-- **Marca:** guinda/bordó universitario (ya en tokens: `--primary: 345 75% 32%`). NO cambiar a púrpura genérico.
+- **Marca:** MORADO institucional UPY `#4B2385` (`--primary: 265 58% 33%`) + DORADO UPY `#D9A33C` como acento/warning (oscurecido a `38 75% 31%` cuando es texto). Extraída del logotipo oficial (public/icons/upy-logo.png). Neutros con tinte violeta.
 - **Personalidad:** confiable, académica-moderna, transaccional. Flat y limpio; nada recargado.
 - **Idioma:** español, tono cercano pero profesional (sin signos de exclamación dobles, sin jerga).
 
