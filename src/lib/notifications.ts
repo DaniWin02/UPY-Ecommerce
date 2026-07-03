@@ -1,10 +1,12 @@
-// notifications.ts — capa de notificaciones de Ágora por correo (Resend) y WhatsApp (STUB).
+// notifications.ts — notificaciones in-app de Ágora (INSERT real en BD).
+//
+// Fase 5: la bandeja in-app es el ÚNICO canal activo. Correo (Resend) y
+// WhatsApp quedan como TODOs comentados por decisión del equipo (sin Resend
+// por ahora); cuando se activen, `notificar` los despachará además del INSERT.
+import { db } from "@/db";
+import { notifications } from "@/db/schema";
 
-// TODO: descomentar cuando exista el cliente real.
-// import { Resend } from "resend";
-// const resend = new Resend(process.env.RESEND_API_KEY);
-
-/** Tipos de notificación soportados. */
+/** Tipos de notificación conocidos (informativo; la columna `tipo` es text). */
 export type NotificationType =
   | "otp_login"
   | "orden_creada"
@@ -13,62 +15,47 @@ export type NotificationType =
   | "pago_rechazado"
   | "orden_lista"
   | "orden_entregada"
+  | "orden_expirada"
   | "drop_publicado";
 
 /** Payload genérico de una notificación (depende del `tipo`). */
 export type NotificationPayload = Record<string, unknown>;
 
-/** Parámetros para enviar un correo. */
-export type EmailParams = {
-  to: string;
-  subject: string;
-  /** Contenido HTML o texto plano. */
-  html?: string;
-  text?: string;
-};
-
-/** Parámetros para enviar un WhatsApp. */
-export type WhatsAppParams = {
-  /** Número en formato E.164, p. ej. +52155... */
-  to: string;
-  /** Plantilla o cuerpo del mensaje. */
-  mensaje: string;
-};
-
 /**
- * sendEmail — envía un correo vía Resend.
- * TODO: implementar usando el cliente Resend y manejar errores/reintentos.
+ * notificar — inserta una notificación in-app (leido = false) para el usuario.
+ *
+ * CONTRATO CRÍTICO: NUNCA lanza. Una notificación fallida no debe romper la
+ * transición de orden/pago que la origina (por eso se llama SIEMPRE fuera de
+ * la transacción y con try/catch interno; el fallo se registra en consola).
  */
-export async function sendEmail(params: EmailParams): Promise<void> {
-  // TODO: await resend.emails.send({ from, to: params.to, subject: params.subject, ... });
-  void params;
-}
-
-/**
- * sendWhatsApp — envía un mensaje de WhatsApp.
- * TODO: integrar proveedor (Meta Cloud API / Twilio) y plantillas aprobadas.
- */
-export async function sendWhatsApp(params: WhatsAppParams): Promise<void> {
-  // TODO: llamar a la API del proveedor de WhatsApp.
-  void params;
-}
-
-/**
- * notify — orquesta el envío de una notificación a un usuario según el `tipo`.
- * Resuelve los canales (correo/WhatsApp) y la plantilla a partir del payload.
- * TODO: cargar preferencias y datos de contacto del usuario; elegir canales.
- */
-export async function notify(
+export async function notificar(
   userId: string,
-  tipo: NotificationType,
-  payload: NotificationPayload,
+  tipo: string,
+  payload: Record<string, unknown>,
 ): Promise<void> {
-  // TODO: obtener email/teléfono del usuario `userId`.
-  // TODO: renderizar plantilla según `tipo` y `payload`.
-  // TODO: despachar por los canales habilitados (sendEmail / sendWhatsApp).
-  void userId;
-  void tipo;
-  void payload;
+  try {
+    await db.insert(notifications).values({
+      userId,
+      tipo,
+      payload,
+      leido: false,
+    });
+
+    // TODO (canales externos, pendiente de decisión del equipo):
+    // - Correo vía Resend:
+    //     import { Resend } from "resend";
+    //     const resend = new Resend(process.env.RESEND_API_KEY);
+    //     await resend.emails.send({ from, to: emailDelUsuario, subject, html });
+    //   (requiere resolver email del usuario y plantilla por `tipo`).
+    // - WhatsApp (Meta Cloud API / Twilio) con plantillas aprobadas:
+    //     await sendWhatsApp({ to: telefonoE164, mensaje });
+  } catch (error) {
+    // Falla silenciosa deliberada: se loguea y la operación de negocio sigue.
+    console.error(
+      `[notificaciones] fallo al notificar user=${userId} tipo=${tipo}:`,
+      error,
+    );
+  }
 }
 
 // Fin de notifications.ts

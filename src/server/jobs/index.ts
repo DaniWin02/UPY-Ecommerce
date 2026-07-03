@@ -1,40 +1,85 @@
-// index.ts — orquestación de jobs en segundo plano con pg-boss para Ágora (STUB).
-// Jobs: expirar órdenes sin pago, agendar drops y enviar notificaciones.
+// index.ts — orquestación de jobs en segundo plano con pg-boss para Ágora.
+//
+// DISEÑO (sweep-only): en lugar de agendar UN job por orden al crearla (más
+// piezas móviles: cancelaciones al pagar, reintentos, jobs huérfanos…), un
+// único cron cada 5 minutos "barre" todas las órdenes vencidas con
+// barrerOrdenesExpiradas(). Es más simple, idempotente y suficiente: la
+// expiración no necesita precisión de segundos (el guard de expirarOrden
+// re-verifica expira_en < now en BD antes de liberar reservas).
+import PgBoss from "pg-boss";
+import { barrerOrdenesExpiradas } from "@/lib/orders";
 
-// TODO: descomentar cuando exista la dependencia y la conexión.
-// import PgBoss from "pg-boss";
+/** Nombre canónico de la cola/cron de expiración de órdenes. */
+const COLA_EXPIRAR_ORDENES = "expirar-ordenes";
 
-/** Nombres canónicos de las colas/jobs. */
-export const JOBS = {
-  EXPIRAR_ORDENES_SIN_PAGO: "expirar-ordenes-sin-pago",
-  AGENDAR_DROPS: "agendar-drops",
-  ENVIAR_NOTIFICACIONES: "enviar-notificaciones",
-} as const;
+// Singleton GLOBAL: en dev, el hot-reload de Next re-evalúa este módulo y una
+// variable de módulo normal se perdería, arrancando un pg-boss (y sus workers)
+// duplicado en cada recarga. Colgamos la instancia de globalThis, que SÍ
+// sobrevive al hot-reload dentro del mismo proceso.
+const globalConBoss = globalThis as typeof globalThis & {
+  __agoraBoss?: PgBoss;
+};
 
-/** Tipo unión de los nombres de jobs. */
-export type JobName = (typeof JOBS)[keyof typeof JOBS];
-
-// TODO: mantener una instancia única de pg-boss.
-// let boss: PgBoss | null = null;
+let boss: PgBoss | null = null;
 
 /**
- * startJobs — inicializa pg-boss y registra los workers de cada job.
- * TODO: crear conexión (DATABASE_URL), arrancar boss y suscribir handlers.
+ * startJobs — arranca pg-boss (esquema "pgboss" en la misma BD) y registra
+ * el cron de expiración de órdenes. Idempotente: si ya hay una instancia
+ * viva (singleton global), no arranca otra.
  */
 export async function startJobs(): Promise<void> {
-  // TODO: boss = new PgBoss(process.env.DATABASE_URL!);
-  // TODO: await boss.start();
+  // Sin BD no hay cola; SKIP_JOBS=true permite apagar los jobs (tests, CI,
+  // entornos donde otro proceso ya corre el worker).
+  if (!process.env.DATABASE_URL || process.env.SKIP_JOBS === "true") {
+    console.log("[jobs] omitidos (falta DATABASE_URL o SKIP_JOBS=true)");
+    return;
+  }
 
-  // TODO: registrar worker para expirar órdenes en estado pendiente_pago vencidas.
-  // await boss.work(JOBS.EXPIRAR_ORDENES_SIN_PAGO, async (job) => { /* TODO */ });
+  // Reutiliza la instancia superviviente del hot-reload (ver comentario arriba).
+  if (globalConBoss.__agoraBoss) {
+    boss = globalConBoss.__agoraBoss;
+    return;
+  }
 
-  // TODO: registrar worker para publicar/agendar drops programados.
-  // await boss.work(JOBS.AGENDAR_DROPS, async (job) => { /* TODO */ });
+  boss = new PgBoss({
+    connectionString: process.env.DATABASE_URL,
+    schema: "pgboss", // tablas propias de pg-boss, separadas del esquema de la app
+  });
+  boss.on("error", console.error);
 
-  // TODO: registrar worker para despachar notificaciones (correo/WhatsApp).
-  // await boss.work(JOBS.ENVIAR_NOTIFICACIONES, async (job) => { /* TODO */ });
+  await boss.start();
 
-  // TODO: programar cron de expiración (p. ej. boss.schedule(...)).
+  // pg-boss 10 exige crear la cola antes de schedule/work. Toleramos que ya
+  // exista (o que la versión no exponga createQueue) con try/catch.
+  try {
+    await boss.createQueue?.(COLA_EXPIRAR_ORDENES);
+  } catch {
+    // La cola ya existe: no pasa nada, seguimos.
+  }
+
+  // Cron: cada 5 minutos barre las órdenes vencidas (schedule es un upsert:
+  // re-arrancar el server no duplica el cron).
+  await boss.schedule(COLA_EXPIRAR_ORDENES, "*/5 * * * *");
+
+  // Worker del barrido: libera reservas de órdenes pendiente_pago/rechazado
+  // cuyo expira_en ya pasó (la lógica vive en el dominio, no aquí).
+  await boss.work(COLA_EXPIRAR_ORDENES, async () => {
+    const n = await barrerOrdenesExpiradas();
+    if (n > 0) console.log(`[jobs] ${n} órdenes expiradas`);
+  });
+
+  globalConBoss.__agoraBoss = boss;
+  console.log("[jobs] pg-boss arrancado (cron de expiración cada 5 min)");
+}
+
+/**
+ * stopJobs — detiene pg-boss (workers y cron) y limpia el singleton.
+ * Útil en tests y en apagados controlados.
+ */
+export async function stopJobs(): Promise<void> {
+  await boss?.stop();
+  boss = null;
+  globalConBoss.__agoraBoss = undefined;
 }
 
 // Fin de index.ts

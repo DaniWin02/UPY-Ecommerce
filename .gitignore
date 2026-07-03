@@ -57,6 +57,9 @@ Thumbs.db
 # Migraciones generadas por Drizzle (opcional — descomenta si no quieres versionarlas)
 # /drizzle
 
+# Comprobantes subidos (disco local, MVP)
+uploads/
+
 # =====================================================================
 # Claude / herramientas de IA — no compartir en git
 # Ocultamos los artefactos de Claude para que quien colabore SIN Claude
