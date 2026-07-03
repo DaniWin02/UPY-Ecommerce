@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { AppShell } from "@/components/layout/AppShell";
@@ -8,6 +8,13 @@ import { AppShell } from "@/components/layout/AppShell";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
+});
+
+// Fuente de títulos (h1-h3, precios grandes, logo) según MASTER — Tailwind: font-heading.
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-heading",
 });
 
 export const metadata: Metadata = {
@@ -31,7 +38,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" suppressHydrationWarning className={inter.variable}>
+    <html lang="es" suppressHydrationWarning className={`${inter.variable} ${poppins.variable}`}>
       <body className="min-h-dvh bg-background font-sans">
         <Providers>
           <AppShell>{children}</AppShell>

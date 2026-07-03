@@ -1,6 +1,7 @@
 // Mis pedidos: lista del comprador con estado, tienda, total y fecha.
 // RSC puro: lee la BD directo y enlaza al hub de cada pedido.
 import Link from "next/link";
+import { ChevronRight, PackageOpen } from "lucide-react";
 import { desc, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { orders } from "@/db/schema/orders";
@@ -9,19 +10,28 @@ import { requireUser } from "@/lib/session";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 
-// Colores por estado del pedido (tokens success/warning del tema).
+// Colores por estado del pedido (paleta MASTER: warning/secondary/success/destructive).
 const BADGE_ESTADO: Record<string, { etiqueta: string; className: string }> = {
   pendiente_pago: {
     etiqueta: "Pendiente de pago",
-    className: "border-transparent bg-warning text-warning-foreground",
+    className: "border-warning/40 bg-warning/10 text-warning",
   },
   comprobante_enviado: {
-    etiqueta: "Comprobante en revisión",
+    etiqueta: "En revisión",
     className: "border-transparent bg-secondary text-secondary-foreground",
   },
-  pago_verificado: { etiqueta: "Pago verificado", className: "border-success text-success" },
-  preparando: { etiqueta: "Preparando", className: "border-success text-success" },
-  listo_entrega: { etiqueta: "Listo para entrega", className: "border-success text-success" },
+  pago_verificado: {
+    etiqueta: "Pago verificado",
+    className: "border-success/40 bg-success/10 text-success",
+  },
+  preparando: {
+    etiqueta: "Preparando",
+    className: "border-success/40 bg-success/10 text-success",
+  },
+  listo_entrega: {
+    etiqueta: "Listo para entrega",
+    className: "border-success/40 bg-success/10 text-success",
+  },
   entregado: {
     etiqueta: "Entregado",
     className: "border-transparent bg-success text-success-foreground",
@@ -39,6 +49,17 @@ const BADGE_ESTADO: Record<string, { etiqueta: string; className: string }> = {
     className: "border-transparent bg-destructive text-destructive-foreground",
   },
 };
+
+// Badge de estado con punto de color (patrón MASTER).
+function BadgeConPunto({ estado }: { estado: string }) {
+  const badge = BADGE_ESTADO[estado] ?? { etiqueta: estado, className: "" };
+  return (
+    <Badge variant="outline" className={`gap-1.5 ${badge.className}`}>
+      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-current" />
+      {badge.etiqueta}
+    </Badge>
+  );
+}
 
 // Fecha relativa simple ("hace 5 min", "hace 3 h", "hace 2 días" o fecha corta).
 function fechaRelativa(fecha: Date): string {
@@ -80,16 +101,26 @@ export default async function OrdersPage() {
 
   return (
     <main className="mx-auto max-w-2xl space-y-4 p-4">
-      <h1 className="text-2xl font-bold">Mis pedidos</h1>
+      <h1 className="font-heading text-xl font-semibold tracking-tight md:text-2xl">
+        Mis pedidos
+      </h1>
 
       {pedidos.length === 0 ? (
         <Card>
           <CardContent className="flex flex-col items-center gap-3 py-10 text-center">
-            <p className="text-sm text-muted-foreground">Aún no tienes pedidos.</p>
+            <span className="grid h-14 w-14 place-items-center rounded-full bg-muted">
+              <PackageOpen className="h-6 w-6 text-muted-foreground" aria-hidden />
+            </span>
+            <div className="space-y-1">
+              <p className="font-medium">Aún no tienes pedidos</p>
+              <p className="text-sm text-muted-foreground">
+                Cuando compres algo en el campus, aparecerá aquí.
+              </p>
+            </div>
             {/* El Button del proyecto aún no soporta asChild: Link con estilo de botón. */}
             <Link
               href="/"
-              className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+              className="inline-flex h-10 cursor-pointer items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:opacity-80"
             >
               Explorar tiendas del campus
             </Link>
@@ -97,39 +128,42 @@ export default async function OrdersPage() {
         </Card>
       ) : (
         <ul className="space-y-3">
-          {pedidos.map((pedido) => {
-            const badge = BADGE_ESTADO[pedido.estado] ?? {
-              etiqueta: pedido.estado,
-              className: "",
-            };
-            return (
-              <li key={pedido.id}>
-                <Link href={`/pedidos/${pedido.id}`} className="block">
-                  <Card className="transition-colors hover:bg-accent/50">
-                    <CardContent className="space-y-1.5 pt-4">
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="font-mono text-sm font-semibold">
-                          {pedido.referenciaPago ?? pedido.id.slice(0, 8).toUpperCase()}
-                        </span>
-                        <Badge variant="outline" className={badge.className}>
-                          {badge.etiqueta}
-                        </Badge>
-                      </div>
-                      <p className="text-sm text-muted-foreground">{pedido.tienda}</p>
-                      <div className="flex items-center justify-between gap-2 text-sm">
-                        <span className="font-semibold tabular-nums">
+          {pedidos.map((pedido) => (
+            <li key={pedido.id}>
+              <Link
+                href={`/pedidos/${pedido.id}`}
+                className="block rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <Card className="cursor-pointer transition-all duration-200 hover:border-primary/40 hover:shadow-md">
+                  <CardContent className="flex items-center justify-between gap-3 pt-4">
+                    <div className="min-w-0 space-y-0.5">
+                      <p className="font-mono text-sm font-medium">
+                        {pedido.referenciaPago ?? pedido.id.slice(0, 8).toUpperCase()}
+                      </p>
+                      <p className="truncate text-xs text-muted-foreground">
+                        {pedido.tienda}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        {fechaRelativa(pedido.createdAt)}
+                      </p>
+                    </div>
+                    <div className="flex shrink-0 items-center gap-2">
+                      <div className="flex flex-col items-end gap-1">
+                        <span className="font-heading font-semibold tabular-nums">
                           {formatearMXN(pedido.total)}
                         </span>
-                        <span className="text-xs text-muted-foreground">
-                          {fechaRelativa(pedido.createdAt)}
-                        </span>
+                        <BadgeConPunto estado={pedido.estado} />
                       </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </li>
-            );
-          })}
+                      <ChevronRight
+                        className="h-4 w-4 text-muted-foreground"
+                        aria-hidden
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            </li>
+          ))}
         </ul>
       )}
     </main>

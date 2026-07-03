@@ -2,14 +2,18 @@
 // Los controles de cantidad son <form> con server actions: funcionan sin hidratación.
 import type { LineaCarrito } from "@/lib/cart";
 import { actualizarCantidad, quitarDelCarrito } from "@/app/(store)/carrito/actions";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { AlertTriangle, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 
 // Los precios llegan como numeric-string de Postgres; Number solo para formatear.
 const formatoMXN = new Intl.NumberFormat("es-MX", {
   style: "currency",
   currency: "MXN",
 });
+
+// Botones del stepper de cantidad: cuadrados dentro del contenedor con borde.
+const botonStepper =
+  "grid h-9 w-9 cursor-pointer place-items-center text-foreground transition-colors duration-200 hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:opacity-80 disabled:pointer-events-none disabled:opacity-40";
 
 export function CartLine({ linea }: { linea: LineaCarrito }) {
   const sinStock = linea.disponible === 0;
@@ -24,7 +28,7 @@ export function CartLine({ linea }: { linea: LineaCarrito }) {
   return (
     <div className="flex gap-3 py-3">
       {/* Imagen (64px) o placeholder. */}
-      <div className="flex h-16 w-16 flex-none items-center justify-center overflow-hidden rounded-md bg-muted">
+      <div className="flex h-16 w-16 flex-none items-center justify-center overflow-hidden rounded-lg bg-muted">
         {linea.imagenUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -34,9 +38,7 @@ export function CartLine({ linea }: { linea: LineaCarrito }) {
             className="h-full w-full object-cover"
           />
         ) : (
-          <span aria-hidden="true" className="text-2xl">
-            🛍️
-          </span>
+          <ShoppingBag aria-hidden="true" className="h-5 w-5 text-muted-foreground/40" />
         )}
       </div>
 
@@ -51,52 +53,59 @@ export function CartLine({ linea }: { linea: LineaCarrito }) {
         {/* Avisos de disponibilidad. */}
         {sinStock && <Badge variant="destructive">Sin stock</Badge>}
         {excedeStock && (
-          <p className="text-xs text-warning">Solo quedan {linea.disponible}</p>
+          <p className="flex items-center gap-1 text-xs text-warning">
+            <AlertTriangle aria-hidden="true" className="h-3.5 w-3.5 flex-none" />
+            Solo quedan {linea.disponible}
+          </p>
         )}
 
-        {/* Controles de cantidad: − / qty / + como forms independientes. */}
+        {/* Controles de cantidad: − / qty / + como forms independientes,
+            unificados visualmente en un solo stepper con borde. */}
         <div className="flex items-center gap-2 pt-1">
-          <form action={actualizarCantidad}>
-            <input type="hidden" name="variantId" value={linea.variantId} />
-            <input type="hidden" name="qty" value={linea.qty - 1} />
-            <Button
-              type="submit"
-              size="icon"
-              variant="outline"
-              className="h-9 w-9"
-              aria-label={`Quitar una unidad de ${linea.nombre}`}
-            >
-              −
-            </Button>
-          </form>
-          <span className="w-6 text-center text-sm tabular-nums" aria-live="polite">
-            {linea.qty}
-          </span>
-          <form action={actualizarCantidad}>
-            <input type="hidden" name="variantId" value={linea.variantId} />
-            <input type="hidden" name="qty" value={linea.qty + 1} />
-            <Button
-              type="submit"
-              size="icon"
-              variant="outline"
-              className="h-9 w-9"
-              disabled={noIncrementable}
-              aria-label={`Agregar una unidad de ${linea.nombre}`}
-            >
-              +
-            </Button>
-          </form>
+          <div className="inline-flex items-center overflow-hidden rounded-lg border">
+            <form action={actualizarCantidad}>
+              <input type="hidden" name="variantId" value={linea.variantId} />
+              <input type="hidden" name="qty" value={linea.qty - 1} />
+              <button
+                type="submit"
+                className={botonStepper}
+                aria-label={`Quitar una unidad de ${linea.nombre}`}
+              >
+                <Minus aria-hidden="true" className="h-3.5 w-3.5" />
+              </button>
+            </form>
+            <span className="w-8 text-center text-sm font-medium tabular-nums" aria-live="polite">
+              {linea.qty}
+            </span>
+            <form action={actualizarCantidad}>
+              <input type="hidden" name="variantId" value={linea.variantId} />
+              <input type="hidden" name="qty" value={linea.qty + 1} />
+              <button
+                type="submit"
+                className={botonStepper}
+                disabled={noIncrementable}
+                aria-label={`Agregar una unidad de ${linea.nombre}`}
+              >
+                <Plus aria-hidden="true" className="h-3.5 w-3.5" />
+              </button>
+            </form>
+          </div>
+
           <form action={quitarDelCarrito}>
             <input type="hidden" name="variantId" value={linea.variantId} />
-            <button type="submit" className="px-2 text-xs text-destructive underline-offset-2 hover:underline">
-              Quitar
+            <button
+              type="submit"
+              aria-label={`Quitar ${linea.nombre} del carrito`}
+              className="grid h-9 w-9 cursor-pointer place-items-center rounded-lg text-muted-foreground transition-colors duration-200 hover:text-destructive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:opacity-80"
+            >
+              <Trash2 aria-hidden="true" className="h-4 w-4" />
             </button>
           </form>
         </div>
       </div>
 
       {/* Subtotal de la línea. */}
-      <p className="flex-none text-right text-sm font-semibold">
+      <p className="flex-none text-right font-heading text-sm font-semibold tabular-nums">
         {formatoMXN.format(Number(linea.subtotal))}
       </p>
     </div>

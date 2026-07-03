@@ -15,15 +15,18 @@ const SheetContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >(({ className, children, ...props }, ref) => (
   <DialogPrimitive.Portal>
-    <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/50 data-[state=open]:animate-in data-[state=open]:fade-in-0" />
+    {/* Overlay con fade de entrada y salida */}
+    <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/50 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0" />
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        "fixed inset-x-0 bottom-0 z-50 rounded-t-2xl border-t bg-background p-4 pb-safe shadow-lg data-[state=open]:animate-slide-in-from-bottom",
+        "fixed inset-x-0 bottom-0 z-50 rounded-t-2xl border-t bg-background p-4 pb-safe shadow-lg duration-300 data-[state=open]:animate-in data-[state=open]:slide-in-from-bottom data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom",
         className
       )}
       {...props}
     >
+      {/* Handle superior: pista visual de bottom sheet cerrable */}
+      <div aria-hidden="true" className="mx-auto mb-3 h-1 w-10 rounded-full bg-muted" />
       {children}
     </DialogPrimitive.Content>
   </DialogPrimitive.Portal>

@@ -2,6 +2,7 @@
 // comprobante, resumen de artículos y entrega. Se auto-refresca (PollingRefresh)
 // mientras el pedido siga vivo, para reflejar verificaciones del vendor.
 import { notFound } from "next/navigation";
+import { Clock, MapPin, ReceiptText, XCircle } from "lucide-react";
 import { and, desc, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { orders, orderItems } from "@/db/schema/orders";
@@ -18,19 +19,28 @@ import { PollingRefresh } from "@/components/PollingRefresh";
 
 const RE_UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-// Colores por estado (mismos criterios que la lista de pedidos).
+// Colores por estado (paleta MASTER, mismos criterios que la lista de pedidos).
 const BADGE_ESTADO: Record<string, { etiqueta: string; className: string }> = {
   pendiente_pago: {
     etiqueta: "Pendiente de pago",
-    className: "border-transparent bg-warning text-warning-foreground",
+    className: "border-warning/40 bg-warning/10 text-warning",
   },
   comprobante_enviado: {
-    etiqueta: "Comprobante en revisión",
+    etiqueta: "En revisión",
     className: "border-transparent bg-secondary text-secondary-foreground",
   },
-  pago_verificado: { etiqueta: "Pago verificado", className: "border-success text-success" },
-  preparando: { etiqueta: "Preparando", className: "border-success text-success" },
-  listo_entrega: { etiqueta: "Listo para entrega", className: "border-success text-success" },
+  pago_verificado: {
+    etiqueta: "Pago verificado",
+    className: "border-success/40 bg-success/10 text-success",
+  },
+  preparando: {
+    etiqueta: "Preparando",
+    className: "border-success/40 bg-success/10 text-success",
+  },
+  listo_entrega: {
+    etiqueta: "Listo para entrega",
+    className: "border-success/40 bg-success/10 text-success",
+  },
   entregado: {
     etiqueta: "Entregado",
     className: "border-transparent bg-success text-success-foreground",
@@ -133,8 +143,11 @@ export default async function OrderDetailPage({
       {/* Encabezado: referencia grande + estado */}
       <header className="space-y-1">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h1 className="font-mono text-2xl font-bold tracking-wide">{referencia}</h1>
-          <Badge variant="outline" className={badge.className}>
+          <h1 className="font-heading font-mono text-2xl font-semibold tracking-tight">
+            {referencia}
+          </h1>
+          <Badge variant="outline" className={`gap-1.5 ${badge.className}`}>
+            <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-current" />
             {badge.etiqueta}
           </Badge>
         </div>
@@ -144,7 +157,9 @@ export default async function OrderDetailPage({
       {/* Timeline de la máquina de estados */}
       <Card>
         <CardHeader>
-          <h2 className="text-sm font-semibold">Seguimiento</h2>
+          <h2 className="font-heading text-sm font-semibold tracking-tight">
+            Seguimiento
+          </h2>
         </CardHeader>
         <CardContent>
           <OrderTimeline estado={orden.estado} metodo={metodo} />
@@ -155,9 +170,10 @@ export default async function OrderDetailPage({
       {debePagar && (
         <section className="space-y-3">
           {orden.estado === "rechazado" && (
-            <div className="rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive">
+            <div className="flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
+              <XCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
               {/* payments no guarda motivo de rechazo (V2): mensaje genérico. */}
-              Tu comprobante fue rechazado; súbelo de nuevo.
+              <p className="font-medium">Tu comprobante fue rechazado; súbelo de nuevo.</p>
             </div>
           )}
 
@@ -173,29 +189,35 @@ export default async function OrderDetailPage({
           {metodo === "spei" && <ComprobanteUploader orderId={orden.id} />}
 
           {orden.expiraEn && (
-            <p className="text-sm font-medium text-warning">
-              ⏳ Tu reserva expira{" "}
-              {orden.expiraEn.toLocaleString("es-MX", {
-                day: "numeric",
-                month: "long",
-                hour: "numeric",
-                minute: "2-digit",
-              })}
-            </p>
+            <div className="flex items-start gap-2 rounded-lg border border-warning/30 bg-warning/10 p-3 text-sm text-warning">
+              <Clock className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+              <p className="font-medium">
+                Tu reserva expira{" "}
+                {orden.expiraEn.toLocaleString("es-MX", {
+                  day: "numeric",
+                  month: "long",
+                  hour: "numeric",
+                  minute: "2-digit",
+                })}
+              </p>
+            </div>
           )}
         </section>
       )}
 
       {orden.estado === "comprobante_enviado" && (
-        <div className="rounded-md border bg-secondary px-3 py-2 text-sm font-medium text-secondary-foreground">
-          Tu comprobante está en revisión por la tienda.
+        <div className="flex items-start gap-2 rounded-lg border bg-secondary p-3 text-sm text-secondary-foreground">
+          <ReceiptText className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+          <p className="font-medium">Tu comprobante está en revisión por la tienda.</p>
         </div>
       )}
 
       {/* Resumen de artículos + total */}
       <Card>
         <CardHeader>
-          <h2 className="text-sm font-semibold">Artículos</h2>
+          <h2 className="font-heading text-sm font-semibold tracking-tight">
+            Artículos
+          </h2>
         </CardHeader>
         <CardContent className="space-y-2">
           {items.length === 0 ? (
@@ -208,10 +230,15 @@ export default async function OrderDetailPage({
                 return (
                   <li key={item.id} className="flex items-start justify-between gap-3 text-sm">
                     <div className="min-w-0">
-                      <p className="font-medium">{item.producto}</p>
+                      <p className="font-medium">
+                        <span className="tabular-nums text-muted-foreground">
+                          {item.cantidad} ×
+                        </span>{" "}
+                        {item.producto}
+                      </p>
                       <p className="text-xs text-muted-foreground">
                         {atributos ? `${atributos} · ` : ""}
-                        {item.cantidad} × {formatearMXN(item.precioUnit)}
+                        {formatearMXN(item.precioUnit)} c/u
                       </p>
                     </div>
                     <span className="shrink-0 tabular-nums">
@@ -222,9 +249,11 @@ export default async function OrderDetailPage({
               })}
             </ul>
           )}
-          <div className="flex items-center justify-between border-t pt-2 text-sm font-semibold">
-            <span>Total</span>
-            <span className="tabular-nums">{formatearMXN(orden.total)}</span>
+          <div className="flex items-center justify-between border-t pt-2 text-sm">
+            <span className="font-medium">Total</span>
+            <span className="font-heading font-bold tabular-nums">
+              {formatearMXN(orden.total)}
+            </span>
           </div>
         </CardContent>
       </Card>
@@ -232,12 +261,17 @@ export default async function OrderDetailPage({
       {/* Entrega */}
       <Card>
         <CardContent className="pt-4">
-          <p className="text-sm">
-            📍{" "}
-            <span className="font-medium">
-              {aula ?? "Punto de entrega por confirmar con la tienda"}
-            </span>
-          </p>
+          <div className="flex items-start gap-2 text-sm">
+            <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />
+            <div>
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                Entrega
+              </p>
+              <p className="font-medium">
+                {aula ?? "Punto de entrega por confirmar con la tienda"}
+              </p>
+            </div>
+          </div>
         </CardContent>
       </Card>
     </main>

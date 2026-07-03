@@ -1,5 +1,6 @@
 // Panel vendedor — alta de producto con su primera variante e inventario.
 import Link from "next/link";
+import { AlertTriangle, ArrowLeft, Save } from "lucide-react";
 import { crearProducto } from "../actions";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -18,12 +19,15 @@ export default async function NuevoProductoPage({
   return (
     <main className="mx-auto flex max-w-2xl flex-col gap-4">
       <div className="flex items-center justify-between gap-2">
-        <h1 className="text-lg font-semibold">Nuevo producto</h1>
+        <h1 className="font-heading text-lg font-semibold tracking-tight">
+          Nuevo producto
+        </h1>
         <Link
           href="/vendor/productos"
-          className="text-sm text-muted-foreground hover:text-foreground"
+          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
-          ← Volver
+          <ArrowLeft className="h-3.5 w-3.5" aria-hidden />
+          Volver
         </Link>
       </div>
 
@@ -31,16 +35,24 @@ export default async function NuevoProductoPage({
       {error && (
         <div
           role="alert"
-          className="rounded-md border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive"
+          className="flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive"
         >
-          Revisa los datos del formulario: hay campos inválidos o incompletos.
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+          <p className="font-medium">
+            Revisa los datos del formulario: hay campos inválidos o incompletos.
+          </p>
         </div>
       )}
 
       <form action={crearProducto} className="flex flex-col gap-4">
         <Card>
           <CardHeader>
-            <h2 className="text-sm font-semibold">Datos del producto</h2>
+            <h2 className="font-heading text-sm font-semibold tracking-tight">
+              Datos del producto
+            </h2>
+            <p className="text-xs text-muted-foreground">
+              Lo que verán los compradores en tu escaparate.
+            </p>
           </CardHeader>
           <CardContent className="flex flex-col gap-4">
             <div className="flex flex-col gap-1.5">
@@ -113,9 +125,14 @@ export default async function NuevoProductoPage({
         </Card>
 
         {/* La primera variante se crea junto con el producto (siempre hay 1 SKU). */}
-        <Card>
+        <Card className="bg-muted/30">
           <CardHeader>
-            <h2 className="text-sm font-semibold">Primera variante</h2>
+            <h2 className="font-heading text-sm font-semibold tracking-tight">
+              Primera variante
+            </h2>
+            <p className="text-xs text-muted-foreground">
+              Todo producto necesita al menos una variante con precio y stock.
+            </p>
           </CardHeader>
           <CardContent>
             <fieldset className="flex flex-col gap-4">
@@ -198,7 +215,8 @@ export default async function NuevoProductoPage({
           </CardContent>
         </Card>
 
-        <Button type="submit" size="lg">
+        <Button type="submit" size="lg" className="gap-2">
+          <Save className="h-4 w-4" aria-hidden />
           Crear producto
         </Button>
       </form>

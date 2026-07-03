@@ -3,6 +3,7 @@
 // Galería de la ficha de producto: carrusel horizontal con scroll-snap NATIVO
 // (sin librerías). Los dots se sincronizan con onScroll usando scrollLeft/clientWidth.
 import { useRef, useState } from "react";
+import { ShoppingBag } from "lucide-react";
 
 export interface ProductGalleryProps {
   imagenes: string[];
@@ -21,9 +22,7 @@ export function ProductGallery({ imagenes, nombre }: ProductGalleryProps) {
         role="img"
         aria-label={`${nombre} (sin imagen)`}
       >
-        <span className="text-6xl" aria-hidden="true">
-          🛍️
-        </span>
+        <ShoppingBag className="h-10 w-10 text-muted-foreground/40" aria-hidden="true" />
       </div>
     );
   }
@@ -74,8 +73,8 @@ export function ProductGallery({ imagenes, nombre }: ProductGalleryProps) {
               onClick={() => irA(i)}
               aria-label={`Ver imagen ${i + 1}`}
               aria-current={i === activa}
-              className={`h-2.5 w-2.5 rounded-full transition-colors ${
-                i === activa ? "bg-primary" : "bg-muted-foreground/30"
+              className={`h-1.5 rounded-full transition-all duration-200 ${
+                i === activa ? "w-5 bg-primary" : "w-1.5 bg-muted-foreground/30"
               }`}
             />
           ))}

@@ -3,6 +3,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { MapPin, Store } from "lucide-react";
 import { obtenerProducto } from "@/lib/producto";
 import { ProductGallery } from "@/components/ProductGallery";
 import { VariantSelector } from "@/components/VariantSelector";
@@ -45,11 +46,12 @@ export default async function ProductPage({ params }: Props) {
       <section className="space-y-4 p-4">
         <div className="space-y-2">
           {badgeTipo && <Badge>{badgeTipo}</Badge>}
-          <h1 className="text-xl font-semibold">{p.nombre}</h1>
+          <h1 className="font-heading text-xl font-semibold tracking-tight">{p.nombre}</h1>
           <Link
             href={`/tienda/${p.vendor.slug}`}
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:underline"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground hover:underline"
           >
+            <Store className="h-3.5 w-3.5" aria-hidden />
             <span>Vendido por {p.vendor.nombre}</span>
             <VendorBadge tipo={p.vendor.tipo} />
           </Link>
@@ -63,8 +65,9 @@ export default async function ProductPage({ params }: Props) {
 
         <VariantSelector variantes={p.variantes} />
 
-        <div className="rounded-lg border bg-muted/50 p-3 text-sm">
-          📍 Entrega en {p.vendor.aulaDefault ?? "punto de entrega del campus"}
+        <div className="flex items-start gap-2 rounded-xl border bg-card p-3 text-sm shadow-sm">
+          <MapPin className="mt-0.5 h-4 w-4 flex-none text-primary" aria-hidden />
+          <span>Entrega en {p.vendor.aulaDefault ?? "punto de entrega del campus"}</span>
         </div>
       </section>
     </main>

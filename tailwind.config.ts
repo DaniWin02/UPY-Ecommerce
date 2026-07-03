@@ -66,6 +66,8 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...defaultTheme.fontFamily.sans],
+        // Títulos (Poppins vía next/font) — ver MASTER.md del design system.
+        heading: ["var(--font-heading)", ...defaultTheme.fontFamily.sans],
       },
       keyframes: {
         "accordion-down": {
@@ -89,6 +91,8 @@ const config: Config = {
       },
     },
   },
+  // tailwindcss-animate aporta animate-in/out, fade-in-*, slide-in-from-*, slide-out-to-*
+  // (usadas por sheet/dialog); los keyframes custom de arriba se conservan por compatibilidad.
   plugins: [animate],
 };
 

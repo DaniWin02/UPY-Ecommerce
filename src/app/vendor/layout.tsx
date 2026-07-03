@@ -1,14 +1,15 @@
 // Layout del panel del vendedor (Ágora)
 // Protegido: solo miembros de algún vendor (owner/staff) o superadmin.
 import Link from "next/link";
+import { ClipboardList, Flame, Package, ReceiptText } from "lucide-react";
 import { requireVendorMember } from "@/lib/session";
 
 // Enlaces del panel del vendedor (nav horizontal, scrolleable en móvil).
 const NAV_LINKS = [
-  { href: "/vendor/productos", label: "Productos" },
-  { href: "/vendor/pedidos", label: "Pedidos" },
-  { href: "/vendor/comprobantes", label: "Comprobantes" },
-  { href: "/vendor/drops", label: "Drops" },
+  { href: "/vendor/productos", label: "Productos", icon: Package },
+  { href: "/vendor/pedidos", label: "Pedidos", icon: ClipboardList },
+  { href: "/vendor/comprobantes", label: "Comprobantes", icon: ReceiptText },
+  { href: "/vendor/drops", label: "Drops", icon: Flame },
 ] as const;
 
 export default async function VendorLayout({
@@ -25,27 +26,33 @@ export default async function VendorLayout({
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-border">
-        <div className="mx-auto flex max-w-5xl flex-col gap-2 px-4 py-3">
+      <header className="border-b border-border bg-background/95 backdrop-blur">
+        <div className="mx-auto flex max-w-5xl flex-col gap-1 px-4 pt-3">
           <div className="flex items-baseline justify-between gap-2">
-            <h1 className="text-sm font-semibold">Panel del vendedor</h1>
+            <h1 className="font-heading text-base font-semibold tracking-tight">
+              Panel del vendedor
+            </h1>
             {vendorActual && (
               <span className="truncate text-sm text-muted-foreground">
                 {vendorActual}
               </span>
             )}
           </div>
-          {/* Nav móvil-first: fila horizontal con scroll en pantallas pequeñas */}
-          <nav className="-mx-4 flex gap-1 overflow-x-auto px-4 pb-1">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="whitespace-nowrap rounded-md px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-              >
-                {link.label}
-              </Link>
-            ))}
+          {/* Nav móvil-first: pestañas con borde inferior, scroll horizontal sin scrollbar */}
+          <nav className="-mx-4 flex gap-1 overflow-x-auto px-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {NAV_LINKS.map((link) => {
+              const Icon = link.icon;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="flex cursor-pointer items-center gap-1.5 whitespace-nowrap border-b-2 border-transparent px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors duration-200 hover:border-primary hover:text-foreground"
+                >
+                  <Icon className="h-4 w-4" aria-hidden="true" />
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
         </div>
       </header>

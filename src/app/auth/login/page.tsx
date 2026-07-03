@@ -2,6 +2,7 @@
 // + contraseña (auth propio). Google y magic link son opcionales por env.
 // Server Component sin JS de cliente: todos los formularios usan Server Actions.
 import Link from "next/link";
+import { AlertTriangle, CheckCircle2, GraduationCap } from "lucide-react";
 import { signIn } from "@/lib/auth";
 import { loginConCredenciales } from "@/lib/auth-actions";
 import { Button } from "@/components/ui/button";
@@ -72,14 +73,19 @@ export default async function AuthLoginPage({
   }
 
   return (
-    <main className="grid min-h-dvh place-items-center bg-background p-4">
-      <Card className="w-full max-w-sm">
+    <main className="grid min-h-dvh place-items-center bg-muted/30 p-4">
+      <Card className="w-full max-w-sm shadow-sm">
         <CardHeader className="items-center text-center">
           {/* Logotipo y nombre de la app */}
-          <span className="text-4xl" role="img" aria-label="Ágora Campus">
-            🏛️
-          </span>
-          <h1 className="text-xl font-semibold tracking-tight">Ágora Campus</h1>
+          <div
+            aria-hidden="true"
+            className="grid h-12 w-12 place-items-center rounded-xl bg-primary text-primary-foreground"
+          >
+            <GraduationCap className="h-7 w-7" />
+          </div>
+          <h1 className="font-heading text-xl font-semibold tracking-tight">
+            Ágora Campus
+          </h1>
           <p className="text-sm text-muted-foreground">
             El marketplace de tu universidad
           </p>
@@ -90,9 +96,12 @@ export default async function AuthLoginPage({
           {enviado === "1" && (
             <div
               role="status"
-              className="rounded-md border border-success/30 bg-success/10 p-3 text-sm text-success"
+              className="flex items-start gap-2 rounded-lg border border-success/30 bg-success/10 p-3 text-sm text-success"
             >
-              Te enviamos un enlace de acceso. Revisa tu correo institucional.
+              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+              <span>
+                Te enviamos un enlace de acceso. Revisa tu correo institucional.
+              </span>
             </div>
           )}
 
@@ -100,9 +109,10 @@ export default async function AuthLoginPage({
           {mensajeError && (
             <div
               role="alert"
-              className="rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive"
+              className="flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive"
             >
-              {mensajeError}
+              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+              <span>{mensajeError}</span>
             </div>
           )}
 

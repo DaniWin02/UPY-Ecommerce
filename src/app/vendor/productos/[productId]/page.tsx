@@ -1,5 +1,6 @@
 // Panel vendedor — detalle de producto: edición, variantes y stock.
 import Link from "next/link";
+import { AlertTriangle, ArrowLeft, Plus, Save } from "lucide-react";
 import { notFound, redirect } from "next/navigation";
 import { and, asc, eq } from "drizzle-orm";
 import { db } from "@/db";
@@ -68,12 +69,15 @@ export default async function EditarProductoPage({
   return (
     <main className="mx-auto flex max-w-2xl flex-col gap-4">
       <div className="flex items-center justify-between gap-2">
-        <h1 className="truncate text-lg font-semibold">{producto.nombre}</h1>
+        <h1 className="truncate font-heading text-lg font-semibold tracking-tight">
+          {producto.nombre}
+        </h1>
         <Link
           href="/vendor/productos"
-          className="shrink-0 text-sm text-muted-foreground hover:text-foreground"
+          className="inline-flex shrink-0 items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
-          ← Volver
+          <ArrowLeft className="h-3.5 w-3.5" aria-hidden />
+          Volver
         </Link>
       </div>
 
@@ -81,16 +85,24 @@ export default async function EditarProductoPage({
       {error && (
         <div
           role="alert"
-          className="rounded-md border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive"
+          className="flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive"
         >
-          {MENSAJES_ERROR[error] ?? "Ocurrió un error. Intenta de nuevo."}
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+          <p className="font-medium">
+            {MENSAJES_ERROR[error] ?? "Ocurrió un error. Intenta de nuevo."}
+          </p>
         </div>
       )}
 
       {/* Edición de los datos base del producto. */}
       <Card>
         <CardHeader>
-          <h2 className="text-sm font-semibold">Datos del producto</h2>
+          <h2 className="font-heading text-sm font-semibold tracking-tight">
+            Datos del producto
+          </h2>
+          <p className="text-xs text-muted-foreground">
+            Lo que verán los compradores en tu escaparate.
+          </p>
         </CardHeader>
         <CardContent>
           <form
@@ -170,7 +182,8 @@ export default async function EditarProductoPage({
               />
             </div>
 
-            <Button type="submit" size="lg">
+            <Button type="submit" size="lg" className="gap-2">
+              <Save className="h-4 w-4" aria-hidden />
               Guardar cambios
             </Button>
           </form>
@@ -179,16 +192,21 @@ export default async function EditarProductoPage({
 
       {/* Variantes: precio y stock editables; reservado es solo lectura. */}
       <section className="flex flex-col gap-2">
-        <h2 className="text-sm font-semibold">
-          Variantes ({variantes.length})
-        </h2>
+        <div>
+          <h2 className="font-heading text-sm font-semibold tracking-tight">
+            Variantes ({variantes.length})
+          </h2>
+          <p className="text-xs text-muted-foreground">
+            Precio y stock por variante; lo reservado lo gestiona el checkout.
+          </p>
+        </div>
         {variantes.map((v) => {
           const attrs = (v.atributos ?? {}) as { talla?: string; color?: string };
           const etiqueta =
             [attrs.talla, attrs.color].filter(Boolean).join(" · ") ||
             "Sin atributos";
           return (
-            <Card key={v.id}>
+            <Card key={v.id} className="bg-muted/30">
               <CardContent className="flex flex-col gap-3 p-4">
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
                   <span className="font-mono text-sm font-medium">
@@ -262,7 +280,13 @@ export default async function EditarProductoPage({
                     <span className="text-sm text-muted-foreground">
                       Reservado: {v.reservado ?? 0}
                     </span>
-                    <Button type="submit" variant="outline" size="sm">
+                    <Button
+                      type="submit"
+                      variant="outline"
+                      size="sm"
+                      className="gap-1.5"
+                    >
+                      <Save className="h-3.5 w-3.5" aria-hidden />
                       Guardar
                     </Button>
                   </div>
@@ -274,8 +298,9 @@ export default async function EditarProductoPage({
 
         {/* Alta de variante adicional, colapsada por defecto (details/summary nativo). */}
         <details className="rounded-xl border bg-card text-card-foreground shadow-sm">
-          <summary className="cursor-pointer select-none px-4 py-3 text-sm font-semibold">
-            + Agregar variante
+          <summary className="flex cursor-pointer select-none items-center gap-2 px-4 py-3 font-heading text-sm font-semibold tracking-tight transition-colors hover:text-primary">
+            <Plus className="h-4 w-4" aria-hidden />
+            Agregar variante
           </summary>
           <div className="border-t px-4 py-4">
             <form
@@ -357,7 +382,8 @@ export default async function EditarProductoPage({
                   />
                 </div>
               </div>
-              <Button type="submit" size="lg">
+              <Button type="submit" size="lg" className="gap-2">
+                <Plus className="h-4 w-4" aria-hidden />
                 Agregar variante
               </Button>
             </form>

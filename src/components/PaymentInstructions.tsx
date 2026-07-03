@@ -1,6 +1,15 @@
 "use client";
 
 import * as React from "react";
+import {
+  AlertTriangle,
+  Banknote,
+  Check,
+  Copy,
+  Info,
+  Landmark,
+  MapPin,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
@@ -26,7 +35,7 @@ function formatearMXN(monto: string): string {
   }).format(Number.isFinite(n) ? n : 0);
 }
 
-// Fila con valor en mono + botón Copiar con feedback "¡Copiada!" durante 2 s.
+// Fila con valor en mono + botón de copiar (icono) con feedback Check 2 s.
 function FilaCopiable({
   etiqueta,
   valorMostrado,
@@ -72,13 +81,28 @@ function FilaCopiable({
   }
 
   return (
-    <div className="flex items-center justify-between gap-2 rounded-md border p-3">
+    <div className="flex items-center justify-between gap-3 rounded-lg border p-3">
       <div className="min-w-0">
-        <p className="text-xs text-muted-foreground">{etiqueta}</p>
-        <p className="truncate font-mono text-sm tracking-wide">{valorMostrado}</p>
+        <p className="text-xs uppercase tracking-wide text-muted-foreground">
+          {etiqueta}
+        </p>
+        <p className="truncate font-mono text-base tabular-nums tracking-wide">
+          {valorMostrado}
+        </p>
       </div>
-      <Button type="button" variant="outline" size="sm" onClick={copiar}>
-        {copiado ? "¡Copiada!" : "Copiar"}
+      <Button
+        type="button"
+        variant="outline"
+        size="sm"
+        onClick={copiar}
+        aria-label={copiado ? `${etiqueta} copiada` : `Copiar ${etiqueta}`}
+        className="shrink-0 transition-colors"
+      >
+        {copiado ? (
+          <Check className="h-4 w-4 text-success" aria-hidden />
+        ) : (
+          <Copy className="h-4 w-4" aria-hidden />
+        )}
       </Button>
     </div>
   );
@@ -98,11 +122,26 @@ export function PaymentInstructions({
     return (
       <Card>
         <CardContent className="pt-4">
-          <p className="text-sm">
-            Pagarás <span className="font-semibold">{montoFormateado}</span> en
-            efectivo al recoger en{" "}
-            <span className="font-semibold">{aula ?? "el punto de entrega acordado"}</span>.
-          </p>
+          <div className="flex items-start gap-3">
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
+              <Banknote className="h-4 w-4" aria-hidden />
+            </span>
+            <div className="space-y-1 text-sm">
+              <p>
+                Pagarás{" "}
+                <span className="font-heading font-semibold tabular-nums">
+                  {montoFormateado}
+                </span>{" "}
+                en efectivo al recoger.
+              </p>
+              <p className="flex items-center gap-1.5 text-muted-foreground">
+                <MapPin className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                <span className="font-medium text-foreground">
+                  {aula ?? "Punto de entrega por acordar"}
+                </span>
+              </p>
+            </div>
+          </div>
         </CardContent>
       </Card>
     );
@@ -113,9 +152,12 @@ export function PaymentInstructions({
     return (
       <Card>
         <CardContent className="pt-4">
-          <p className="rounded-md border border-warning/40 bg-warning/10 px-3 py-2 text-sm font-medium text-warning">
-            La tienda aún no registra su CLABE; contáctala para completar el pago.
-          </p>
+          <div className="flex items-start gap-2 rounded-lg border border-warning/30 bg-warning/10 p-3 text-sm text-warning">
+            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+            <p className="font-medium">
+              La tienda aún no registra su CLABE; contáctala para completar el pago.
+            </p>
+          </div>
         </CardContent>
       </Card>
     );
@@ -128,7 +170,19 @@ export function PaymentInstructions({
   return (
     <Card>
       <CardHeader>
-        <h3 className="text-sm font-semibold">Paga por SPEI desde tu app bancaria</h3>
+        <div className="flex items-center gap-3">
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
+            <Landmark className="h-4 w-4" aria-hidden />
+          </span>
+          <div>
+            <h3 className="font-heading text-sm font-semibold tracking-tight">
+              Paga por SPEI
+            </h3>
+            <p className="text-xs text-muted-foreground">
+              Desde tu app bancaria
+            </p>
+          </div>
+        </div>
       </CardHeader>
       <CardContent className="space-y-3">
         <FilaCopiable
@@ -142,14 +196,22 @@ export function PaymentInstructions({
           valorCopiable={referencia}
         />
 
-        <div className="rounded-md border p-3">
-          <p className="text-xs text-muted-foreground">Monto exacto</p>
-          <p className="text-2xl font-bold tabular-nums">{montoFormateado}</p>
-          <p className="mt-1 text-xs text-muted-foreground">
-            Transfiere el monto exacto y usa la referencia como concepto — así te
-            verificamos rápido.
+        <div className="rounded-lg bg-muted p-3 text-center">
+          <p className="text-xs uppercase tracking-wide text-muted-foreground">
+            Transfiere exactamente
+          </p>
+          <p className="mt-1 font-heading text-2xl font-bold tabular-nums tracking-tight">
+            {montoFormateado}
           </p>
         </div>
+
+        <p className="flex items-start gap-1.5 text-xs text-muted-foreground">
+          <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
+          <span>
+            Transfiere el monto exacto y usa la referencia como concepto — así te
+            verificamos rápido.
+          </span>
+        </p>
       </CardContent>
     </Card>
   );

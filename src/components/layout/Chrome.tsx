@@ -5,7 +5,14 @@
 // y ocultarse por completo en las rutas de autenticación/bloqueo.
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Flame, Package, CircleUser, ShoppingBag } from "lucide-react";
+import {
+  Home,
+  Flame,
+  Package,
+  CircleUser,
+  ShoppingBag,
+  GraduationCap,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ChromeProps {
@@ -43,13 +50,22 @@ export function Chrome({ user, cartCount }: ChromeProps) {
         <div className="mx-auto flex h-full w-full max-w-6xl items-center justify-between px-4">
           <Link
             href="/"
-            className="touch-target flex items-center gap-2 font-semibold"
+            className="touch-target flex cursor-pointer items-center gap-2"
             aria-label="Ágora, ir al inicio"
           >
-            <span aria-hidden="true" className="text-xl">
-              🏛️
+            <div
+              aria-hidden="true"
+              className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground"
+            >
+              <GraduationCap className="h-5 w-5" />
+            </div>
+            <span className="font-heading text-lg font-semibold tracking-tight">
+              Ágora
+              <span className="hidden font-medium text-muted-foreground md:inline">
+                {" "}
+                Campus
+              </span>
             </span>
-            <span className="text-lg tracking-tight">Ágora</span>
           </Link>
 
           <div className="flex items-center gap-1 md:gap-4">
@@ -62,7 +78,7 @@ export function Chrome({ user, cartCount }: ChromeProps) {
                     key={tab.href}
                     href={tab.href}
                     className={cn(
-                      "rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground",
+                      "cursor-pointer rounded-md px-3 py-2 text-sm font-medium transition-colors duration-200 hover:bg-accent hover:text-accent-foreground",
                       isActive(pathname, tab.href)
                         ? "text-primary"
                         : "text-muted-foreground"
@@ -76,11 +92,11 @@ export function Chrome({ user, cartCount }: ChromeProps) {
             {/* Carrito siempre visible, con badge de artículos */}
             <Link
               href="/carrito"
-              className="touch-target flex items-center justify-center rounded-md text-foreground transition-colors hover:bg-accent"
+              className="touch-target flex cursor-pointer items-center justify-center rounded-md text-foreground transition-colors duration-200 hover:bg-accent"
               aria-label={`Carrito, ${cartCount} artículos`}
             >
               <span className="relative">
-                <ShoppingBag size={22} aria-hidden="true" />
+                <ShoppingBag className="h-5 w-5" aria-hidden="true" />
                 {cartCount > 0 && (
                   <span
                     aria-hidden="true"
@@ -96,14 +112,14 @@ export function Chrome({ user, cartCount }: ChromeProps) {
             {user ? (
               <Link
                 href="/perfil"
-                className="hidden max-w-40 truncate text-sm font-medium md:inline"
+                className="hidden max-w-40 cursor-pointer truncate text-sm font-medium transition-colors duration-200 hover:text-primary md:inline"
               >
                 {user.name ?? "Mi cuenta"}
               </Link>
             ) : (
               <Link
                 href="/auth/login"
-                className="hidden text-sm font-medium text-primary md:inline"
+                className="hidden cursor-pointer text-sm font-medium text-primary transition-colors duration-200 hover:text-primary/80 md:inline"
               >
                 Entrar
               </Link>
@@ -115,7 +131,7 @@ export function Chrome({ user, cartCount }: ChromeProps) {
       {/* Tab bar inferior, solo móvil */}
       <nav
         aria-label="Navegación inferior"
-        className="pb-safe fixed inset-x-0 bottom-0 z-40 border-t bg-background md:hidden"
+        className="pb-safe fixed inset-x-0 bottom-0 z-40 border-t bg-background/95 backdrop-blur md:hidden"
       >
         <div className="grid h-16 grid-cols-4">
           {tabs.map((tab) => {
@@ -127,11 +143,20 @@ export function Chrome({ user, cartCount }: ChromeProps) {
                 href={tab.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "flex h-full flex-col items-center justify-center gap-1",
-                  active ? "text-primary" : "text-muted-foreground"
+                  "relative flex h-full cursor-pointer flex-col items-center justify-center gap-1 transition-colors duration-200",
+                  active
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-foreground"
                 )}
               >
-                <Icon size={22} aria-hidden="true" />
+                {/* Indicador de pestaña activa: barra superior */}
+                {active && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-1/2 top-0 h-0.5 w-8 -translate-x-1/2 rounded-full bg-primary"
+                  />
+                )}
+                <Icon className="h-5 w-5" aria-hidden="true" />
                 <span className="text-[11px] font-medium leading-none">
                   {tab.label}
                 </span>

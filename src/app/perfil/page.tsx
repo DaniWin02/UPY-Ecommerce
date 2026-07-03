@@ -2,7 +2,14 @@
 // Requiere sesión activa (requireUser redirige a login si no la hay).
 import Link from "next/link";
 import { eq } from "drizzle-orm";
-import { ChevronRight, LogOut } from "lucide-react";
+import {
+  ChevronRight,
+  LogOut,
+  MessageSquare,
+  Package,
+  ShieldCheck,
+  Store,
+} from "lucide-react";
 import { db } from "@/db";
 import { vendorMembers, vendors } from "@/db/schema";
 import { requireUser } from "@/lib/session";
@@ -39,7 +46,9 @@ export default async function PerfilPage() {
             {inicial}
           </div>
           <div>
-            <h1 className="text-lg font-semibold">{user.name ?? "Sin nombre"}</h1>
+            <h1 className="font-heading text-lg font-semibold tracking-tight">
+              {user.name ?? "Sin nombre"}
+            </h1>
             <p className="text-sm text-muted-foreground">{user.email}</p>
           </div>
           <Badge variant="secondary">
@@ -48,42 +57,46 @@ export default async function PerfilPage() {
         </CardHeader>
 
         <CardContent className="space-y-4">
-          {/* Accesos rápidos */}
-          <div className="divide-y overflow-hidden rounded-lg border">
+          {/* Accesos rápidos: filas dentro de una sola Card con divide-y */}
+          <div className="divide-y overflow-hidden rounded-xl border bg-card shadow-sm">
             <Link
               href="/pedidos"
-              className="touch-target flex items-center justify-between px-4 py-3 text-sm font-medium transition-colors hover:bg-accent"
+              className="flex h-12 cursor-pointer items-center gap-3 px-4 text-sm font-medium transition-colors hover:bg-muted/50"
             >
-              Mis pedidos
-              <ChevronRight size={18} className="text-muted-foreground" aria-hidden="true" />
+              <Package className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+              <span className="flex-1 truncate">Mis pedidos</span>
+              <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
             </Link>
 
             <div
               aria-disabled="true"
-              className="touch-target flex items-center justify-between px-4 py-3 text-sm font-medium text-muted-foreground"
+              className="flex h-12 items-center gap-3 px-4 text-sm font-medium text-muted-foreground"
             >
-              Mensajes (próximamente)
-              <ChevronRight size={18} className="opacity-40" aria-hidden="true" />
+              <MessageSquare className="h-4 w-4 opacity-60" aria-hidden="true" />
+              <span className="flex-1 truncate">Mensajes (próximamente)</span>
+              <ChevronRight className="h-4 w-4 shrink-0 opacity-40" aria-hidden="true" />
             </div>
 
             {misTiendas.map((tienda) => (
               <Link
                 key={tienda.id}
                 href="/vendor/productos"
-                className="touch-target flex items-center justify-between px-4 py-3 text-sm font-medium transition-colors hover:bg-accent"
+                className="flex h-12 cursor-pointer items-center gap-3 px-4 text-sm font-medium transition-colors hover:bg-muted/50"
               >
-                <span className="truncate">Mi tienda: {tienda.nombre}</span>
-                <ChevronRight size={18} className="shrink-0 text-muted-foreground" aria-hidden="true" />
+                <Store className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+                <span className="flex-1 truncate">Mi tienda: {tienda.nombre}</span>
+                <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
               </Link>
             ))}
 
             {user.rolGlobal === "superadmin" && (
               <Link
                 href="/admin/vendors"
-                className="touch-target flex items-center justify-between px-4 py-3 text-sm font-medium transition-colors hover:bg-accent"
+                className="flex h-12 cursor-pointer items-center gap-3 px-4 text-sm font-medium transition-colors hover:bg-muted/50"
               >
-                Panel de administración
-                <ChevronRight size={18} className="text-muted-foreground" aria-hidden="true" />
+                <ShieldCheck className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+                <span className="flex-1 truncate">Panel de administración</span>
+                <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
               </Link>
             )}
           </div>

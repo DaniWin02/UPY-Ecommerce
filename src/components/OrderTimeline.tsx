@@ -1,3 +1,14 @@
+import {
+  BadgeCheck,
+  Check,
+  CheckCircle2,
+  Clock,
+  Package,
+  PackageCheck,
+  ReceiptText,
+  XCircle,
+  type LucideIcon,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Timeline vertical del pedido (server component: solo render, sin interacción).
@@ -14,18 +25,52 @@ export interface OrderTimelineProps {
 type Paso = {
   estado: string;
   etiqueta: string;
+  /** Sub-etiqueta descriptiva del paso. */
+  detalle?: string;
+  /** Icono lucide del paso. */
+  icono: LucideIcon;
   /** Paso en rojo (comprobante rechazado). */
   error?: boolean;
 };
 
 // Camino feliz SPEI; el de efectivo omite "comprobante_enviado".
 const PASOS_SPEI: Paso[] = [
-  { estado: "pendiente_pago", etiqueta: "Pendiente de pago" },
-  { estado: "comprobante_enviado", etiqueta: "Comprobante en revisión" },
-  { estado: "pago_verificado", etiqueta: "Pago verificado" },
-  { estado: "preparando", etiqueta: "Preparando" },
-  { estado: "listo_entrega", etiqueta: "Listo para entrega" },
-  { estado: "entregado", etiqueta: "Entregado" },
+  {
+    estado: "pendiente_pago",
+    etiqueta: "Pendiente de pago",
+    detalle: "Realiza la transferencia o el pago",
+    icono: Clock,
+  },
+  {
+    estado: "comprobante_enviado",
+    etiqueta: "Comprobante en revisión",
+    detalle: "La tienda revisa tu comprobante",
+    icono: ReceiptText,
+  },
+  {
+    estado: "pago_verificado",
+    etiqueta: "Pago verificado",
+    detalle: "Tu pago quedó confirmado",
+    icono: BadgeCheck,
+  },
+  {
+    estado: "preparando",
+    etiqueta: "Preparando",
+    detalle: "La tienda alista tu pedido",
+    icono: Package,
+  },
+  {
+    estado: "listo_entrega",
+    etiqueta: "Listo para entrega",
+    detalle: "Pasa a recogerlo al punto acordado",
+    icono: PackageCheck,
+  },
+  {
+    estado: "entregado",
+    etiqueta: "Entregado",
+    detalle: "Pedido completado",
+    icono: CheckCircle2,
+  },
 ];
 
 export function OrderTimeline({ estado, metodo }: OrderTimelineProps) {
@@ -39,7 +84,9 @@ export function OrderTimeline({ estado, metodo }: OrderTimelineProps) {
   if (estado === "rechazado") {
     const pasoError: Paso = {
       estado: "rechazado",
-      etiqueta: "Comprobante rechazado — vuelve a subirlo",
+      etiqueta: "Comprobante rechazado",
+      detalle: "Vuelve a subirlo para continuar",
+      icono: XCircle,
       error: true,
     };
     const idxComprobante = pasos.findIndex((p) => p.estado === "comprobante_enviado");
@@ -54,10 +101,13 @@ export function OrderTimeline({ estado, metodo }: OrderTimelineProps) {
   return (
     <div>
       {cerrado && (
-        <div className="mb-4 rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive">
-          {estado === "expirado"
-            ? "Este pedido expiró: la reserva de stock se liberó."
-            : "Este pedido fue cancelado."}
+        <div className="mb-4 flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
+          <XCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+          <p className="font-medium">
+            {estado === "expirado"
+              ? "Este pedido expiró: la reserva de stock se liberó."
+              : "Este pedido fue cancelado."}
+          </p>
         </div>
       )}
 
@@ -66,6 +116,7 @@ export function OrderTimeline({ estado, metodo }: OrderTimelineProps) {
           const completado = indiceActual >= 0 && i < indiceActual;
           const esActual = i === indiceActual;
           const esUltimo = i === pasos.length - 1;
+          const Icono = paso.icono;
 
           return (
             <li key={paso.estado} className="flex gap-3">
@@ -73,43 +124,52 @@ export function OrderTimeline({ estado, metodo }: OrderTimelineProps) {
               <div className="flex flex-col items-center">
                 <span
                   className={cn(
-                    "flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-xs font-semibold",
+                    "flex h-8 w-8 shrink-0 items-center justify-center rounded-full",
                     paso.error && esActual
-                      ? "border-destructive bg-destructive/10 text-destructive ring-2 ring-destructive/30"
+                      ? "border-2 border-destructive bg-destructive/5 text-destructive ring-4 ring-destructive/10"
                       : completado
-                        ? "border-transparent bg-success text-success-foreground"
+                        ? "bg-success text-success-foreground"
                         : esActual
-                          ? "border-primary text-primary ring-2 ring-primary/30"
-                          : "border-muted-foreground/30 text-muted-foreground"
+                          ? "border-2 border-primary bg-primary/5 text-primary ring-4 ring-primary/10"
+                          : "border bg-background text-muted-foreground/50"
                   )}
                 >
-                  {completado ? "✓" : i + 1}
+                  {completado ? (
+                    <Check className="h-4 w-4" aria-hidden />
+                  ) : (
+                    <Icono className="h-4 w-4" aria-hidden />
+                  )}
                 </span>
                 {!esUltimo && (
                   <span
                     aria-hidden
                     className={cn(
                       "min-h-5 w-px flex-1",
-                      completado ? "bg-success" : "bg-border"
+                      completado ? "bg-success/40" : "bg-border"
                     )}
                   />
                 )}
               </div>
 
-              <span
-                className={cn(
-                  "pb-5 pt-1 text-sm",
-                  paso.error
-                    ? "font-semibold text-destructive"
-                    : esActual
-                      ? "font-semibold text-foreground"
-                      : completado
-                        ? "text-foreground"
-                        : "text-muted-foreground"
+              <div className="pb-5 pt-1.5">
+                <p
+                  className={cn(
+                    "text-sm",
+                    paso.error
+                      ? "font-medium text-destructive"
+                      : esActual
+                        ? "font-medium text-foreground"
+                        : completado
+                          ? "text-foreground"
+                          : "text-muted-foreground"
+                  )}
+                >
+                  {paso.etiqueta}
+                </p>
+                {paso.detalle && (esActual || paso.error) && (
+                  <p className="mt-0.5 text-xs text-muted-foreground">{paso.detalle}</p>
                 )}
-              >
-                {paso.etiqueta}
-              </span>
+              </div>
             </li>
           );
         })}

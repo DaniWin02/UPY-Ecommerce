@@ -3,6 +3,17 @@
 // (el flujo "cobrar al entregar" = confirmar el pago al recibirlo y luego
 // avanzar la orden por la máquina de estados hasta entregado).
 import Link from "next/link";
+import {
+  AlertTriangle,
+  ArrowRight,
+  Banknote,
+  CheckCircle2,
+  ChefHat,
+  Landmark,
+  PackageCheck,
+  PackageOpen,
+  type LucideIcon,
+} from "lucide-react";
 import { redirect } from "next/navigation";
 import { desc, eq, inArray } from "drizzle-orm";
 import { db } from "@/db";
@@ -28,51 +39,56 @@ const FECHA = new Intl.DateTimeFormat("es-MX", {
   timeStyle: "short",
 });
 
-// Badge por estado de la orden (mapa de colores del repo: warning=pendiente,
-// success outline=pagado en curso, success sólido=entregado, destructive=cerrado mal).
+// Colores por estado de la orden (paleta MASTER: warning=pendiente,
+// success suave=pagado en curso, success sólido=entregado, destructive=cerrado mal).
+const BADGE_ESTADO: Record<string, { etiqueta: string; className: string }> = {
+  pendiente_pago: {
+    etiqueta: "Pendiente de pago",
+    className: "border-warning/40 bg-warning/10 text-warning",
+  },
+  comprobante_enviado: {
+    etiqueta: "Comprobante enviado",
+    className: "border-transparent bg-secondary text-secondary-foreground",
+  },
+  pago_verificado: {
+    etiqueta: "Pago verificado",
+    className: "border-success/40 bg-success/10 text-success",
+  },
+  preparando: {
+    etiqueta: "Preparando",
+    className: "border-success/40 bg-success/10 text-success",
+  },
+  listo_entrega: {
+    etiqueta: "Listo para entrega",
+    className: "border-success/40 bg-success/10 text-success",
+  },
+  entregado: {
+    etiqueta: "Entregado",
+    className: "border-transparent bg-success text-success-foreground",
+  },
+  rechazado: {
+    etiqueta: "Rechazado",
+    className: "border-transparent bg-destructive text-destructive-foreground",
+  },
+  expirado: {
+    etiqueta: "Expirado",
+    className: "border-transparent bg-destructive text-destructive-foreground",
+  },
+  cancelado: {
+    etiqueta: "Cancelado",
+    className: "border-transparent bg-destructive text-destructive-foreground",
+  },
+};
+
+// Badge de estado con punto de color (patrón MASTER).
 function BadgeEstadoOrden({ estado }: { estado: string }) {
-  switch (estado) {
-    case "pendiente_pago":
-      return (
-        <Badge className="border-transparent bg-warning text-warning-foreground">
-          Pendiente de pago
-        </Badge>
-      );
-    case "comprobante_enviado":
-      return <Badge variant="secondary">Comprobante enviado</Badge>;
-    case "pago_verificado":
-      return (
-        <Badge variant="outline" className="border-success text-success">
-          Pago verificado
-        </Badge>
-      );
-    case "preparando":
-      return (
-        <Badge variant="outline" className="border-success text-success">
-          Preparando
-        </Badge>
-      );
-    case "listo_entrega":
-      return (
-        <Badge variant="outline" className="border-success text-success">
-          Listo para entrega
-        </Badge>
-      );
-    case "entregado":
-      return (
-        <Badge className="border-transparent bg-success text-success-foreground">
-          Entregado
-        </Badge>
-      );
-    case "rechazado":
-      return <Badge variant="destructive">Rechazado</Badge>;
-    case "expirado":
-      return <Badge variant="destructive">Expirado</Badge>;
-    case "cancelado":
-      return <Badge variant="destructive">Cancelado</Badge>;
-    default:
-      return <Badge variant="outline">{estado}</Badge>;
-  }
+  const badge = BADGE_ESTADO[estado] ?? { etiqueta: estado, className: "" };
+  return (
+    <Badge variant="outline" className={`gap-1.5 ${badge.className}`}>
+      <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-current" />
+      {badge.etiqueta}
+    </Badge>
+  );
 }
 
 // Botón de avance de estado: form con orderId + nuevo estado ocultos.
@@ -80,16 +96,19 @@ function FormAvanzar({
   orderId,
   nuevo,
   etiqueta,
+  icono: Icono,
 }: {
   orderId: string;
   nuevo: "preparando" | "listo_entrega" | "entregado";
   etiqueta: string;
+  icono: LucideIcon;
 }) {
   return (
     <form action={accionAvanzarEstado}>
       <input type="hidden" name="orderId" value={orderId} />
       <input type="hidden" name="nuevo" value={nuevo} />
-      <Button type="submit" size="sm">
+      <Button type="submit" size="sm" className="gap-2">
+        <Icono className="h-4 w-4" aria-hidden />
         {etiqueta}
       </Button>
     </form>
@@ -157,30 +176,42 @@ export default async function VendorPedidosPage({
 
   return (
     <main className="flex flex-col gap-4">
-      <h1 className="text-lg font-semibold">Pedidos ({pedidos.length})</h1>
+      <h1 className="font-heading text-lg font-semibold tracking-tight">
+        Pedidos ({pedidos.length})
+      </h1>
 
       {/* Banners de resultado de la última acción (vienen del redirect). */}
       {ok && (
         <div
           role="status"
-          className="rounded-md border border-success/50 bg-success/10 px-4 py-3 text-sm text-success"
+          className="flex items-start gap-2 rounded-lg border border-success/30 bg-success/10 p-3 text-sm text-success"
         >
-          Acción realizada correctamente.
+          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+          <p className="font-medium">Acción realizada correctamente.</p>
         </div>
       )}
       {error && (
         <div
           role="alert"
-          className="rounded-md border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive"
+          className="flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive"
         >
-          No se pudo completar la acción: {error}
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+          <p className="font-medium">No se pudo completar la acción: {error}</p>
         </div>
       )}
 
       {pedidos.length === 0 ? (
         <Card>
-          <CardContent className="py-10 text-center text-sm text-muted-foreground">
-            Aún no tienes pedidos
+          <CardContent className="flex flex-col items-center gap-3 py-10 text-center">
+            <span className="grid h-14 w-14 place-items-center rounded-full bg-muted">
+              <PackageOpen className="h-6 w-6 text-muted-foreground" aria-hidden />
+            </span>
+            <div className="space-y-1">
+              <p className="font-medium">Aún no tienes pedidos</p>
+              <p className="text-sm text-muted-foreground">
+                Cuando alguien compre en tu tienda, aparecerá aquí.
+              </p>
+            </div>
           </CardContent>
         </Card>
       ) : (
@@ -192,7 +223,7 @@ export default async function VendorPedidosPage({
                 <Card>
                   <CardHeader className="flex-row flex-wrap items-center justify-between gap-2 space-y-0">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-mono text-sm font-semibold">
+                      <span className="font-mono text-sm font-medium">
                         {pedido.referenciaPago ?? `#${pedido.id.slice(0, 8)}`}
                       </span>
                       <BadgeEstadoOrden estado={pedido.estado} />
@@ -203,25 +234,37 @@ export default async function VendorPedidosPage({
                   </CardHeader>
 
                   <CardContent className="flex flex-col gap-3">
-                    <div className="text-sm text-muted-foreground">
-                      <p className="truncate">
+                    <div className="text-sm">
+                      <p className="truncate text-xs text-muted-foreground">
                         {pedido.compradorNombre ?? pedido.compradorEmail}
                         {pedido.compradorNombre && (
                           <span> · {pedido.compradorEmail}</span>
                         )}
                       </p>
                       <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
-                        <span className="font-semibold text-foreground">
+                        <span className="font-heading font-semibold tabular-nums">
                           {MXN.format(Number(pedido.total))}
                         </span>
-                        <span>
-                          {pago
-                            ? pago.metodo === "spei"
-                              ? "🏦 SPEI"
-                              : "💵 Efectivo"
-                            : "Sin pago registrado"}
-                        </span>
-                        <span>
+                        {pago ? (
+                          <span className="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium text-muted-foreground">
+                            {pago.metodo === "spei" ? (
+                              <>
+                                <Landmark className="h-3 w-3" aria-hidden />
+                                SPEI
+                              </>
+                            ) : (
+                              <>
+                                <Banknote className="h-3 w-3" aria-hidden />
+                                Efectivo
+                              </>
+                            )}
+                          </span>
+                        ) : (
+                          <span className="text-xs text-muted-foreground">
+                            Sin pago registrado
+                          </span>
+                        )}
+                        <span className="text-xs text-muted-foreground">
                           {pedido.metodoEntrega === "aula"
                             ? `Aula: ${pedido.aula ?? "—"}`
                             : `Punto: ${pedido.punto ?? "—"}`}
@@ -232,7 +275,7 @@ export default async function VendorPedidosPage({
                     {/* Acciones contextuales según el estado de la orden. */}
                     {pedido.estado === "pendiente_pago" &&
                       pago?.metodo === "efectivo" && (
-                        <div className="flex flex-col gap-1">
+                        <div className="flex flex-col gap-1.5 border-t pt-3">
                           <form action={accionConfirmarEfectivo}>
                             <input
                               type="hidden"
@@ -242,9 +285,10 @@ export default async function VendorPedidosPage({
                             <Button
                               type="submit"
                               size="sm"
-                              className="bg-success text-success-foreground hover:bg-success/90"
+                              className="gap-2 bg-success text-success-foreground hover:bg-success/90"
                             >
-                              💵 Confirmar pago recibido
+                              <Banknote className="h-4 w-4" aria-hidden />
+                              Confirmar pago recibido
                             </Button>
                           </form>
                           <p className="text-xs text-muted-foreground">
@@ -256,36 +300,48 @@ export default async function VendorPedidosPage({
                       )}
 
                     {pedido.estado === "comprobante_enviado" && (
-                      <Link
-                        href="/vendor/comprobantes"
-                        className="text-sm font-medium text-primary hover:underline"
-                      >
-                        Ver en comprobantes →
-                      </Link>
+                      <div className="border-t pt-3">
+                        <Link
+                          href="/vendor/comprobantes"
+                          className="inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:underline"
+                        >
+                          Ver en comprobantes
+                          <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+                        </Link>
+                      </div>
                     )}
 
                     {pedido.estado === "pago_verificado" && (
-                      <FormAvanzar
-                        orderId={pedido.id}
-                        nuevo="preparando"
-                        etiqueta="Empezar a preparar"
-                      />
+                      <div className="border-t pt-3">
+                        <FormAvanzar
+                          orderId={pedido.id}
+                          nuevo="preparando"
+                          etiqueta="Empezar a preparar"
+                          icono={ChefHat}
+                        />
+                      </div>
                     )}
 
                     {pedido.estado === "preparando" && (
-                      <FormAvanzar
-                        orderId={pedido.id}
-                        nuevo="listo_entrega"
-                        etiqueta="Marcar listo para entrega"
-                      />
+                      <div className="border-t pt-3">
+                        <FormAvanzar
+                          orderId={pedido.id}
+                          nuevo="listo_entrega"
+                          etiqueta="Marcar listo para entrega"
+                          icono={PackageCheck}
+                        />
+                      </div>
                     )}
 
                     {pedido.estado === "listo_entrega" && (
-                      <FormAvanzar
-                        orderId={pedido.id}
-                        nuevo="entregado"
-                        etiqueta="Marcar entregado ✓"
-                      />
+                      <div className="border-t pt-3">
+                        <FormAvanzar
+                          orderId={pedido.id}
+                          nuevo="entregado"
+                          etiqueta="Marcar entregado"
+                          icono={CheckCircle2}
+                        />
+                      </div>
                     )}
                     {/* Estados terminales (entregado/rechazado/expirado/cancelado): sin acciones. */}
                   </CardContent>

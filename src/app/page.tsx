@@ -1,6 +1,6 @@
 // Home: el catálogo ES la portada del marketplace Ágora (RSC async, mobile-first).
 import Link from "next/link";
-import { Search } from "lucide-react";
+import { Search, SearchX } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/ProductCard";
@@ -39,6 +39,14 @@ export default async function HomePage({
     max: aNumero(sp.max),
   };
 
+  // Sin filtro alguno se muestra el hero de bienvenida (portada limpia).
+  const sinFiltros =
+    !filtros.q &&
+    !filtros.tienda &&
+    !filtros.tipo &&
+    filtros.min === undefined &&
+    filtros.max === undefined;
+
   // Catálogo y tiendas en paralelo (todo en servidor).
   const [productos, tiendas] = await Promise.all([
     buscarProductos(filtros),
@@ -48,15 +56,33 @@ export default async function HomePage({
   return (
     <main className="pb-20">
       <div className="container space-y-4 pt-4">
+        {/* Hero compacto de bienvenida: solo en la portada sin filtros */}
+        {sinFiltros && (
+          <section className="rounded-xl bg-gradient-to-br from-primary to-primary/80 p-5 text-primary-foreground">
+            <h2 className="font-heading text-lg font-semibold tracking-tight">
+              El marketplace de tu campus
+            </h2>
+            <p className="mt-1 text-sm opacity-90">
+              Compra a facultades, clubes y emprendimientos de tu comunidad.
+            </p>
+          </section>
+        )}
+
         {/* Buscador: form GET nativo para funcionar sin JS */}
         <form action="/" method="GET" className="flex gap-2">
-          <Input
-            type="search"
-            name="q"
-            placeholder="Buscar en el campus…"
-            defaultValue={filtros.q}
-            className="h-11 flex-1"
-          />
+          <div className="relative flex-1">
+            <Search
+              className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+              aria-hidden
+            />
+            <Input
+              type="search"
+              name="q"
+              placeholder="Buscar en el campus…"
+              defaultValue={filtros.q}
+              className="h-11 w-full pl-9"
+            />
+          </div>
           {/* Preserva el resto de filtros al buscar */}
           {filtros.tienda && <input type="hidden" name="tienda" value={filtros.tienda} />}
           {filtros.tipo && <input type="hidden" name="tipo" value={filtros.tipo} />}
@@ -71,16 +97,17 @@ export default async function HomePage({
         <SearchFilters vendors={tiendas} filtrosActuales={filtros} />
 
         {/* Título de sección según haya búsqueda o no */}
-        <h1 className="text-lg font-semibold">
+        <h1 className="font-heading text-lg font-semibold tracking-tight">
           {filtros.q ? `Resultados para "${filtros.q}"` : "Explora el campus"}
         </h1>
 
         {productos.length === 0 ? (
           // Empty state con salida rápida a limpiar filtros
           <div className="flex flex-col items-center gap-3 py-16 text-center">
-            <span className="text-4xl" aria-hidden>
-              🔍
+            <span className="grid h-14 w-14 place-items-center rounded-full bg-muted" aria-hidden>
+              <SearchX className="h-6 w-6 text-muted-foreground" />
             </span>
+            <p className="font-medium">Sin resultados</p>
             <p className="text-sm text-muted-foreground">
               No encontramos productos con esos filtros
             </p>

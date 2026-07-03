@@ -94,9 +94,9 @@ export function SearchFilters({ vendors, filtrosActuales }: SearchFiltersProps) 
               key={t.etiqueta}
               href={hrefConTipo(t.valor)}
               className={cn(
-                "inline-flex min-h-11 shrink-0 items-center rounded-full border px-4 text-sm font-medium transition-colors",
+                "inline-flex h-9 shrink-0 cursor-pointer items-center rounded-full border px-4 text-sm font-medium transition-colors duration-200",
                 activo
-                  ? "border-transparent bg-primary text-primary-foreground"
+                  ? "border-primary bg-primary text-primary-foreground"
                   : "border-border bg-card text-foreground hover:bg-muted"
               )}
             >
@@ -109,7 +109,7 @@ export function SearchFilters({ vendors, filtrosActuales }: SearchFiltersProps) 
       {/* Botón que abre el sheet de filtros, con contador de filtros activos */}
       <Sheet open={abierto} onOpenChange={setAbierto}>
         <SheetTrigger asChild>
-          <Button variant="outline" className="relative min-h-11 shrink-0">
+          <Button variant="outline" className="relative min-h-11 shrink-0 gap-2">
             <SlidersHorizontal className="h-4 w-4" aria-hidden />
             Filtros
             {filtrosActivos > 0 && (
@@ -121,7 +121,9 @@ export function SearchFilters({ vendors, filtrosActuales }: SearchFiltersProps) 
         </SheetTrigger>
 
         <SheetContent aria-describedby={undefined}>
-          <SheetTitle>Filtrar productos</SheetTitle>
+          <SheetTitle className="font-heading tracking-tight">
+            Filtrar productos
+          </SheetTitle>
 
           <div className="mt-4 space-y-4">
             {/* Select nativo de tienda, estilizado con los tokens del tema */}

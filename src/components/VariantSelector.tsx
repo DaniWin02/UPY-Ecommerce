@@ -4,6 +4,7 @@
 // Importa SOLO el tipo desde el módulo de servidor (se borra al compilar).
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { BadgeCheck, Check, Loader2, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { agregarAlCarrito } from "@/app/(store)/carrito/actions";
 import type { VarianteConStock } from "@/lib/producto";
@@ -81,11 +82,11 @@ export function VariantSelector({ variantes }: VariantSelectorProps) {
               aria-checked={activa}
               onClick={() => setSeleccionadaId(v.id)}
               className={[
-                "min-h-11 rounded-full border px-4 py-2 text-sm transition-colors",
+                "h-10 cursor-pointer rounded-lg border px-3 text-sm transition-colors duration-200",
                 activa
-                  ? "border-primary bg-primary/10 font-medium"
-                  : "border-input hover:bg-accent",
-                v.disponible === 0 ? "line-through opacity-50" : "",
+                  ? "border-primary bg-primary/5 font-medium text-primary ring-1 ring-primary/30"
+                  : "border-input hover:bg-muted",
+                v.disponible === 0 ? "line-through opacity-40" : "",
               ].join(" ")}
             >
               {etiquetaVariante(v)}
@@ -96,9 +97,12 @@ export function VariantSelector({ variantes }: VariantSelectorProps) {
 
       {/* Precio y disponibilidad de la variante seleccionada. */}
       <div className="space-y-1">
-        <p className="text-2xl font-bold">{formatearMXN(seleccionada.precio)}</p>
+        <p className="font-heading text-2xl font-bold tracking-tight">
+          {formatearMXN(seleccionada.precio)}
+        </p>
         {seleccionada.precioComunidad && (
-          <p className="text-sm font-medium text-success">
+          <p className="inline-flex items-center gap-1 text-sm font-medium text-success">
+            <BadgeCheck className="h-3.5 w-3.5" aria-hidden />
             Precio comunidad: {formatearMXN(seleccionada.precioComunidad)}
           </p>
         )}
@@ -117,26 +121,39 @@ export function VariantSelector({ variantes }: VariantSelectorProps) {
           del viewport, donde el padding seguro sí vive en esta barra (md:pb-safe). */}
       <div className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-30 border-t bg-background/95 p-3 backdrop-blur md:bottom-0 md:pb-safe">
         <div className="mx-auto flex max-w-lg items-center gap-3">
-          <p className="text-lg font-bold">{formatearMXN(seleccionada.precio)}</p>
+          <p className="font-heading text-lg font-bold tracking-tight">
+            {formatearMXN(seleccionada.precio)}
+          </p>
           <Button
             type="button"
             size="lg"
             disabled={agotada || isPending}
             onClick={handleAgregar}
             className={[
-              "flex-1",
+              "flex-1 gap-2",
               feedback?.ok
                 ? "bg-success text-success-foreground hover:bg-success/90"
                 : "",
             ].join(" ")}
           >
-            {agotada
-              ? "Agotado"
-              : isPending
-                ? "Agregando…"
-                : feedback?.ok
-                  ? "✓ Agregado"
-                  : "Agregar al carrito"}
+            {agotada ? (
+              "Agotado"
+            ) : isPending ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+                Agregando…
+              </>
+            ) : feedback?.ok ? (
+              <>
+                <Check className="h-4 w-4" aria-hidden />
+                Agregado
+              </>
+            ) : (
+              <>
+                <ShoppingCart className="h-4 w-4" aria-hidden />
+                Agregar al carrito
+              </>
+            )}
           </Button>
         </div>
         {/* Mensaje de error del servidor (stock insuficiente, sesión, etc.). */}

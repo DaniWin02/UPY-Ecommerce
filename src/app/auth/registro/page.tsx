@@ -2,6 +2,7 @@
 // Server Component sin JS de cliente: el formulario usa la server action registrarse.
 // Misma estética mobile-first que la pantalla de login.
 import Link from "next/link";
+import { AlertTriangle, GraduationCap } from "lucide-react";
 import { registrarse } from "@/lib/auth-actions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
@@ -31,14 +32,19 @@ export default async function AuthRegistroPage({
     : null;
 
   return (
-    <main className="grid min-h-dvh place-items-center bg-background p-4">
-      <Card className="w-full max-w-sm">
+    <main className="grid min-h-dvh place-items-center bg-muted/30 p-4">
+      <Card className="w-full max-w-sm shadow-sm">
         <CardHeader className="items-center text-center">
           {/* Logotipo y nombre de la app */}
-          <span className="text-4xl" role="img" aria-label="Ágora Campus">
-            🏛️
-          </span>
-          <h1 className="text-xl font-semibold tracking-tight">Crea tu cuenta</h1>
+          <div
+            aria-hidden="true"
+            className="grid h-12 w-12 place-items-center rounded-xl bg-primary text-primary-foreground"
+          >
+            <GraduationCap className="h-7 w-7" />
+          </div>
+          <h1 className="font-heading text-xl font-semibold tracking-tight">
+            Crea tu cuenta
+          </h1>
           <p className="text-sm text-muted-foreground">
             Únete al marketplace de tu universidad
           </p>
@@ -49,9 +55,10 @@ export default async function AuthRegistroPage({
           {mensajeError && (
             <div
               role="alert"
-              className="rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive"
+              className="flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive"
             >
-              {mensajeError}
+              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+              <span>{mensajeError}</span>
             </div>
           )}
 
