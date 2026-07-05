@@ -1,17 +1,28 @@
 // Layout del panel de universidad (Ágora — SuperAdmin)
 // Protegido por rol superadmin. Con ADMIN_SOLO_IP_CAMPUS="true" exige además
-// que la IP del request pertenezca a la red del campus (CAMPUS_CIDRS),
+// que la IP del request esté permitida para el panel admin (campus por env
+// O reglas allow/deny de BD con scope admin, ver @/lib/ip-rules-db),
 // independientemente de que el gate global IP_GATE_ENABLED esté apagado.
 import Link from "next/link";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { Flag, Network, Settings, Store } from "lucide-react";
-import { extraerIpCliente, ipEnCampus } from "@/lib/ip-rules";
+import {
+  Flag,
+  LayoutDashboard,
+  Network,
+  Settings,
+  Store,
+  Users,
+} from "lucide-react";
+import { extraerIpCliente } from "@/lib/ip-rules";
+import { ipPermitidaParaAdmin } from "@/lib/ip-rules-db";
 import { requireRole } from "@/lib/session";
 
 // Enlaces del panel de administración (nav horizontal, scrolleable en móvil).
 const NAV_LINKS = [
-  { href: "/admin/vendors", label: "Vendors", icon: Store },
+  { href: "/admin", label: "Resumen", icon: LayoutDashboard },
+  { href: "/admin/vendors", label: "Tiendas", icon: Store },
+  { href: "/admin/usuarios", label: "Usuarios", icon: Users },
   { href: "/admin/reportes", label: "Reportes", icon: Flag },
   { href: "/admin/reglas-ip", label: "Reglas IP", icon: Network },
   { href: "/admin/config", label: "Config", icon: Settings },
@@ -25,10 +36,11 @@ export default async function AdminLayout({
   // Solo superadmin: anónimo → login; otro rol → home.
   await requireRole("superadmin");
 
-  // Candado opcional por red del campus para el panel admin.
-  // Se usa ipEnCampus (CAMPUS_CIDRS directo) y NO isIpAllowed, porque esta
-  // última devuelve true para todo cuando el gate global está APAGADO y este
-  // check debe funcionar de forma independiente al gate.
+  // Candado opcional por red para el panel admin.
+  // Se usa ipPermitidaParaAdmin (campus por env O regla allow de BD con scope
+  // admin, menos denies) y NO isIpAllowed, porque esta última devuelve true
+  // para todo cuando el gate global está APAGADO y este check debe funcionar
+  // de forma independiente al gate.
   if (process.env.ADMIN_SOLO_IP_CAMPUS === "true") {
     const cabeceras = await headers();
     const ip =
@@ -36,7 +48,7 @@ export default async function AdminLayout({
         cabeceras.get("x-forwarded-for"),
         Number(process.env.TRUSTED_PROXIES ?? "0")
       ) ?? "0.0.0.0";
-    if (!ipEnCampus(ip)) redirect("/bloqueado");
+    if (!(await ipPermitidaParaAdmin(ip))) redirect("/bloqueado");
   }
 
   return (
