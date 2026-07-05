@@ -1,0 +1,11 @@
+{
+  "research_question": "Is sun exposure during the commute linked to academic stress, burnout or sleep quality?",
+  "indicator": "MHI (Morning Hydration Index, post-commute 07-11h)",
+  "mhi_percent": 51.3,
+  "window_units": 40,
+  "total_units": 78,
+  "days_crossed_with_weather": 13,
+  "corr_units_vs_uv": -0.019,
+  "corr_units_vs_temp": 0.105,
+  "generated_at_utc": "2026-07-05T23:43:09+00:00"
+}
